@@ -1,0 +1,57 @@
+/*
+ * For more details take a look at the Java Quickstart chapter in the Gradle
+ * user guide available at https://docs.gradle.org/2.7/userguide/tutorial_java_projects.html
+ */
+
+plugins {
+    id 'com.jfrog.bintray' version '1.3.1'
+}
+
+// Apply the java plugin to add support for Java
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+
+group = 'com.eligible'
+archivesBaseName = 'eligible-java'
+version = '1.0.0'
+
+apply from: 'gradle/jacoco.coverage.gradle'
+apply from: 'gradle/jcenter.gradle'
+// apply from: 'gradle/maven.gradle'
+ apply from: 'gradle/check.gradle'            // Ignoring as IntelliJ provides it
+
+dependencies {
+    // SLF4J logging
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    // gson
+    compile 'com.google.code.gson:gson:2.3.1'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.google.guava:guava:18.0'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+}
+
+test {
+    testLogging {
+        events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+// hook them up into the artifacts collection together with the project jar itself
+artifacts {
+    archives javadocJar, sourcesJar
+}

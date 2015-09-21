@@ -1,0 +1,20 @@
+[
+  [
+    {
+      "date_type": "plan_begin",
+      "date_value": "2011-07-01"
+    },
+    {
+      "date_type": "plan_end",
+      "date_value": "2011-07-02"
+    }
+  ],
+  {
+    "date_type": "service",
+    "date_value": "2013-11-13"
+  },
+  {
+    "date_type": "eligibility_begin",
+    "date_value": "2011-07-01"
+  }
+]

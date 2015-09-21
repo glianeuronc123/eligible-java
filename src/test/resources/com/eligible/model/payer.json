@@ -1,0 +1,118 @@
+{
+  "payer_id": "FLBLS",
+  "names": [
+    "Blue Cross Blue Shield of Florida",
+    "Blue Cross of Florida",
+    "Blue Shield of Florida",
+    "Florida Blue Shield",
+    "BCBS Florida"
+  ],
+  "created_at": "2014-07-20T07:17:22Z",
+  "updated_at": "2015-09-22T10:51:47Z",
+  "supported_endpoints": [
+    {
+      "endpoint": "coverage",
+      "pass_through_fee": 0.0,
+      "enrollment_required": false,
+      "signature_required": false,
+      "average_enrollment_process_time": null,
+      "blue_ink_required": false,
+      "message": "",
+      "enrollment_mandatory_fields": [],
+      "status": "available",
+      "status_details": "Payer is working fine.",
+      "status_updated_at": "2015-09-22T10:51:47Z",
+      "original_signature_pdf": null
+    },
+    {
+      "endpoint": "cost estimate",
+      "pass_through_fee": 0.0,
+      "enrollment_required": false,
+      "signature_required": false,
+      "average_enrollment_process_time": null,
+      "blue_ink_required": false,
+      "message": "",
+      "enrollment_mandatory_fields": [],
+      "status": "available",
+      "status_details": "Payer is working fine.",
+      "status_updated_at": "2015-09-22T10:51:47Z",
+      "original_signature_pdf": null
+    },
+    {
+      "endpoint": "fetch and append",
+      "pass_through_fee": 0.0,
+      "enrollment_required": false,
+      "signature_required": false,
+      "average_enrollment_process_time": null,
+      "blue_ink_required": false,
+      "message": "",
+      "enrollment_mandatory_fields": [],
+      "status": "available",
+      "status_details": "Payer is working fine.",
+      "status_updated_at": "2015-09-22T10:51:47Z",
+      "original_signature_pdf": null
+    },
+    {
+      "endpoint": "professional claims",
+      "pass_through_fee": 0.0,
+      "enrollment_required": false,
+      "signature_required": false,
+      "average_enrollment_process_time": null,
+      "blue_ink_required": false,
+      "message": null,
+      "enrollment_mandatory_fields": [],
+      "status": "available",
+      "status_details": null,
+      "status_updated_at": "2014-07-03T03:49:52Z",
+      "original_signature_pdf": null
+    },
+    {
+      "endpoint": "institutional claims",
+      "pass_through_fee": 0.0,
+      "enrollment_required": true,
+      "signature_required": true,
+      "average_enrollment_process_time": null,
+      "blue_ink_required": false,
+      "message": null,
+      "enrollment_mandatory_fields": [
+        "npi"
+      ],
+      "status": "available",
+      "status_details": null,
+      "status_updated_at": "2014-07-03T03:50:01Z",
+      "original_signature_pdf": null
+    },
+    {
+      "endpoint": "payment reports",
+      "pass_through_fee": 0.0,
+      "enrollment_required": true,
+      "signature_required": true,
+      "average_enrollment_process_time": null,
+      "blue_ink_required": false,
+      "message": null,
+      "enrollment_mandatory_fields": [
+        "provider_name",
+        "address",
+        "npi"
+      ],
+      "status": "available",
+      "status_details": null,
+      "status_updated_at": "2014-07-03T03:50:20Z",
+      "original_signature_pdf": null
+    },
+    {
+      "endpoint": "payment status",
+      "pass_through_fee": 0.0,
+      "enrollment_required": false,
+      "signature_required": false,
+      "average_enrollment_process_time": null,
+      "blue_ink_required": false,
+      "message": null,
+      "enrollment_mandatory_fields": [],
+      "status": "available",
+      "status_details": "Payer is working fine.",
+      "status_updated_at": "2015-09-22T07:00:34Z",
+      "original_signature_pdf": null
+    }
+  ]
+}

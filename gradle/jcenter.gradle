@@ -1,0 +1,42 @@
+/* https://github.com/bintray/gradle-bintray-plugin */
+
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        EligiblePublication(MavenPublication) {
+            from components.java
+
+            groupId group
+            artifactId archivesBaseName
+            version version
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+
+    publications = ['EligiblePublication']
+    pkg {
+        repo = 'maven'
+        name = archivesBaseName
+        userOrg = user
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/eligible/eligible-java.git'
+
+        version {
+            name = '1.0.0'
+            desc = 'Eligible Java Bindings'
+            released = new Date()
+            vcsTag = '1.0.0'
+            attributes = ['eligible-java': 'com.eligible:eligible-java']
+        }
+    }
+}
+
+// RUN ./gradlew bintrayUpload

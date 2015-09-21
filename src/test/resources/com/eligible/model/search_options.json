@@ -1,0 +1,47 @@
+{
+  "payer_id": "WYMCR",
+  "search_options": [
+    [
+      "member_id",
+      "member_first_name",
+      "member_last_name",
+      "member_dob"
+    ],
+    [
+      "member_id",
+      "member_last_name",
+      "member_dob"
+    ],
+    [
+      "member_id",
+      "member_first_name",
+      "member_dob"
+    ],
+    [
+      "member_id",
+      "member_first_name",
+      "member_last_name"
+    ],
+    [
+      "member_first_name",
+      "member_last_name",
+      "member_dob",
+      "chop_member_id"
+    ],
+    [
+      "member_last_name",
+      "member_dob",
+      "chop_member_id"
+    ],
+    [
+      "member_first_name",
+      "member_dob",
+      "chop_member_id"
+    ],
+    [
+      "member_first_name",
+      "member_last_name",
+      "chop_member_id"
+    ]
+  ]
+}

@@ -1,0 +1,5 @@
+=== 1.0.0 2015-09-24
+
+* Added implementations for `Payer` and `Coverage` APIs.
+
+* Numerous test suite improvements
