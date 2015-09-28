@@ -22,13 +22,16 @@ version = '1.0.0'
 apply from: 'gradle/jacoco.coverage.gradle'
 apply from: 'gradle/jcenter.gradle'
 // apply from: 'gradle/maven.gradle'
- apply from: 'gradle/check.gradle'            // Ignoring as IntelliJ provides it
+apply from: 'gradle/check.gradle'
 
 dependencies {
     // SLF4J logging
     compile 'org.slf4j:slf4j-api:1.7.12'
     // gson
     compile 'com.google.code.gson:gson:2.3.1'
+
+    // lombok
+    compile 'org.projectlombok:lombok:1.16.6'
 
     testCompile 'junit:junit:4.12'
     testCompile 'com.google.guava:guava:18.0'

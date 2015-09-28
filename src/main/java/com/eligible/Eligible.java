@@ -1,5 +1,8 @@
 package com.eligible;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 
@@ -17,14 +20,51 @@ import java.net.Proxy;
  * </pre>
  */
 public abstract class Eligible {
+
+    /**
+     * Eligible API Base URL.
+     */
     public static final String LIVE_API_BASE = "https://gds.eligibleapi.com";
+
+    /**
+     * Eligible Java Binding version.
+     */
     public static final String VERSION = "1.0.0";
+
+    /**
+     * Eligible API key for authentication.
+     */
     public static volatile String apiKey;
+
+    /**
+     * Eligible API version for calls.
+     */
     public static volatile String apiVersion = "v1.5";
+
+    /**
+     * Eligible API call to simulate sandbox.
+     */
     public static volatile boolean isTest;
 
+    @Getter
     private static volatile String apiBase = LIVE_API_BASE;
+
+    /**
+     * Connection proxy to tunnel all Eligible connections.
+     * @param proxy proxy host and port setting
+     * @return {@link Proxy} host and post setting
+     */
+    @Getter
+    @Setter
     private static volatile Proxy connectionProxy = null;
+
+    /**
+     * Credential for proxy authorization if required.
+     * @param auth proxy required userName and password
+     * @return {@link PasswordAuthentication}
+     */
+    @Getter
+    @Setter
     private static volatile PasswordAuthentication proxyCredential = null;
 
 
@@ -34,43 +74,5 @@ public abstract class Eligible {
      */
     public static void overrideApiBase(final String overriddenApiBase) {
         apiBase = overriddenApiBase;
-    }
-
-    public static String getApiBase() {
-        return apiBase;
-    }
-
-    /**
-     * Set proxy to tunnel all Eligible connections
-     *
-     * @param proxy proxy host and port setting
-     */
-    public static void setConnectionProxy(final Proxy proxy) {
-        connectionProxy = proxy;
-    }
-
-    /**
-     * Get connection proxy
-     * @return {@link Proxy} host and post setting
-     */
-    public static Proxy getConnectionProxy() {
-        return connectionProxy;
-    }
-
-    /**
-     * Provide credential for proxy authorization if required
-     *
-     * @param auth proxy required userName and password
-     */
-    public static void setProxyCredential(final PasswordAuthentication auth) {
-        proxyCredential = auth;
-    }
-
-    /**
-     * Get credentials for proxy authorization
-     * @return {@link PasswordAuthentication}
-     */
-    public static PasswordAuthentication getProxyCredential() {
-        return proxyCredential;
     }
 }

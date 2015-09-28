@@ -5,11 +5,11 @@ apply plugin: 'jacoco'
 ext {
     limits = [
         'instruction': 20,
-        'branch'     : 18,
-        'line'       : 18,
-        'complexity' : 17,
-        'method'     : 18,
-        'class'      : 62 //TODO - 100%
+        'branch'     : 16,
+        'line'       : 19,
+        'complexity' : 20,
+        'method'     : 29,
+        'class'      : 40 //TODO - 100%
     ]
 }
 
@@ -31,20 +31,31 @@ jacocoTestReport {
         parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
         def results = parser.parse(report)
 
-        def percentage = {
-            def covered = it.'@covered' as Double
-            def missed = it.'@missed' as Double
+        def filter_packages_list = ['com/eligible/model']
+        def filtered_packages = results.package.findAll { !filter_packages_list.contains(it.'@name') }
+
+        def percentage = { type ->
+            def covered = 0.0
+            def missed = 0.0
+            filtered_packages.each {
+                def fPkgCounter = it.counter.find { it.'@type'.equals(type) }
+                if (fPkgCounter != null) {
+                    covered += fPkgCounter.'@covered' as Double
+                    missed += fPkgCounter.'@missed' as Double
+                }
+            }
+
             ((covered / (covered + missed)) * 100).round(2)
         }
 
         def failures = []
         [
-            'instruction': percentage(results.counter.find { it.'@type'.equals('INSTRUCTION') }),
-            'branch'     : percentage(results.counter.find { it.'@type'.equals('BRANCH') }),
-            'line'       : percentage(results.counter.find { it.'@type'.equals('LINE') }),
-            'complexity' : percentage(results.counter.find { it.'@type'.equals('COMPLEXITY') }),
-            'method'     : percentage(results.counter.find { it.'@type'.equals('METHOD') }),
-            'class'      : percentage(results.counter.find { it.'@type'.equals('CLASS') })
+            'instruction': percentage('INSTRUCTION'),
+            'branch'     : percentage('BRANCH'),
+            'line'       : percentage('LINE'),
+            'complexity' : percentage('COMPLEXITY'),
+            'method'     : percentage('METHOD'),
+            'class'      : percentage('CLASS')
         ].each {
             if (it.value < limits[it.key])
                 failures.add("- ${it.key} coverage rate is: ${it.value}%, minimum is ${limits[it.key]}%")

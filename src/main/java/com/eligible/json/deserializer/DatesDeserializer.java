@@ -9,9 +9,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@link JsonDeserializer} for deserializing {@link Dates}.
+ */
 public class DatesDeserializer implements JsonDeserializer<Dates> {
-    public static final Type DATE_LIST_TYPE = new TypeToken<List<Date>>() {}.getType();
+    private static final Type DATE_LIST_TYPE = new TypeToken<List<Date>>() { }.getType();
 
+    /** {@inheritDoc} */
     public Dates deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
         Gson gson = new GsonBuilder()
@@ -24,8 +28,8 @@ public class DatesDeserializer implements JsonDeserializer<Dates> {
             collection.setData(new ArrayList<Date>());
             JsonArray jsonDates = json.getAsJsonArray();
 
-            for(JsonElement jsonDate : jsonDates) {
-                if(jsonDate.isJsonArray()) {
+            for (JsonElement jsonDate : jsonDates) {
+                if (jsonDate.isJsonArray()) {
                     List<Date> dates = gson.fromJson(jsonDate, DATE_LIST_TYPE);
                     collection.addAll(dates);
                 } else {

@@ -1,17 +1,11 @@
 package com.eligible.model;
 
-/**
- */
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@Getter
+@EqualsAndHashCode(callSuper=false)
 public class NextEligibleDate extends EligibleObject {
     String professional;
     String technical;
-
-
-    public String getProfessional() {
-        return professional;
-    }
-
-    public String getTechnical() {
-        return technical;
-    }
 }

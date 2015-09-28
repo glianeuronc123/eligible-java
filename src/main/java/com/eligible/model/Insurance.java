@@ -1,10 +1,12 @@
 package com.eligible.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.List;
 
-/**
- * Created by ankitdimania on 18/09/15.
- */
+@Getter
+@EqualsAndHashCode(callSuper=false)
 public class Insurance extends EligibleObject {
     String name;
     String id;
@@ -12,29 +14,4 @@ public class Insurance extends EligibleObject {
     String payerTypeLabel;
     List<Contact> contacts;
     ServiceProviders serviceProviders;
-
-
-    public String getName() {
-        return name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getPayerType() {
-        return payerType;
-    }
-
-    public String getPayerTypeLabel() {
-        return payerTypeLabel;
-    }
-
-    public List<Contact> getContacts() {
-        return contacts;
-    }
-
-    public ServiceProviders getServiceProviders() {
-        return serviceProviders;
-    }
 }

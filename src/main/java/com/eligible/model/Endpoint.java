@@ -2,15 +2,20 @@ package com.eligible.model;
 
 import com.eligible.net.APIResource;
 import com.google.gson.annotations.SerializedName;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * Created by ankitdimania on 16/09/15.
- */
+@Getter
+@EqualsAndHashCode(callSuper=false)
 public class Endpoint extends APIResource {
+
+    @Getter
+    @RequiredArgsConstructor
     public enum EndpointType {
         @SerializedName("professional claims")
         PROFESSIONAL_CLAIMS("professional claims"),
@@ -55,19 +60,7 @@ public class Endpoint extends APIResource {
                put(endpointType.getValue(), endpointType);
         }};
 
-        String value;
-
-        EndpointType(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
+        final String value;
 
         public static EndpointType fromValue(String value){
             EndpointType endpointType = endpointTypeMap.get(value);
@@ -91,54 +84,4 @@ public class Endpoint extends APIResource {
     String statusDetails;
     String statusUpdatedAt;
     Boolean originalSignaturePdf;
-
-
-    public String getStatusUpdatedAt() {
-        return statusUpdatedAt;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public Double getPassThroughFee() {
-        return passThroughFee;
-    }
-
-    public Boolean getEnrollmentRequired() {
-        return enrollmentRequired;
-    }
-
-    public String getAverageEnrollmentProcessTime() {
-        return averageEnrollmentProcessTime;
-    }
-
-    public List<String> getEnrollmentMandatoryFields() {
-        return enrollmentMandatoryFields;
-    }
-
-    public Boolean getSignatureRequired() {
-        return signatureRequired;
-    }
-
-    public Boolean getBlueInkRequired() {
-        return blueInkRequired;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getStatusDetails() {
-        return statusDetails;
-    }
-
-    public Boolean getOriginalSignaturePdf() {
-        return originalSignaturePdf == null ? Boolean.FALSE : originalSignaturePdf;
-    }
-
 }

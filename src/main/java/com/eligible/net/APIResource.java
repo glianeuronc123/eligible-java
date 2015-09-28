@@ -7,28 +7,32 @@ import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.InvalidRequestException;
 import com.eligible.json.deserializer.DatesDeserializer;
 import com.eligible.json.deserializer.EligibleObjectTypeAdapterFactory;
+import com.eligible.json.deserializer.EligibleRawJsonObjectDeserializer;
 import com.eligible.model.Dates;
 import com.eligible.model.EligibleObject;
+import com.eligible.model.EligibleRawJsonObject;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.Setter;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.util.Map;
 
+import static com.eligible.util.NetworkUtil.CHARSET;
+import static com.eligible.util.NetworkUtil.urlEncode;
+
 public abstract class APIResource extends EligibleObject {
+    @Setter
     private static EligibleResponseGetter eligibleResponseGetter = new LiveEligibleResponseGetter();
 
-    public static void setEligibleResponseGetter(EligibleResponseGetter srg) {
-        APIResource.eligibleResponseGetter = srg;
-    }
 
     public static final Gson GSON = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .registerTypeAdapterFactory(new EligibleObjectTypeAdapterFactory())
             .registerTypeAdapter(Dates.class, new DatesDeserializer())
+            .registerTypeAdapter(EligibleRawJsonObject.class, new EligibleRawJsonObjectDeserializer())
             .create();
 
     protected static String className(Class<?> clazz) {
@@ -71,18 +75,6 @@ public abstract class APIResource extends EligibleObject {
                     + CHARSET
                     + ". Please contact support@eligible.com for assistance.",
                     null, null, e);
-        }
-    }
-
-    public static final String CHARSET = "UTF-8";
-
-    public static String urlEncode(String str) throws UnsupportedEncodingException {
-        // Preserve original behavior that passing null for an object id will lead
-        // to us actually making a request to /v1/foo/null
-        if (str == null) {
-            return null;
-        } else {
-            return URLEncoder.encode(str, CHARSET);
         }
     }
 

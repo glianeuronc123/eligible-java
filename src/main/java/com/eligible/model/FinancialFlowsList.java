@@ -1,14 +1,12 @@
 package com.eligible.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.List;
 
-/**
- * Created by ankitdimania on 18/09/15.
- */
+@Getter
+@EqualsAndHashCode(callSuper=false)
 public class FinancialFlowsList extends EligibleObject {
     List<FinancialFlow> amounts;
-
-    public List<FinancialFlow> getAmounts() {
-        return amounts;
-    }
 }

@@ -11,6 +11,8 @@ import java.net.*;
 import java.util.*;
 
 import static com.eligible.Eligible.*;
+import static com.eligible.util.NetworkUtil.CHARSET;
+import static com.eligible.util.NetworkUtil.urlEncode;
 import static java.lang.String.valueOf;
 
 public class LiveEligibleResponseGetter implements EligibleResponseGetter {
@@ -36,13 +38,13 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
     private static String urlEncodePair(String k, String v)
             throws UnsupportedEncodingException {
-        return String.format("%s=%s", APIResource.urlEncode(k), APIResource.urlEncode(v));
+        return String.format("%s=%s", urlEncode(k), urlEncode(v));
     }
 
     static Map<String, String> getHeaders(RequestOptions options) {
         Map<String, String> headers = new HashMap<String, String>();
         String apiVersion = options.getEligibleVersion();
-        headers.put("Accept-Charset", APIResource.CHARSET);
+        headers.put("Accept-Charset", CHARSET);
         headers.put("Accept", "application/json");
         headers.put("User-Agent",
                 String.format("Eligible/v1.5 JavaBindings/%s", VERSION));
@@ -137,12 +139,12 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", String.format(
-                "application/json;charset=%s", APIResource.CHARSET));
+                "application/json;charset=%s", CHARSET));
 
         OutputStream output = null;
         try {
             output = conn.getOutputStream();
-            output.write(query.getBytes(APIResource.CHARSET));
+            output.write(query.getBytes(CHARSET));
         } finally {
             if (output != null) {
                 output.close();
@@ -252,7 +254,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             throws IOException {
         //\A is the beginning of
         // the stream boundary
-        String rBody = new Scanner(responseStream, APIResource.CHARSET)
+        String rBody = new Scanner(responseStream, CHARSET)
                 .useDelimiter("\\A")
                 .next(); //
 
@@ -269,7 +271,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             query = createHtmlQuery(params, options);
         } catch (UnsupportedEncodingException e) {
             throw new InvalidRequestException("Unable to encode parameters to "
-                    + APIResource.CHARSET
+                    + CHARSET
                     + ". Please contact support@eligible.com for assistance.",
                     null, null, e);
         }
@@ -445,7 +447,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             MultipartProcessor multipartProcessor = null;
             try {
                 multipartProcessor = new MultipartProcessor(
-                        conn, boundary, APIResource.CHARSET);
+                        conn, boundary, CHARSET);
 
                 for (Map.Entry<String, Object> entry : params.entrySet()) {
                     String key = entry.getKey();
@@ -545,7 +547,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             query = createHtmlQuery(params, options);
         } catch (UnsupportedEncodingException e) {
             throw new InvalidRequestException("Unable to encode parameters to "
-                    + APIResource.CHARSET
+                    + CHARSET
                     + ". Please contact support@eligible.com for assistance.",
                     null, null, e);
         }
@@ -621,7 +623,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             int responseCode = (Integer) response.getClass()
                     .getDeclaredMethod("getResponseCode").invoke(response);
             String body = new String((byte[]) response.getClass()
-                    .getDeclaredMethod("getContent").invoke(response), APIResource.CHARSET);
+                    .getDeclaredMethod("getContent").invoke(response), CHARSET);
             return new EligibleResponse(responseCode, body);
         } catch (InvocationTargetException e) {
             throw new APIException(unknownErrorMessage, null, e);

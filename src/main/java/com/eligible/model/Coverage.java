@@ -7,10 +7,15 @@ import com.eligible.exception.InvalidRequestException;
 import com.eligible.net.APIResource;
 import com.eligible.net.RequestMethod;
 import com.eligible.net.RequestOptions;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 
+
+@Getter
+@EqualsAndHashCode(callSuper=false)
 public class Coverage extends APIResource {
     String createdAt;
     String eligibleId;
@@ -48,42 +53,13 @@ public class Coverage extends APIResource {
     }
 
 
-    public String getEligibleId() {
-        return eligibleId;
-    }
-
     public String getId() {
         return getEligibleId();
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
 
-    public KnownIssues getKnownIssues() {
-        return knownIssues;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public Demographics getDemographics() {
-        return demographics;
-    }
-
-    public Insurance getInsurance() {
-        return insurance;
-    }
-
-    public Plan getPlan() {
-        return plan;
-    }
-
-    public List<Service> getServices() {
-        return services;
-    }
-
+    @Getter
+    @EqualsAndHashCode(callSuper=false)
     public static class Medicare extends APIResource {
         String createdAt;
         String eligibleId;
@@ -126,112 +102,8 @@ public class Coverage extends APIResource {
         }
 
 
-        public String getEligibleId() {
-            return eligibleId;
-        }
-
         public String getId() {
             return getEligibleId();
-        }
-
-        public String getCreatedAt() {
-            return createdAt;
-        }
-
-        public KnownIssues getKnownIssues() {
-            return knownIssues;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getDateOfDeath() {
-            return dateOfDeath;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public String getMiddleName() {
-            return middleName;
-        }
-
-        public String getMemberId() {
-            return memberId;
-        }
-
-        public String getGroupId() {
-            return groupId;
-        }
-
-        public String getGroupName() {
-            return groupName;
-        }
-
-        public String getDob() {
-            return dob;
-        }
-
-        public String getGender() {
-            return gender;
-        }
-
-        public String getRelationship() {
-            return relationship;
-        }
-
-        public String getRelationshipCode() {
-            return relationshipCode;
-        }
-
-        public Address getAddress() {
-            return address;
-        }
-
-        public String getPayerName() {
-            return payerName;
-        }
-
-        public String getPayerId() {
-            return payerId;
-        }
-
-        public String getPlanNumber() {
-            return planNumber;
-        }
-
-        public DateRange getEligibiltyDates() {
-            return eligibiltyDates;
-        }
-
-        public DateRange getInactivityDates() {
-            return inactivityDates;
-        }
-
-        public Map<String, String> getPlanTypes() {
-            return planTypes;
-        }
-
-        public Map<String, Map> getPlanDetails() {
-            return planDetails;
-        }
-
-        public List<RequestedServiceType> getRequestedServiceTypes() {
-            return requestedServiceTypes;
-        }
-
-        public List<RequestedProcedureCode> getRequestedProcedureCodes() {
-            return requestedProcedureCodes;
-        }
-
-        public HistoricDetails getHistory() {
-            return history;
         }
     }
 }
