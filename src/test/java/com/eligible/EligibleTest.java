@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 public class EligibleTest {
     static Map<String, Object> defaultCoverageParams = new HashMap<String, Object>();
     static Map<String, Object> defaultCoverageMedicareParams = new HashMap<String, Object>();
+    static Map<String, Object> defaultCoverageCostEstimateParams = new HashMap<String, Object>();
 
     @Before
     public void before() {
@@ -48,11 +49,29 @@ public class EligibleTest {
         defaultCoverageMedicareParams.put("member_last_name", "FRANKLIN");
         defaultCoverageMedicareParams.put("member_dob", "1701-12-12");
 
+        defaultCoverageCostEstimateParams.put("provider_price", "1500.50");
+        defaultCoverageCostEstimateParams.put("service_type", "1");
+        defaultCoverageCostEstimateParams.put("network", "IN");
+        defaultCoverageCostEstimateParams.put("payer_id", "00001");
+        defaultCoverageCostEstimateParams.put("provider_last_name", "Doe");
+        defaultCoverageCostEstimateParams.put("provider_first_name", "John");
+        defaultCoverageCostEstimateParams.put("provider_npi", "0123456789");
+        defaultCoverageCostEstimateParams.put("member_id", "ZZZ445554301");
+        defaultCoverageCostEstimateParams.put("member_first_name", "IDA");
+        defaultCoverageCostEstimateParams.put("member_last_name", "FRANKLIN");
+        defaultCoverageCostEstimateParams.put("member_dob", "1701-12-12");
+
     }
 
     @Test
     public void testAPIBase() throws EligibleException {
         assertEquals("https://gds.eligibleapi.com", Eligible.getApiBase());
+
+        String test = "test";
+        Eligible.overrideApiBase(test);
+        assertEquals(test, Eligible.getApiBase());
+
+        Eligible.overrideApiBase(Eligible.LIVE_API_BASE);
     }
 
     @Test
@@ -178,7 +197,7 @@ public class EligibleTest {
     }
 
     @Test
-    public void testCoverageMedicareAll() throws EligibleException {
+    public void testCoverageMedicare() throws EligibleException {
         Coverage.Medicare medicareCoverage = Coverage.medicare(defaultCoverageMedicareParams);
         assertNotNull(medicareCoverage);
         assertNotNull(medicareCoverage.getEligibleId());
@@ -196,6 +215,23 @@ public class EligibleTest {
         assertFalse(medicareCoverage.getPlanTypes().isEmpty());
         assertNotNull(medicareCoverage.getPlanDetails());
         assertFalse(medicareCoverage.getPlanDetails().isEmpty());
+    }
+
+    @Test
+    public void testCoverageCostEstimate() throws EligibleException {
+        Coverage.CostEstimates costEstimates = Coverage.costEstimate(defaultCoverageCostEstimateParams);
+        assertNotNull(costEstimates);
+        assertNotNull(costEstimates.getEligibleId());
+        assertNotNull(costEstimates.getId());
+        assertNotNull(costEstimates.getDemographics());
+        assertNotNull(costEstimates.getInsurance());
+        assertNotNull(costEstimates.getPlan());
+        assertNotNull(costEstimates.getServices());
+        assertFalse(costEstimates.getServices().isEmpty());
+        assertNotNull(costEstimates.getServices().get(0));
+        assertNotNull(costEstimates.getCostEstimates());
+        assertFalse(costEstimates.getCostEstimates().isEmpty());
+        assertNotNull(costEstimates.getCostEstimates().get(0));
     }
 
 }
