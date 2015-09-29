@@ -13,7 +13,7 @@ public class APIConnectionException extends EligibleException {
      * @param message message
      */
     public APIConnectionException(String message) {
-        super(message, null);
+        super(message);
     }
 
     /**
@@ -23,7 +23,7 @@ public class APIConnectionException extends EligibleException {
      * @param e cause of this exception
      */
     public APIConnectionException(String message, Throwable e) {
-        super(message, null, e);
+        super(message, e);
     }
 
 }

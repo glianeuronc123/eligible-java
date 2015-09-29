@@ -1,0 +1,216 @@
+package com.eligible;
+
+import com.eligible.exception.AuthenticationException;
+import com.eligible.exception.EligibleException;
+import com.eligible.exception.InvalidRequestException;
+import com.eligible.model.Coverage;
+import com.eligible.model.Payer;
+import com.eligible.net.RequestOptions;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import static org.junit.Assert.*;
+
+public class EligibleTest {
+    static Map<String, Object> defaultCoverageParams = new HashMap<String, Object>();
+    static Map<String, Object> defaultCoverageMedicareParams = new HashMap<String, Object>();
+
+    @Before
+    public void before() {
+    }
+
+    @BeforeClass
+    public static void setUp() {
+        Eligible.apiKey = "n5Cddnj2KST6YV9J2l2ztQQ2VrdPfzA4JPbn"; // eligible public test key
+        Eligible.isTest = true;
+
+        defaultCoverageParams.put("payer_id", "00001");
+        defaultCoverageParams.put("provider_last_name", "Doe");
+        defaultCoverageParams.put("provider_first_name", "John");
+        defaultCoverageParams.put("provider_npi", "0123456789");
+        defaultCoverageParams.put("member_id", "ZZZ445554301");
+        defaultCoverageParams.put("member_first_name", "IDA");
+        defaultCoverageParams.put("member_last_name", "FRANKLIN");
+        defaultCoverageParams.put("member_dob", "1701-12-12");
+        defaultCoverageParams.put("service_type", "30");
+
+        defaultCoverageMedicareParams.put("provider_last_name", "Doe");
+        defaultCoverageMedicareParams.put("provider_first_name", "John");
+        defaultCoverageMedicareParams.put("provider_npi", "0123456789");
+        defaultCoverageMedicareParams.put("member_id", "ZZZ445554301");
+        defaultCoverageMedicareParams.put("member_first_name", "IDA");
+        defaultCoverageMedicareParams.put("member_last_name", "FRANKLIN");
+        defaultCoverageMedicareParams.put("member_dob", "1701-12-12");
+
+    }
+
+    @Test
+    public void testAPIBase() throws EligibleException {
+        assertEquals("https://gds.eligibleapi.com", Eligible.getApiBase());
+    }
+
+    @Test
+    public void testPayersAll() throws EligibleException {
+        List<Payer> payers = Payer.all();
+        Payer flblsPayer = null;
+        for (Payer payer : payers) {
+            if (payer.getPayerId().equals("FLBLS")) {
+                flblsPayer = payer;
+            }
+        }
+        assertFlblsPayer(flblsPayer);
+    }
+
+    @Test
+    public void testPayerRetrieve() throws EligibleException {
+        Payer payer = Payer.retrieve("FLBLS");
+        assertFlblsPayer(payer);
+    }
+
+    private void assertFlblsPayer(Payer payer) {
+        assertNotNull(payer);
+        assertEquals("FLBLS", payer.getId());
+        assertEquals("FLBLS", payer.getPayerId());
+        assertTrue(payer.getNames().contains("Blue Cross Blue Shield of Florida"));
+        assertTrue(payer.getNames().contains("Blue Cross of Florida"));
+        assertTrue(payer.getNames().contains("Blue Shield of Florida"));
+        assertTrue(payer.getNames().contains("Florida Blue Shield"));
+        assertTrue(payer.getNames().contains("BCBS Florida"));
+        assertNotNull(payer.getCreatedAt());
+        assertNotNull(payer.getUpdatedAt());
+        assertNotNull(payer.getSupportedEndpoints());
+        assertFalse(payer.getSupportedEndpoints().isEmpty());
+    }
+
+    @Test
+    public void testPayerRetrieveRawValues() throws EligibleException {
+        Payer payer = Payer.retrieve("FLBLS");
+
+        assertNotNull(payer.get("payer_id"));
+        assertFalse(payer.getRawValues().isEmpty());
+        assertEquals(payer.getPayerId(), payer.get("payer_id"));
+        assertEquals(payer.getCreatedAt(), payer.get("created_at"));
+        assertEquals(payer.getUpdatedAt(), payer.get("updated_at"));
+        assertEquals(payer.getNames(), payer.get("names"));
+        assertEquals(payer.getSupportedEndpoints().size(), ((List) payer.get("supported_endpoints")).size());
+        assertFalse(payer.getSupportedEndpoints().get(0).getRawValues().isEmpty());
+        assertEquals(payer.getSupportedEndpoints().get(0).getRawValues(), ((List) payer.get("supported_endpoints")).get(0));
+    }
+
+    @Test
+    public void testPayerSearchOptionsAll() throws EligibleException {
+        List<Payer.SearchOptions> searchOptionsList = Payer.searchOptions();
+        assertNotNull(searchOptionsList);
+        assertFalse(searchOptionsList.isEmpty());
+        Payer.SearchOptions searchOptions = searchOptionsList.get(0);
+        assertNotNull(searchOptions);
+        assertNotNull(searchOptions.getPayerId());
+        assertNotNull(searchOptions.getSearchOptions());
+        assertFalse(searchOptions.getSearchOptions().isEmpty());
+    }
+
+    @Test
+    public void testPayerSearchOptionsRetrieve() throws EligibleException {
+        Payer.SearchOptions searchOptions = Payer.searchOptions("WYMCR");
+        assertNotNull(searchOptions);
+        assertEquals("WYMCR", searchOptions.getId());
+        assertEquals("WYMCR", searchOptions.getPayerId());
+        assertNotNull(searchOptions.getSearchOptions());
+        assertFalse(searchOptions.getSearchOptions().isEmpty());
+    }
+
+    @Test
+    public void testPayerRetrieveNullId() throws EligibleException {
+        try {
+            Payer.retrieve(null);
+            fail("Retrieve null Payer didn't result in exception.");
+        } catch (InvalidRequestException e) {
+            assertNotNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testPayerRetrieveNullApiKey() throws EligibleException {
+        try {
+            Payer.retrieve(null, new RequestOptions(null, null, true));
+            fail("Using null ApiKey didn't result in exception.");
+        } catch (AuthenticationException e) {
+            assertNotNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testPayerRetrieveInvalidApiKey() throws EligibleException {
+        try {
+            Payer.retrieve(null, new RequestOptions("invalid api key", null, true));
+            fail("Using invalid ApiKey didn't result in exception.");
+        } catch (AuthenticationException e) {
+            assertNotNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCoverageAll() throws EligibleException {
+        Coverage coverage = Coverage.all(defaultCoverageParams);
+        assertNotNull(coverage);
+        assertNotNull(coverage.getEligibleId());
+        assertNotNull(coverage.getId());
+        assertNotNull(coverage.getDemographics());
+        assertNotNull(coverage.getInsurance());
+        assertNotNull(coverage.getPlan());
+        assertNotNull(coverage.getServices());
+        assertFalse(coverage.getServices().isEmpty());
+        assertNotNull(coverage.getServices().get(0));
+    }
+
+    @Test
+    public void testCoverageAllEmptyParams() throws EligibleException {
+        try {
+            Map<String, Object> invalidParams = new HashMap<String, Object>();
+            Coverage coverage = Coverage.all(invalidParams);
+            fail("API call didn't throw exception on empty params");
+        } catch (InvalidRequestException e) {
+            assertNotNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCoverageAllInvalidParams() throws EligibleException {
+        try {
+            Map<String, Object> invalidParams = new HashMap<String, Object>(defaultCoverageParams);
+            invalidParams.put("provider_npi", "ABC3456789"); // Non Numeric Characters in NPI
+            Coverage coverage = Coverage.all(invalidParams);
+            fail("API call didn't throw exception on empty params");
+        } catch (InvalidRequestException e) {
+            assertNotNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCoverageMedicareAll() throws EligibleException {
+        Coverage.Medicare medicareCoverage = Coverage.medicare(defaultCoverageMedicareParams);
+        assertNotNull(medicareCoverage);
+        assertNotNull(medicareCoverage.getEligibleId());
+        assertNotNull(medicareCoverage.getId());
+        assertNotNull(medicareCoverage.getLastName());
+        assertNotNull(medicareCoverage.getFirstName());
+        assertNotNull(medicareCoverage.getMemberId());
+        assertNotNull(medicareCoverage.getGroupId());
+        assertNotNull(medicareCoverage.getGroupName());
+        assertNotNull(medicareCoverage.getGender());
+        assertNotNull(medicareCoverage.getPayerName());
+        assertNotNull(medicareCoverage.getPlanNumber());
+        assertNotNull(medicareCoverage.getEligibiltyDates());
+        assertNotNull(medicareCoverage.getPlanTypes());
+        assertFalse(medicareCoverage.getPlanTypes().isEmpty());
+        assertNotNull(medicareCoverage.getPlanDetails());
+        assertFalse(medicareCoverage.getPlanDetails().isEmpty());
+    }
+
+}

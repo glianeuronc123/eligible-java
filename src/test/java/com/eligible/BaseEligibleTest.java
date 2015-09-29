@@ -160,6 +160,7 @@ public class BaseEligibleTest {
     @BeforeClass
     public static void setUp() {
         Eligible.apiKey = "foobar";
+        Eligible.isTest = true;
     }
 
     @Before

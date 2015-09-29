@@ -74,7 +74,7 @@ public abstract class APIResource extends EligibleObject {
             throw new InvalidRequestException("Unable to encode parameters to "
                     + CHARSET
                     + ". Please contact support@eligible.com for assistance.",
-                    null, null, e);
+                    null, e);
         }
     }
 

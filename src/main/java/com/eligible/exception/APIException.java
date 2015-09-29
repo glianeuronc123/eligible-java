@@ -11,11 +11,19 @@ public class APIException extends EligibleException {
      * Create APIConnectionException with message, requestId and cause.
      *
      * @param message message
-     * @param requestId requestId
+     */
+    public APIException(String message) {
+        super(message);
+    }
+
+    /**
+     * Create APIConnectionException with message, requestId and cause.
+     *
+     * @param message message
      * @param e cause
      */
-    public APIException(String message, String requestId, Throwable e) {
-        super(message, requestId, e);
+    public APIException(String message, Throwable e) {
+        super(message, e);
     }
 
 }

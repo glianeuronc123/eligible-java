@@ -17,16 +17,36 @@ public class InvalidRequestException extends EligibleException {
     @Getter
     private final String param;
 
+
+    /**
+     * Create InvalidRequestException.
+     *
+     * @param message message
+     */
+    public InvalidRequestException(String message) {
+        this(message, null);
+    }
+
     /**
      * Create InvalidRequestException.
      *
      * @param message message
      * @param param param name
-     * @param requestId request id
+     */
+    public InvalidRequestException(String message, String param) {
+        super(message);
+        this.param = param;
+    }
+
+    /**
+     * Create InvalidRequestException.
+     *
+     * @param message message
+     * @param param param name
      * @param e cause
      */
-    public InvalidRequestException(String message, String param, String requestId, Throwable e) {
-        super(message, requestId, e);
+    public InvalidRequestException(String message, String param, Throwable e) {
+        super(message, e);
         this.param = param;
     }
 }
