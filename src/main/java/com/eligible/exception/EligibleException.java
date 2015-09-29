@@ -1,7 +1,5 @@
 package com.eligible.exception;
 
-import lombok.Getter;
-
 /**
  * Eligible base exception class.
  */

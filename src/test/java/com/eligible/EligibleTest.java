@@ -56,24 +56,9 @@ public class EligibleTest {
     }
 
     @Test
-    public void testPayersAll() throws EligibleException {
-        List<Payer> payers = Payer.all();
-        Payer flblsPayer = null;
-        for (Payer payer : payers) {
-            if (payer.getPayerId().equals("FLBLS")) {
-                flblsPayer = payer;
-            }
-        }
-        assertFlblsPayer(flblsPayer);
-    }
-
-    @Test
     public void testPayerRetrieve() throws EligibleException {
         Payer payer = Payer.retrieve("FLBLS");
-        assertFlblsPayer(payer);
-    }
 
-    private void assertFlblsPayer(Payer payer) {
         assertNotNull(payer);
         assertEquals("FLBLS", payer.getId());
         assertEquals("FLBLS", payer.getPayerId());

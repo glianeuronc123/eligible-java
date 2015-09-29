@@ -19,7 +19,7 @@ public class RequestOptions {
     }
 
     private final String apiKey;
-    private final String eligibleVersion;
+    private final String apiVersion;
     private final boolean test;
 
     public static RequestOptionsBuilder builder() {
@@ -27,7 +27,7 @@ public class RequestOptions {
     }
 
     public RequestOptionsBuilder toBuilder() {
-        return new RequestOptionsBuilder(this.apiKey, this.eligibleVersion, this.test);
+        return new RequestOptionsBuilder(this.apiKey, this.apiVersion, this.test);
     }
 
     @Data
@@ -36,15 +36,15 @@ public class RequestOptions {
     @Accessors(chain=true)
     public static final class RequestOptionsBuilder {
         private String apiKey = Eligible.apiKey;
-        private String eligibleVersion = Eligible.apiVersion;
+        private String apiVersion = Eligible.apiVersion;
         private boolean test = Eligible.isTest;
 
         public RequestOptionsBuilder clearApiKey() {
             return setApiKey(null);
         }
 
-        public RequestOptionsBuilder clearEligibleVersion() {
-            return setEligibleVersion(null);
+        public RequestOptionsBuilder clearApiVersion() {
+            return setApiVersion(null);
         }
 
         public RequestOptionsBuilder clearTest() {
@@ -52,7 +52,7 @@ public class RequestOptions {
         }
 
         public RequestOptions build() {
-            return new RequestOptions(normalizeString(this.apiKey), normalizeString(this.eligibleVersion), this.test);
+            return new RequestOptions(normalizeString(this.apiKey), normalizeString(this.apiVersion), this.test);
         }
     }
 

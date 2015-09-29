@@ -4,8 +4,10 @@ import com.eligible.exception.APIConnectionException;
 import com.eligible.exception.APIException;
 import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.InvalidRequestException;
+import com.eligible.model.EligibleObject;
 import com.google.gson.JsonElement;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -20,14 +22,14 @@ import static com.eligible.util.NetworkUtil.urlEncode;
 import static java.lang.String.valueOf;
 
 public class LiveEligibleResponseGetter implements EligibleResponseGetter {
-    private static final String DNS_CACHE_TTL_PROPERTY_NAME = "networkaddress.cache.ttl";
+    public static final String DNS_CACHE_TTL_PROPERTY_NAME = "networkaddress.cache.ttl";
 
     /*
      * Set this property to override your environment's default
      * URLStreamHandler; Settings the property should not be needed in most
      * environments.
      */
-    private static final String CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME = "com.eligible.net.customURLStreamHandler";
+    public static final String CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME = "com.eligible.net.customURLStreamHandler";
 
     @Override
     public <T> T request(
@@ -47,7 +49,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
     static Map<String, String> getHeaders(RequestOptions options) {
         Map<String, String> headers = new HashMap<String, String>();
-        String apiVersion = options.getEligibleVersion();
+        String apiVersion = options.getApiVersion();
         headers.put("Accept-Charset", CHARSET);
         headers.put("Accept", "application/json");
         headers.put("User-Agent",
@@ -234,23 +236,18 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         return flatParams;
     }
 
-    // represents Errors returned as JSON
-    private static class ErrorContainer {
-        private Error error;
-    }
-
-    @Data
-    private static class Error {
+    @Getter
+    @EqualsAndHashCode(callSuper=false)
+    private static class Error extends EligibleObject {
         String error;
     }
 
     private static String getResponseBody(InputStream responseStream)
             throws IOException {
-        //\A is the beginning of
-        // the stream boundary
+        //\A is the beginning of the stream boundary
         String rBody = new Scanner(responseStream, CHARSET)
                 .useDelimiter("\\A")
-                .next(); //
+                .next();
 
         responseStream.close();
         return rBody;
@@ -364,8 +361,8 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                                     + "This indicates a bug in the Eligible bindings. Please contact "
                                     + "support@eligible.com for assistance.");
             }
-            int rCode = response.responseCode;
-            String rBody = response.responseBody;
+            int rCode = response.getResponseCode();
+            String rBody = response.getResponseBody();
 
             if (rCode < 200 || rCode >= 300) {
                 handleAPIError(rBody, rCode);

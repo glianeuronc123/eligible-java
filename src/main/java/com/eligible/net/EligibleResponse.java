@@ -1,18 +1,18 @@
 package com.eligible.net;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class EligibleResponse {
 
-    int responseCode;
-    String responseBody;
-    Map<String, List<String>> responseHeaders;
+    private int responseCode;
+    private String responseBody;
+    private Map<String, List<String>> responseHeaders;
 
     public EligibleResponse(int responseCode, String responseBody) {
         this(responseCode, responseBody, null);

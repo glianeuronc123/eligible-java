@@ -14,7 +14,6 @@ import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.newLinkedList;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class DeserializerTest extends BaseEligibleTest {
@@ -24,6 +23,11 @@ public class DeserializerTest extends BaseEligibleTest {
     @Test
     public void testDeserializeDates() throws Exception {
         gson.fromJson(resource("dates.json"), Dates.class);     // should not throw error
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeserializeDatesException() throws Exception {
+        gson.fromJson("{}", Dates.class);                       // should throw error
     }
 
     @Test

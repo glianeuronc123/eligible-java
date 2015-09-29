@@ -10,13 +10,23 @@ import org.mockito.Mockito;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringBufferInputStream;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLStreamHandler;
+import java.util.Collections;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
 public class BaseEligibleTest {
+
+    protected static final Map<String, Object> DUMMAY_PARAMS = Collections.emptyMap();
+
     public static EligibleResponseGetter networkMock;
+    public static HttpURLConnection urlConnectionMock;
 
     public static <T> void verifyGet(
             Type typeOfT,
@@ -108,6 +118,11 @@ public class BaseEligibleTest {
                 Mockito.any(RequestOptions.class))).thenReturn(APIResource.GSON.fromJson(response, typeOfT));
     }
 
+    public static <T> void stubNetworkStream(String response) throws Exception {
+        when(urlConnectionMock.getResponseCode()).thenReturn(200);
+        when(urlConnectionMock.getInputStream()).thenReturn(new StringBufferInputStream(response));
+    }
+
     public static class ParamMapMatcher extends ArgumentMatcher<Map<String, Object>> {
         private Map<String, Object> other;
 
@@ -166,6 +181,7 @@ public class BaseEligibleTest {
     @Before
     public void setUpMock() {
         networkMock = mock(EligibleResponseGetter.class);
+        urlConnectionMock = mock(HttpURLConnection.class);
     }
 
     protected String resource(String path) throws IOException {
@@ -180,5 +196,14 @@ public class BaseEligibleTest {
 
         return os.toString("utf8");
 
+    }
+
+
+    public static class MockURLStreamHandler extends URLStreamHandler {
+
+        @Override
+        protected URLConnection openConnection(URL u) throws IOException {
+            return urlConnectionMock;
+        }
     }
 }
