@@ -30,10 +30,10 @@ bintray {
         vcsUrl = 'https://github.com/eligible/eligible-java.git'
 
         version {
-            name = '1.0.0'
+            name = '1.1.0'
             desc = 'Eligible Java Bindings'
             released = new Date()
-            vcsTag = '1.0.0'
+            vcsTag = '1.1.0'
             attributes = ['eligible-java': 'com.eligible:eligible-java']
         }
     }
