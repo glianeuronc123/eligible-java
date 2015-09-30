@@ -8,10 +8,14 @@ import com.eligible.net.APIResource;
 import com.eligible.net.RequestMethod;
 import com.eligible.net.RequestOptions;
 import com.google.gson.reflect.TypeToken;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
+@Getter
+@EqualsAndHashCode(callSuper=false)
 public class Payer extends APIResource {
     String payerId;
     List<String> names;
@@ -69,32 +73,13 @@ public class Payer extends APIResource {
     }
 
 
-    public String getPayerId() {
-        return payerId;
-    }
-
     public String getId() {
         return getPayerId();
     }
 
-    public List<String> getNames() {
-        return names;
-    }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public List<Endpoint> getSupportedEndpoints() {
-        return supportedEndpoints;
-    }
-
-
-
+    @Getter
+    @EqualsAndHashCode(callSuper=false)
     public static class SearchOptions extends APIResource {
         String payerId;
         List<SearchOptionList> searchOptions;
@@ -133,22 +118,12 @@ public class Payer extends APIResource {
         }
 
 
-        public String getPayerId() {
-            return payerId;
-        }
-
         public String getId() {
             return getPayerId();
         }
-
-        public List<SearchOptionList> getSearchOptions() {
-            return searchOptions;
-        }
-
     }
 
     public interface SearchOptionList extends List<String> {
 
     }
-
 }

@@ -28,7 +28,7 @@ public class LiveEligibleResponseGetterTest extends BaseEligibleTest {
     public void testCreateQuery() throws EligibleException, UnsupportedEncodingException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("a", "b");
-        assertEquals("a=b&api_key=foobar&test=false", createHtmlQuery(params, RequestOptions.getDefault()));
+        assertEquals("a=b&api_key=foobar&test=true", createHtmlQuery(params, RequestOptions.getDefault()));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class LiveEligibleResponseGetterTest extends BaseEligibleTest {
         params.put("nested", nested);
         params.put("c", "d");
         params.put("e", "f");
-        assertEquals(encode("nested[A]=B&nested[C]=D&c=d&e=f&api_key=foobar&test=false"), createHtmlQuery(params, RequestOptions.getDefault()));
+        assertEquals(encode("nested[A]=B&nested[C]=D&c=d&e=f&api_key=foobar&test=true"), createHtmlQuery(params, RequestOptions.getDefault()));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class LiveEligibleResponseGetterTest extends BaseEligibleTest {
         params.put("nested", nested);
         params.put("a", "b");
         params.put("c", "d");
-        assertEquals(encode("nested[0]=A&nested[1]=B&nested[2]=C&a=b&c=d&api_key=foobar&test=false"), createHtmlQuery(params, RequestOptions.getDefault()));
+        assertEquals(encode("nested[0]=A&nested[1]=B&nested[2]=C&a=b&c=d&api_key=foobar&test=true"), createHtmlQuery(params, RequestOptions.getDefault()));
     }
 }
 

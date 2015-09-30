@@ -1,10 +1,12 @@
 package com.eligible.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.List;
 
-/**
- *
- */
+@Getter
+@EqualsAndHashCode(callSuper=false)
 public class RequestedServiceType extends EligibleObject {
     String type;
     String typeLabel;
@@ -43,125 +45,4 @@ public class RequestedServiceType extends EligibleObject {
     /* Home health */
     String certificationDate;
     String recertificationDate;
-
-
-    public String getType() {
-        return type;
-    }
-
-    public String getTypeLabel() {
-        return typeLabel;
-    }
-
-    public String getPlanType() {
-        return planType;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public Double getDeductible() {
-        return deductible;
-    }
-
-    public Double getDeductibleRemaining() {
-        return deductibleRemaining;
-    }
-
-    public Integer getCoinsurancePercent() {
-        return coinsurancePercent;
-    }
-
-    public Integer getCopayment() {
-        return copayment;
-    }
-
-    public String getInfoValidTill() {
-        return infoValidTill;
-    }
-
-    public Boolean getSpellInProgress() {
-        return spellInProgress;
-    }
-
-    public String getEarliestClaim() {
-        return earliestClaim;
-    }
-
-    public String getLatestClaim() {
-        return latestClaim;
-    }
-
-    public String getContractor() {
-        return contractor;
-    }
-
-    public CopaymentX2YDaysPerSpell getCopaymentUpTo20DaysPerSpell() {
-        return copaymentUpTo20DaysPerSpell;
-    }
-
-    public CopaymentX2YDaysPerSpell getCopayment21Thru100DaysPerSpell() {
-        return copayment21Thru100DaysPerSpell;
-    }
-
-    public CopaymentX2YDaysPerSpell getCopayment61Thru90DaysPerSpell() {
-        return copayment61Thru90DaysPerSpell;
-    }
-
-    public Reserve getLifetimeReserve() {
-        return lifetimeReserve;
-    }
-
-    public List<Visit> getVisits() {
-        return visits;
-    }
-
-    public List<MonetoryAmount> getMonetaryAmountUsed() {
-        return monetaryAmountUsed;
-    }
-
-    public String getDialysisMethodStartDate() {
-        return dialysisMethodStartDate;
-    }
-
-    public String getKidneyTransplantHospitalDischargeDate() {
-        return kidneyTransplantHospitalDischargeDate;
-    }
-
-    public Boolean getRevoked() {
-        return revoked;
-    }
-
-    public String getRevokedCode() {
-        return revokedCode;
-    }
-
-    public String getRevokedLabel() {
-        return revokedLabel;
-    }
-
-    public String getNpi() {
-        return npi;
-    }
-
-    public Deductible getBloodUnitsDeductible() {
-        return bloodUnitsDeductible;
-    }
-
-    public String getCertificationDate() {
-        return certificationDate;
-    }
-
-    public String getRecertificationDate() {
-        return recertificationDate;
-    }
 }

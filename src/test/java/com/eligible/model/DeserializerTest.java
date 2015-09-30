@@ -25,10 +25,14 @@ public class DeserializerTest extends BaseEligibleTest {
         gson.fromJson(resource("dates.json"), Dates.class);     // should not throw error
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeserializeDatesException() throws Exception {
+        gson.fromJson("{}", Dates.class);                       // should throw error
+    }
+
     @Test
     public void testDeserializePayerList() throws Exception {
-        Type listPayerType = new TypeToken<List<Payer>>() {
-        }.getType();
+        Type listPayerType = new TypeToken<List<Payer>>() { }.getType();
         testListDeserialize("payers.json", listPayerType);
     }
 
@@ -38,9 +42,20 @@ public class DeserializerTest extends BaseEligibleTest {
     }
 
     @Test
+    public void testDeserializePayerRawValues() throws Exception {
+        Payer payer = testObjectDeserialize("payer.json", Payer.class);
+        Assert.assertNotNull(payer.get("payer_id"));
+        Assert.assertEquals(payer.getPayerId(), payer.get("payer_id"));
+        Assert.assertEquals(payer.getCreatedAt(), payer.get("created_at"));
+        Assert.assertEquals(payer.getUpdatedAt(), payer.get("updated_at"));
+        Assert.assertEquals(payer.getNames(), payer.get("names"));
+        Assert.assertEquals(payer.getSupportedEndpoints().size(), ((List)payer.get("supported_endpoints")).size());
+        Assert.assertEquals(payer.getSupportedEndpoints().get(0).getRawValues(), ((List)payer.get("supported_endpoints")).get(0));
+    }
+
+    @Test
     public void testDeserializeSearchOptionsList() throws Exception {
-        Type listSearchOptionsType = new TypeToken<List<Payer.SearchOptions>>() {
-        }.getType();
+        Type listSearchOptionsType = new TypeToken<List<Payer.SearchOptions>>() { }.getType();
         testListDeserialize("search_options_list.json", listSearchOptionsType);
     }
 
@@ -70,15 +85,18 @@ public class DeserializerTest extends BaseEligibleTest {
         assertEquals(source, destination, newLinkedList(newArrayList(typeOfT.toString())));
     }
 
-    public void testObjectDeserialize(String jsonResource, Type typeOfT) throws Exception {
+    public <T extends EligibleObject> T testObjectDeserialize(String jsonResource, Class<T> typeOfT) throws Exception {
         String json = resource(jsonResource);
         Map source = gson.fromJson(json, Map.class);
 
-        Object sourceObj = gson.fromJson(json, typeOfT);
+        T sourceObj = gson.fromJson(json, typeOfT);
         String destinationJson = EligibleObject.PRETTY_PRINT_GSON.toJson(sourceObj);
         Map destination = gson.fromJson(destinationJson, Map.class);
 
         assertEquals(source, destination, newLinkedList(newArrayList(typeOfT.toString())));
+        assertEquals(sourceObj.getRawValues(), destination, newLinkedList(newArrayList(typeOfT.toString())));
+
+        return sourceObj;
     }
 
 

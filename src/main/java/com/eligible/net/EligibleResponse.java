@@ -1,43 +1,20 @@
 package com.eligible.net;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.List;
 import java.util.Map;
 
+@Getter
+@AllArgsConstructor
 public class EligibleResponse {
 
-    int responseCode;
-    String responseBody;
-    Map<String, List<String>> responseHeaders;
+    private int responseCode;
+    private String responseBody;
+    private Map<String, List<String>> responseHeaders;
 
     public EligibleResponse(int responseCode, String responseBody) {
-        this.responseCode = responseCode;
-        this.responseBody = responseBody;
-        this.responseHeaders = null;
-    }
-
-    public EligibleResponse(int responseCode, String responseBody, Map<String, List<String>> responseHeaders) {
-        this.responseCode = responseCode;
-        this.responseBody = responseBody;
-        this.responseHeaders = responseHeaders;
-    }
-
-    public int getResponseCode() {
-        return responseCode;
-    }
-
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
-    }
-
-    public String getResponseBody() {
-        return responseBody;
-    }
-
-    public void setResponseBody(String responseBody) {
-        this.responseBody = responseBody;
-    }
-
-    public Map<String, List<String>> getResponseHeaders() {
-        return responseHeaders;
+        this(responseCode, responseBody, null);
     }
 }

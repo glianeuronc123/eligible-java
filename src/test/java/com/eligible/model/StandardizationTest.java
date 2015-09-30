@@ -37,6 +37,10 @@ public class StandardizationTest {
             if (APIResource.class == c) {
                 continue;
             }
+            // Skip the APIResource itself
+            if (EligibleCollectionAPIResource.class == c) {
+                continue;
+            }
             classList.add(classInfo.load());
         }
         return classList;

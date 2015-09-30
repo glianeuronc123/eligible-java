@@ -1,5 +1,7 @@
 package com.eligible.net;
 
+import lombok.Cleanup;
+
 import java.io.*;
 import java.net.URLConnection;
 import java.util.Random;
@@ -25,8 +27,7 @@ public class MultipartProcessor {
         this.conn = conn;
 
         this.outputStream = conn.getOutputStream();
-        this.writer = new PrintWriter(new OutputStreamWriter(outputStream,
-                charset), true);
+        this.writer = new PrintWriter(new OutputStreamWriter(outputStream, charset), true);
     }
 
     public void addFormField(String name, String value) {
@@ -54,17 +55,13 @@ public class MultipartProcessor {
         writer.append(LINE_BREAK);
         writer.flush();
 
-        FileInputStream inputStream = new FileInputStream(file);
-        try {
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-            outputStream.flush();
-        } finally {
-            inputStream.close();
+        @Cleanup FileInputStream inputStream = new FileInputStream(file);
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
         }
+        outputStream.flush();
 
         writer.append(LINE_BREAK);
         writer.flush();

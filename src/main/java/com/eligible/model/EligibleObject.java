@@ -1,6 +1,8 @@
 package com.eligible.model;
 
 import com.google.gson.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,6 +11,7 @@ import java.util.Map;
 
 public abstract class EligibleObject {
 
+    @Getter @Setter
     Map<String, Object> rawValues = new HashMap<String, Object>();
 
     public static final ExclusionStrategy RAW_VALUES_EXCLUSION_STRATEGY = new ExclusionStrategy() {
@@ -33,14 +36,6 @@ public abstract class EligibleObject {
     public static final Gson PRETTY_PRINT_GSON = GSON_BUILDER.
             addSerializationExclusionStrategy(RAW_VALUES_EXCLUSION_STRATEGY).
             create();
-
-    public Map<String, ?> getRawValues() {
-        return rawValues;
-    }
-
-    public void setRawValues(Map<String, Object> rawValues) {
-        this.rawValues = rawValues;
-    }
 
     public <T> T get(String id) {
         return (T) (rawValues == null ? null : rawValues.get(id));

@@ -1,16 +1,13 @@
 package com.eligible.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by ankitdimania on 18/09/15.
- */
+@Getter
+@EqualsAndHashCode(callSuper=false)
 public class PreExistingCondition extends EligibleObject {
     List<Map<String, String>> waitingPeriod;
-
-
-    public List<Map<String, String>> getWaitingPeriod() {
-        return waitingPeriod;
-    }
 }

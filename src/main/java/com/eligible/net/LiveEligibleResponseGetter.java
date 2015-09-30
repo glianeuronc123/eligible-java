@@ -1,27 +1,35 @@
 package com.eligible.net;
 
-import com.eligible.exception.*;
+import com.eligible.exception.APIConnectionException;
+import com.eligible.exception.APIException;
+import com.eligible.exception.AuthenticationException;
+import com.eligible.exception.InvalidRequestException;
+import com.eligible.model.EligibleObject;
+import com.google.gson.JsonElement;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.net.*;
 import java.util.*;
 
 import static com.eligible.Eligible.*;
+import static com.eligible.util.NetworkUtil.CHARSET;
+import static com.eligible.util.NetworkUtil.urlEncode;
 import static java.lang.String.valueOf;
 
 public class LiveEligibleResponseGetter implements EligibleResponseGetter {
-    private static final String DNS_CACHE_TTL_PROPERTY_NAME = "networkaddress.cache.ttl";
+    public static final String DNS_CACHE_TTL_PROPERTY_NAME = "networkaddress.cache.ttl";
 
     /*
      * Set this property to override your environment's default
      * URLStreamHandler; Settings the property should not be needed in most
      * environments.
      */
-    private static final String CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME = "com.eligible.net.customURLStreamHandler";
+    public static final String CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME = "com.eligible.net.customURLStreamHandler";
 
     @Override
     public <T> T request(
@@ -36,13 +44,13 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
     private static String urlEncodePair(String k, String v)
             throws UnsupportedEncodingException {
-        return String.format("%s=%s", APIResource.urlEncode(k), APIResource.urlEncode(v));
+        return String.format("%s=%s", urlEncode(k), urlEncode(v));
     }
 
     static Map<String, String> getHeaders(RequestOptions options) {
         Map<String, String> headers = new HashMap<String, String>();
-        String apiVersion = options.getEligibleVersion();
-        headers.put("Accept-Charset", APIResource.CHARSET);
+        String apiVersion = options.getApiVersion();
+        headers.put("Accept-Charset", CHARSET);
         headers.put("Accept", "application/json");
         headers.put("User-Agent",
                 String.format("Eligible/v1.5 JavaBindings/%s", VERSION));
@@ -137,12 +145,12 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", String.format(
-                "application/json;charset=%s", APIResource.CHARSET));
+                "application/json;charset=%s", CHARSET));
 
         OutputStream output = null;
         try {
             output = conn.getOutputStream();
-            output.write(query.getBytes(APIResource.CHARSET));
+            output.write(query.getBytes(CHARSET));
         } finally {
             if (output != null) {
                 output.close();
@@ -218,7 +226,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                 throw new InvalidRequestException("You cannot set '" + key + "' to an empty string. " +
                         "We interpret empty strings as null in requests. " +
                         "You may set '" + key + "' to null to delete the property.",
-                        key, null, null);
+                        key);
             } else if (value == null) {
                 flatParams.put(key, "");
             } else {
@@ -228,33 +236,18 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         return flatParams;
     }
 
-    // represents Errors returned as JSON
-    private static class ErrorContainer {
-        private Error error;
-    }
-
-    private static class Error {
-        @SuppressWarnings("unused")
-        String type;
-
-        String message;
-
-        String code;
-
-        String param;
-
-        String decline_code;
-
-        String charge;
+    @Getter
+    @EqualsAndHashCode(callSuper=false)
+    private static class Error extends EligibleObject {
+        String error;
     }
 
     private static String getResponseBody(InputStream responseStream)
             throws IOException {
-        //\A is the beginning of
-        // the stream boundary
-        String rBody = new Scanner(responseStream, APIResource.CHARSET)
+        //\A is the beginning of the stream boundary
+        String rBody = new Scanner(responseStream, CHARSET)
                 .useDelimiter("\\A")
-                .next(); //
+                .next();
 
         responseStream.close();
         return rBody;
@@ -269,9 +262,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             query = createHtmlQuery(params, options);
         } catch (UnsupportedEncodingException e) {
             throw new InvalidRequestException("Unable to encode parameters to "
-                    + APIResource.CHARSET
+                    + CHARSET
                     + ". Please contact support@eligible.com for assistance.",
-                    null, null, e);
+                    null, e);
         }
 
         HttpURLConnection conn = null;
@@ -349,8 +342,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             throw new AuthenticationException(
                     "No API key provided. (HINT: set your API key using 'Eligible.apiKey = <API-KEY>'. "
                             + "You can generate API keys from the Eligible web interface. "
-                            + "See https://eligible.com/profile/access_keys for details or email support@eligible.com if you have questions.",
-                    null);
+                            + "See https://eligible.com/profile/access_keys for details or email support@eligible.com if you have questions.");
         }
 
         try {
@@ -369,18 +361,11 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                                     + "This indicates a bug in the Eligible bindings. Please contact "
                                     + "support@eligible.com for assistance.");
             }
-            int rCode = response.responseCode;
-            String rBody = response.responseBody;
-
-            String requestId = null;
-            Map<String, List<String>> headers = response.getResponseHeaders();
-            List<String> requestIdList = headers == null ? null : headers.get("Request-Id");
-            if (requestIdList != null && requestIdList.size() > 0) {
-                requestId = requestIdList.get(0);
-            }
+            int rCode = response.getResponseCode();
+            String rBody = response.getResponseBody();
 
             if (rCode < 200 || rCode >= 300) {
-                handleAPIError(rBody, rCode, requestId);
+                handleAPIError(rBody, rCode);
             }
             return APIResource.GSON.fromJson(rBody, typeOfT);
         } finally {
@@ -429,7 +414,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         if (method != RequestMethod.POST) {
             throw new InvalidRequestException(
                     "Multipart requests for HTTP methods other than POST "
-                            + "are currently not supported.", null, null, null);
+                            + "are currently not supported.");
         }
 
         HttpURLConnection conn = null;
@@ -445,7 +430,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             MultipartProcessor multipartProcessor = null;
             try {
                 multipartProcessor = new MultipartProcessor(
-                        conn, boundary, APIResource.CHARSET);
+                        conn, boundary, CHARSET);
 
                 for (Map.Entry<String, Object> entry : params.entrySet()) {
                     String key = entry.getKey();
@@ -455,16 +440,15 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                         File currentFile = (File) value;
                         if (!currentFile.exists()) {
                             throw new InvalidRequestException("File for key "
-                                    + key + " must exist.", null, null, null);
+                                    + key + " must exist.");
                         } else if (!currentFile.isFile()) {
                             throw new InvalidRequestException("File for key "
                                     + key
-                                    + " must be a file and not a directory.",
-                                    null, null, null);
+                                    + " must be a file and not a directory.");
                         } else if (!currentFile.canRead()) {
                             throw new InvalidRequestException(
                                     "Must have read permissions on file for key "
-                                            + key + ".", null, null, null);
+                                            + key + ".");
                         }
                         multipartProcessor.addFileField(key, currentFile);
                     } else {
@@ -509,22 +493,27 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
     }
 
-    private static void handleAPIError(String rBody, int rCode, String requestId)
+    private static void handleAPIError(String rBody, int rCode)
             throws InvalidRequestException, AuthenticationException,
             APIException {
-        Error error = APIResource.GSON.fromJson(rBody,
-                ErrorContainer.class).error;
+        JsonElement rBodyJson = APIResource.GSON.toJsonTree(rBody);
+
+        String message = null;
+        if(rBodyJson.isJsonObject()) {
+            Error error = APIResource.GSON.fromJson(rBody, Error.class);
+            message = error.getError();
+        } else if (rBodyJson.isJsonPrimitive()) {
+            message = rBodyJson.getAsString();
+        }
         switch (rCode) {
             case 400:
-                throw new InvalidRequestException(error.message, error.param, requestId, null);
+                throw new InvalidRequestException(message);
             case 404:
-                throw new InvalidRequestException(error.message, error.param, requestId, null);
+                throw new InvalidRequestException(message);
             case 401:
-                throw new AuthenticationException(error.message, requestId);
-            case 429:
-                throw new RateLimitException(error.message, error.param, requestId, null);
+                throw new AuthenticationException(message);
             default:
-                throw new APIException(error.message, requestId, null);
+                throw new APIException(message);
         }
     }
 
@@ -545,9 +534,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             query = createHtmlQuery(params, options);
         } catch (UnsupportedEncodingException e) {
             throw new InvalidRequestException("Unable to encode parameters to "
-                    + APIResource.CHARSET
+                    + CHARSET
                     + ". Please contact support@eligible.com for assistance.",
-                    null, null, e);
+                    null, e);
         }
 
         try {
@@ -621,28 +610,18 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             int responseCode = (Integer) response.getClass()
                     .getDeclaredMethod("getResponseCode").invoke(response);
             String body = new String((byte[]) response.getClass()
-                    .getDeclaredMethod("getContent").invoke(response), APIResource.CHARSET);
+                    .getDeclaredMethod("getContent").invoke(response), CHARSET);
             return new EligibleResponse(responseCode, body);
-        } catch (InvocationTargetException e) {
-            throw new APIException(unknownErrorMessage, null, e);
+        } catch (ReflectiveOperationException e) {
+            throw new APIException(unknownErrorMessage, e);
         } catch (MalformedURLException e) {
-            throw new APIException(unknownErrorMessage, null, e);
-        } catch (NoSuchFieldException e) {
-            throw new APIException(unknownErrorMessage, null, e);
+            throw new APIException(unknownErrorMessage, e);
         } catch (SecurityException e) {
-            throw new APIException(unknownErrorMessage, null, e);
-        } catch (NoSuchMethodException e) {
-            throw new APIException(unknownErrorMessage, null, e);
-        } catch (ClassNotFoundException e) {
-            throw new APIException(unknownErrorMessage, null, e);
+            throw new APIException(unknownErrorMessage, e);
         } catch (IllegalArgumentException e) {
-            throw new APIException(unknownErrorMessage, null, e);
-        } catch (IllegalAccessException e) {
-            throw new APIException(unknownErrorMessage, null, e);
-        } catch (InstantiationException e) {
-            throw new APIException(unknownErrorMessage, null, e);
+            throw new APIException(unknownErrorMessage, e);
         } catch (UnsupportedEncodingException e) {
-            throw new APIException(unknownErrorMessage, null, e);
+            throw new APIException(unknownErrorMessage, e);
         }
     }
 }

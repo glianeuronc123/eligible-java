@@ -1,15 +1,12 @@
 package com.eligible.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.List;
 
-/**
- * Created by ankitdimania on 18/09/15.
- */
+@Getter
+@EqualsAndHashCode(callSuper=false)
 public class ServiceProviders extends EligibleObject {
     List<Physician> physicians;
-
-
-    public List<Physician> getPhysicians() {
-        return physicians;
-    }
 }

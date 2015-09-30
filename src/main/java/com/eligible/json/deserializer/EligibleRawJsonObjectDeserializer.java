@@ -8,7 +8,12 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
+/**
+ * {@link JsonDeserializer} for {@link EligibleRawJsonObject}.
+ */
 public class EligibleRawJsonObjectDeserializer implements JsonDeserializer<EligibleRawJsonObject> {
+
+    /** {@inheritDoc} */
     public EligibleRawJsonObject deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
         return new EligibleRawJsonObject(json.getAsJsonObject());

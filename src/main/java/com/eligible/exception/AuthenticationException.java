@@ -1,10 +1,16 @@
 package com.eligible.exception;
 
+/**
+ * Exception while authenticating.
+ */
 public class AuthenticationException extends EligibleException {
 
-
-    public AuthenticationException(String message, String requestId) {
-        super(message, requestId);
+    /**
+     * Create Authentication Exception.
+     * @param message
+     */
+    public AuthenticationException(String message) {
+        super(message);
     }
 
     private static final long serialVersionUID = 1L;
