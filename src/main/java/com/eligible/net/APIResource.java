@@ -7,17 +7,19 @@ import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.InvalidRequestException;
 import com.eligible.json.deserializer.DatesDeserializer;
 import com.eligible.json.deserializer.EligibleObjectTypeAdapterFactory;
-import com.eligible.json.deserializer.EligibleRawJsonObjectDeserializer;
+import com.eligible.json.deserializer.FinancialFlowListDeserializer;
 import com.eligible.model.Dates;
 import com.eligible.model.EligibleObject;
-import com.eligible.model.EligibleRawJsonObject;
+import com.eligible.model.FinancialFlow;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import lombok.Setter;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import static com.eligible.util.NetworkUtil.CHARSET;
@@ -32,7 +34,7 @@ public abstract class APIResource extends EligibleObject {
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .registerTypeAdapterFactory(new EligibleObjectTypeAdapterFactory())
             .registerTypeAdapter(Dates.class, new DatesDeserializer())
-            .registerTypeAdapter(EligibleRawJsonObject.class, new EligibleRawJsonObjectDeserializer())
+            .registerTypeAdapter(new TypeToken<List<FinancialFlow>>() { }.getType(), new FinancialFlowListDeserializer())
             .create();
 
     protected static String className(Class<?> clazz) {
@@ -40,6 +42,8 @@ public abstract class APIResource extends EligibleObject {
 
         if (className.equals("searchoptions")) {
             return "search_options";
+        } else if (className.equals("costestimates")) {
+            return "cost_estimates";
         } else {
             return className;
         }

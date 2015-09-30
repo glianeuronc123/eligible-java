@@ -1,3 +1,9 @@
+=== 1.1.0 2015-09-30
+
+* Added implementations for `Cost Estimates` APIs.
+
+* Automated Getter/Setter generation.
+
 === 1.0.0 2015-09-24
 
 * Added implementations for `Payer` and `Coverage` APIs.

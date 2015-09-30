@@ -24,18 +24,26 @@ public class CoverageTest extends BaseEligibleTest {
     }
 
     @Test
-    public void testRetrieve() throws EligibleException {
+    public void testCoverage() throws EligibleException {
         Coverage.all(DUMMAY_PARAMS);
 
-        verifyGet(Coverage.class, "https://gds.eligibleapi.com/v1.5/coverage/all");
+        verifyGet(Coverage.class, "https://gds.eligibleapi.com/v1.5/coverage/all", DUMMAY_PARAMS);
         verifyNoMoreInteractions(networkMock);
     }
 
     @Test
-    public void testAll() throws EligibleException {
+    public void testMedicare() throws EligibleException {
         Coverage.medicare(DUMMAY_PARAMS);
 
-        verifyGet(Coverage.Medicare.class, "https://gds.eligibleapi.com/v1.5/coverage/medicare");
+        verifyGet(Coverage.Medicare.class, "https://gds.eligibleapi.com/v1.5/coverage/medicare", DUMMAY_PARAMS);
+        verifyNoMoreInteractions(networkMock);
+    }
+
+    @Test
+    public void testCostEstimate() throws EligibleException {
+        Coverage.costEstimate(DUMMAY_PARAMS);
+
+        verifyGet(Coverage.CostEstimates.class, "https://gds.eligibleapi.com/v1.5/coverage/cost_estimates", DUMMAY_PARAMS);
         verifyNoMoreInteractions(networkMock);
     }
 

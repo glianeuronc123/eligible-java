@@ -2,6 +2,7 @@ package com.eligible.json.deserializer;
 
 import com.eligible.model.Date;
 import com.eligible.model.Dates;
+import com.eligible.net.APIResource;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,9 +19,8 @@ public class DatesDeserializer implements JsonDeserializer<Dates> {
     /** {@inheritDoc} */
     public Dates deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+
+        final Gson gson = APIResource.GSON;
 
         // Dates could be a list of Date.class, or a list of list of Date.class. Merging all list into one
         if (json.isJsonArray()) {

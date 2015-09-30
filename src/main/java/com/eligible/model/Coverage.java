@@ -19,8 +19,7 @@ import java.util.Map;
 public class Coverage extends APIResource {
     String createdAt;
     String eligibleId;
-    KnownIssues knownIssues;
-    String type;
+    List<String> knownIssues;
     Demographics demographics;
     Insurance insurance;
     Plan plan;
@@ -39,6 +38,12 @@ public class Coverage extends APIResource {
         return medicare(params, null);
     }
 
+    public static CostEstimates costEstimate(Map<String, Object> params)
+            throws AuthenticationException, InvalidRequestException,
+            APIConnectionException, APIException {
+        return costEstimate(params, null);
+    }
+
     public static Coverage all(Map<String, Object> params, RequestOptions options)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
@@ -52,6 +57,12 @@ public class Coverage extends APIResource {
         return Medicare.all(params, options);
     }
 
+    public static CostEstimates costEstimate(Map<String, Object> params, RequestOptions options)
+            throws AuthenticationException, InvalidRequestException,
+            APIConnectionException, APIException {
+        return CostEstimates.all(params, options);
+    }
+
 
     public String getId() {
         return getEligibleId();
@@ -63,8 +74,7 @@ public class Coverage extends APIResource {
     public static class Medicare extends APIResource {
         String createdAt;
         String eligibleId;
-        KnownIssues knownIssues;
-        String type;
+        List<String> knownIssues;
         String dateOfDeath;
         String lastName;
         String firstName;
@@ -99,6 +109,39 @@ public class Coverage extends APIResource {
                 APIConnectionException, APIException {
             String url = String.format("%s/%s", singleClassURL(Coverage.class), className(Medicare.class));
             return request(RequestMethod.GET, url, params, Medicare.class, options);
+        }
+
+
+        public String getId() {
+            return getEligibleId();
+        }
+    }
+
+
+    @Getter
+    @EqualsAndHashCode(callSuper=false)
+    public static class CostEstimates extends APIResource {
+        String createdAt;
+        String eligibleId;
+        List<String> knownIssues;
+        Demographics demographics;
+        Insurance insurance;
+        Plan plan;
+        List<Service> services;
+        SearchOptions searchOptions;
+        List<CostEstimate> costEstimates;
+
+        public static CostEstimates all(Map<String, Object> params)
+                throws AuthenticationException, InvalidRequestException,
+                APIConnectionException, APIException {
+            return all(params, null);
+        }
+
+        public static CostEstimates all(Map<String, Object> params, RequestOptions options)
+                throws AuthenticationException, InvalidRequestException,
+                APIConnectionException, APIException {
+            String url = String.format("%s/%s", singleClassURL(Coverage.class), className(CostEstimates.class));
+            return request(RequestMethod.GET, url, params, CostEstimates.class, options);
         }
 
 

@@ -7,10 +7,10 @@ import org.junit.BeforeClass;
 import org.mockito.ArgumentMatcher;
 import org.mockito.Mockito;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,6 +19,7 @@ import java.net.URLStreamHandler;
 import java.util.Collections;
 import java.util.Map;
 
+import static com.eligible.util.NetworkUtil.CHARSET;
 import static org.mockito.Mockito.*;
 
 public class BaseEligibleTest {
@@ -120,7 +121,7 @@ public class BaseEligibleTest {
 
     public static <T> void stubNetworkStream(String response) throws Exception {
         when(urlConnectionMock.getResponseCode()).thenReturn(200);
-        when(urlConnectionMock.getInputStream()).thenReturn(new StringBufferInputStream(response));
+        when(urlConnectionMock.getInputStream()).thenReturn(new ByteArrayInputStream(response.getBytes(CHARSET)));
     }
 
     public static class ParamMapMatcher extends ArgumentMatcher<Map<String, Object>> {
