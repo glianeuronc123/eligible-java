@@ -189,11 +189,13 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
     static String createJsonPayload(Map<String, Object> params, RequestOptions options)
             throws InvalidRequestException {
-        Map<String, String> flatParams = flattenParams(params);
-        flatParams.put("api_key", options.getApiKey());
-        flatParams.put("test", valueOf(options.isTest()));
+        if (params == null) {
+            params = new HashMap<String, Object>();
+        }
+        params.put("api_key", options.getApiKey());
+        params.put("test", valueOf(options.isTest()));
 
-        return APIResource.GSON.toJson(flatParams);
+        return APIResource.GSON.toJson(params);
     }
 
 

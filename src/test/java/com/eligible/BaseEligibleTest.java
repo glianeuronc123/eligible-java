@@ -2,6 +2,7 @@ package com.eligible;
 
 import com.eligible.exception.EligibleException;
 import com.eligible.net.*;
+import com.eligible.util.TestUtil;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.mockito.ArgumentMatcher;
@@ -186,17 +187,7 @@ public class BaseEligibleTest {
     }
 
     protected String resource(String path) throws IOException {
-        InputStream resource = getClass().getResourceAsStream(path);
-
-        ByteArrayOutputStream os = new ByteArrayOutputStream(1024);
-        byte[] buf = new byte[1024];
-
-        for (int i = resource.read(buf); i > 0; i = resource.read(buf)) {
-            os.write(buf, 0, i);
-        }
-
-        return os.toString("utf8");
-
+        return TestUtil.resource(path, getClass());
     }
 
 

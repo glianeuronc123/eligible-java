@@ -3,31 +3,32 @@ package com.eligible;
 import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.EligibleException;
 import com.eligible.exception.InvalidRequestException;
+import com.eligible.model.Claim;
 import com.eligible.model.Coverage;
 import com.eligible.model.Payer;
+import com.eligible.net.APIResource;
 import com.eligible.net.RequestOptions;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
+import static com.eligible.util.TestUtil.resource;
 import static org.junit.Assert.*;
 
 public class EligibleTest {
     static Map<String, Object> defaultCoverageParams = new HashMap<String, Object>();
     static Map<String, Object> defaultCoverageMedicareParams = new HashMap<String, Object>();
     static Map<String, Object> defaultCoverageCostEstimateParams = new HashMap<String, Object>();
+    static Map<String, Object> defaultClaimParams = new HashMap<String, Object>();
 
     @Before
     public void before() {
     }
 
     @BeforeClass
-    public static void setUp() {
+    public static void setUp() throws Exception {
         Eligible.apiKey = "n5Cddnj2KST6YV9J2l2ztQQ2VrdPfzA4JPbn"; // eligible public test key
         Eligible.isTest = true;
 
@@ -60,6 +61,11 @@ public class EligibleTest {
         defaultCoverageCostEstimateParams.put("member_first_name", "IDA");
         defaultCoverageCostEstimateParams.put("member_last_name", "FRANKLIN");
         defaultCoverageCostEstimateParams.put("member_dob", "1701-12-12");
+
+
+        String claimReqJson = new Scanner(resource("claim_request.json", EligibleTest.class))
+                .useDelimiter("\\A").next();
+        defaultClaimParams = APIResource.GSON.fromJson(claimReqJson, Map.class);
 
     }
 
@@ -232,6 +238,16 @@ public class EligibleTest {
         assertNotNull(costEstimates.getCostEstimates());
         assertFalse(costEstimates.getCostEstimates().isEmpty());
         assertNotNull(costEstimates.getCostEstimates().get(0));
+    }
+
+    @Test
+    public void testClaim() throws EligibleException {
+        Claim claim = Claim.all(defaultClaimParams);
+        assertNotNull(claim);
+        assertNotNull(claim.getReferenceId());
+        assertNotNull(claim.getId());
+        assertNotNull(claim.getSuccess());
+        assertNotNull(claim.getCreatedAt());
     }
 
 }

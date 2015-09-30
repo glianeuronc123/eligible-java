@@ -74,6 +74,11 @@ public class DeserializerTest extends BaseEligibleTest {
         testObjectDeserialize("medicare_coverage.json", Coverage.Medicare.class);
     }
 
+    @Test
+    public void testDeserializeClaim() throws Exception {
+        testObjectDeserialize("claim.json", Claim.class);
+    }
+
     public <T> void testListDeserialize(String jsonResource, Type typeOfT) throws Exception {
         String json = resource(jsonResource);
         List source = gson.fromJson(json, List.class);
