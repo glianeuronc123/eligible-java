@@ -26,6 +26,28 @@ public class EligibleTest {
     static Map<String, Object> defaultCoverageCostEstimateParams = new HashMap<String, Object>();
     static Map<String, Object> defaultClaimParams = new HashMap<String, Object>();
 
+    static String getUniqueEmail() {
+        return String.format("test+bindings-%s@eligible.com", UUID.randomUUID().toString().substring(24));
+    }
+
+    static String getUniquePlanId() {
+        return String.format("MY-J-PLAN-%s", UUID.randomUUID().toString().substring(24));
+    }
+
+    static Map<String, Object> getUniquePlanParams() {
+        Map<String, Object> uniqueParams = new HashMap<String, Object>();
+//        uniqueParams.putAll(defaultCardParams);
+        uniqueParams.put("id", getUniquePlanId());
+        return uniqueParams;
+    }
+
+    static Map<String, Object> getSubscriptionParams() throws EligibleException {
+//        Plan plan = Plan.create(getUniquePlanParams());
+        Map<String, Object> subscriptionParams = new HashMap<String, Object>();
+//        subscriptionParams.put("plan", plan.getId());
+        return subscriptionParams;
+    }
+
     @Before
     public void before() {
     }
