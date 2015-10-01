@@ -21,7 +21,7 @@ public class FinancialFlowListDeserializer implements JsonDeserializer<List<Fina
 
         final Gson gson = APIResource.GSON;
 
-        // List could be a list of FinancialFlow.class, or a list of list of FinancialFlow.class. Merging all list into one
+        // List could be a list of FinancialFlow.class, or a list of list of FinancialFlow.class. Merging all into one
         List<FinancialFlow> collection = new ArrayList<FinancialFlow>();
         JsonArray jsonFinancialFlows = json.getAsJsonArray();
 

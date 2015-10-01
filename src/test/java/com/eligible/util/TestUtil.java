@@ -1,22 +1,28 @@
 package com.eligible.util;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
+/**
+ * Utility methods for Testing.
+ */
 public abstract class TestUtil {
 
+    /**
+     * Read the resource file.
+     *
+     * @param path file name
+     * @param clazz package location of file
+     * @return file content
+     * @throws IOException
+     */
     public static String resource(String path, Class clazz) throws IOException {
-        InputStream resource = clazz.getResourceAsStream(path);
+        BufferedReader resource = new BufferedReader(new InputStreamReader(clazz.getResourceAsStream(path)));
 
-        ByteArrayOutputStream os = new ByteArrayOutputStream(1024);
-        byte[] buf = new byte[1024];
-
-        for (int i = resource.read(buf); i > 0; i = resource.read(buf)) {
-            os.write(buf, 0, i);
+        StringBuilder sb = new StringBuilder();
+        for (String s = resource.readLine(); s != null; s = resource.readLine()) {
+            sb.append(s);
         }
 
-        return os.toString("utf8");
-
+        return sb.toString();
     }
 }

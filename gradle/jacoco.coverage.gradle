@@ -8,8 +8,8 @@ ext {
         'branch'     : 42,
         'line'       : 57,
         'complexity' : 48,
-        'method'     : 65,
-        'class'      : 81, //TODO - 100%
+        'method'     : 64,
+        'class'      : 80, //TODO - 100%
     ]
 }
 

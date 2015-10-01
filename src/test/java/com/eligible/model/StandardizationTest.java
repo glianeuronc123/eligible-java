@@ -50,41 +50,46 @@ public class StandardizationTest {
     public void allNonDeprecatedMethodsTakeOptions() throws IOException, NoSuchMethodException {
         for (Class aClass : getAllModels()) {
             for (Method method : aClass.getMethods()) {
-                // Skip methods not declared on the base class.
-                if (method.getDeclaringClass() != aClass) continue;
-                // Skip equals
-                if (method.getName().equals("equals")) continue;
-                // Skip setters
-                if (method.getName().startsWith("set")) continue;
-                // Skip getters
-                if (method.getName().startsWith("get")) continue;
+
+                if (method.getDeclaringClass() != aClass     // Skip methods not declared on the base class.
+                    || method.getName().equals("equals")     // Skip equals
+                    || method.getName().startsWith("set")    // Skip setters
+                    || method.getName().startsWith("get")) { // Skip getters
+                    continue;
+                }
 
                 // If more than one method with the same parameter types is declared in a class, and one of these
                 // methods has a return type that is more specific than any of the others, that method is returned;
                 // otherwise one of the methods is chosen arbitrarily.
                 Method mostSpecificMethod = aClass.getDeclaredMethod(method.getName(), method.getParameterTypes());
-                if (!method.equals(mostSpecificMethod)) continue;
-
                 Invokable<?, Object> invokable = Invokable.from(method);
-                // Skip private methods.
-                if (invokable.isPrivate()) continue;
-                // Skip deprecated methods - we need to keep them around, but aren't asserting their type.
-                if (invokable.isAnnotationPresent(Deprecated.class)) continue;
                 ImmutableList<Parameter> parameters = invokable.getParameters();
-                // Skip empty parameter lists - assume the author is using default values for the RequestOptions
-                if (parameters.isEmpty()) continue;
+
+                if (!method.equals(mostSpecificMethod)
+                    || invokable.isPrivate()                  // Skip private methods.
+                        // Skip deprecated methods - we need to keep them around, but aren't asserting their type.
+                    || invokable.isAnnotationPresent(Deprecated.class)
+                        // Skip empty parameter lists - assume the author is using default values for the RequestOptions
+                    || parameters.isEmpty()) {
+                        continue;
+                }
+
                 Parameter lastParam = parameters.get(parameters.size() - 1);
                 Class<?> lastParamType = lastParam.getType().getRawType();
 
                 // Skip methods that have exactly one param which is a map.
-                if (Map.class.equals(lastParamType) && parameters.size() == 1) continue;
+                if (Map.class.equals(lastParamType) && parameters.size() == 1) {
+                    continue;
+                }
 
 
                 if (String.class.equals(lastParamType) && parameters.size() == 1) {
-                    // Skip `public static Foo retrieve(String id) {...` helper methods
-                    if ("retrieve".equals(method.getName())) continue;
-                    // Skip `public static SearchOptions searchOptions(String payerId) {...` helper methods
-                    if ("searchOptions".equals(method.getName())) continue;
+                            // Skip `public static Foo retrieve(String id) {...` helper methods
+                    if ("retrieve".equals(method.getName())
+                            // Skip `public static SearchOptions searchOptions(String payerId) {...` helper methods
+                        || "searchOptions".equals(method.getName())) {
+                        continue;
+                    }
                 }
 
                 assertTrue(

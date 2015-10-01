@@ -1,8 +1,17 @@
+
+// exclude generated sources
+def excludePattern = 'com/eligible/model/'
+def excludePatternAntStyle = '**/' + excludePattern + '*'
+
+
 // Checkstyle
 apply plugin: 'checkstyle'
 checkstyle {
-    ignoreFailures = true
+    ignoreFailures = false
+    configProperties = [baseDir: rootDir]
 }
+checkstyleMain.exclude excludePatternAntStyle
+
 
 // FindBugs
 apply plugin: 'findbugs'
@@ -10,17 +19,12 @@ findbugs {
     ignoreFailures = true
 }
 
-// exclude generated sources
-def excludePattern = 'com/eligible/model/'
-def excludePatternAntStyle = '**/' + excludePattern + '*'
 tasks.withType(FindBugs) {
     classes = classes.filter {
         !it.path.contains(excludePattern)
     }
 }
-tasks.withType(Checkstyle) {
-    exclude excludePatternAntStyle
-}
+
 tasks.withType(Pmd) {
     exclude excludePatternAntStyle
 }

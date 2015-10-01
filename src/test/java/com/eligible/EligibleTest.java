@@ -17,6 +17,9 @@ import java.util.*;
 import static com.eligible.util.TestUtil.resource;
 import static org.junit.Assert.*;
 
+/**
+ * Main API Tests for running real Sandbox API calls.
+ */
 public class EligibleTest {
     static Map<String, Object> defaultCoverageParams = new HashMap<String, Object>();
     static Map<String, Object> defaultCoverageMedicareParams = new HashMap<String, Object>();

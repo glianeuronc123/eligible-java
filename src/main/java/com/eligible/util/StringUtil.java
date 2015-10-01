@@ -1,9 +1,18 @@
 package com.eligible.util;
 
-import com.eligible.net.RequestOptions;
+import java.security.InvalidParameterException;
 
+/**
+ * Utility methods for {@link String}.
+ */
 public abstract class StringUtil {
 
+    /**
+     * {@link String#trim()} the input.
+     * @param param
+     * @return trimmed String.
+     * @throws InvalidParameterException if {@code param} is blank.
+     */
     public static String normalizeString(String param) {
         // null values are considered "valid"
         if (param == null) {
@@ -11,7 +20,7 @@ public abstract class StringUtil {
         }
         String normalized = param.trim();
         if (normalized.isEmpty()) {
-            throw new RequestOptions.InvalidRequestOptionsException("Empty parameter specified!");
+            throw new InvalidParameterException("Empty parameter specified!");
         }
         return normalized;
     }

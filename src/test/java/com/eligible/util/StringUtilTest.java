@@ -1,7 +1,8 @@
 package com.eligible.util;
 
-import com.eligible.net.RequestOptions;
 import org.junit.Test;
+
+import java.security.InvalidParameterException;
 
 import static com.eligible.util.StringUtil.normalizeString;
 import static org.junit.Assert.assertEquals;
@@ -24,12 +25,12 @@ public class StringUtilTest {
         assertNull(normalizeString(null));
     }
 
-    @Test(expected = RequestOptions.InvalidRequestOptionsException.class)
+    @Test(expected = InvalidParameterException.class)
     public void testNormalizeStringEmpty() {
         normalizeString("");
     }
 
-    @Test(expected = RequestOptions.InvalidRequestOptionsException.class)
+    @Test(expected = InvalidParameterException.class)
     public void testNormalizeStringSpaces() {
         normalizeString("  ");
     }

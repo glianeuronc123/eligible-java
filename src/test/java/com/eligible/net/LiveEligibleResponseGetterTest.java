@@ -46,7 +46,7 @@ public class LiveEligibleResponseGetterTest extends BaseEligibleTest {
 
     @Test
     public void testCreateQueryWithList() throws EligibleException, UnsupportedEncodingException {
-		/* Use LinkedHashMap because it preserves iteration order */
+        /* Use LinkedHashMap because it preserves iteration order */
         Map<String, Object> params = new LinkedHashMap<String, Object>();
         List<String> nested = new LinkedList<String>();
         nested.add("A");
