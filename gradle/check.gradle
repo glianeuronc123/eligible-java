@@ -25,6 +25,6 @@ tasks.withType(FindBugs) {
     }
 }
 
-tasks.withType(Pmd) {
-    exclude excludePatternAntStyle
-}
+
+// pmd
+apply plugin: 'pmd'

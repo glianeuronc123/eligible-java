@@ -52,9 +52,9 @@ public class StandardizationTest {
             for (Method method : aClass.getMethods()) {
 
                 if (method.getDeclaringClass() != aClass     // Skip methods not declared on the base class.
-                    || method.getName().equals("equals")     // Skip equals
-                    || method.getName().startsWith("set")    // Skip setters
-                    || method.getName().startsWith("get")) { // Skip getters
+                        || method.getName().equals("equals")     // Skip equals
+                        || method.getName().startsWith("set")    // Skip setters
+                        || method.getName().startsWith("get")) { // Skip getters
                     continue;
                 }
 
@@ -66,12 +66,12 @@ public class StandardizationTest {
                 ImmutableList<Parameter> parameters = invokable.getParameters();
 
                 if (!method.equals(mostSpecificMethod)
-                    || invokable.isPrivate()                  // Skip private methods.
+                        || invokable.isPrivate()                  // Skip private methods.
                         // Skip deprecated methods - we need to keep them around, but aren't asserting their type.
-                    || invokable.isAnnotationPresent(Deprecated.class)
+                        || invokable.isAnnotationPresent(Deprecated.class)
                         // Skip empty parameter lists - assume the author is using default values for the RequestOptions
-                    || parameters.isEmpty()) {
-                        continue;
+                        || parameters.isEmpty()) {
+                    continue;
                 }
 
                 Parameter lastParam = parameters.get(parameters.size() - 1);
@@ -84,11 +84,17 @@ public class StandardizationTest {
 
 
                 if (String.class.equals(lastParamType) && parameters.size() == 1) {
+                    switch (method.getName()) {
                             // Skip `public static Foo retrieve(String id) {...` helper methods
-                    if ("retrieve".equals(method.getName())
-                            // Skip `public static SearchOptions searchOptions(String payerId) {...` helper methods
-                        || "searchOptions".equals(method.getName())) {
-                        continue;
+                        case "retrieve":
+                            // Skip `public static SearchOptions searchOptions(String payerId) {...`
+                        case "searchOptions":
+                            // Skip `public static Acknowledgements acknowledgements(String referenceId) {...`
+                        case "acknowledgements":
+                            // Skip `public static PaymentReports paymentReports(String referenceId) {...`
+                        case "paymentReports":
+                            continue;
+                        default:
                     }
                 }
 
