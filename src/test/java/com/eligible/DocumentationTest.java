@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 import static java.lang.String.format;
 
+/** Test for validating complete updation of {@link Eligible#VERSION}. */
 public class DocumentationTest {
 
     private BufferedReader getBufferedReader(String fileName) throws IOException {
@@ -67,8 +68,9 @@ public class DocumentationTest {
         List<String> mentioningLines = new ArrayList<String>();
         String line;
         while ((line = reader.readLine()) != null) {
-            if (line.contains(Eligible.VERSION))
+            if (line.contains(Eligible.VERSION)) {
                 mentioningLines.add(line);
+            }
         }
         String message = format("Expected %d mentions of the eligible-java version in the Readme, but found %d:%n%s", expectedMentionsOfVersion, mentioningLines.size(), Joiner.on(", ").join(mentioningLines));
         Assert.assertSame(message, expectedMentionsOfVersion, mentioningLines.size());

@@ -49,8 +49,8 @@ public class DeserializerTest extends BaseEligibleTest {
         Assert.assertEquals(payer.getCreatedAt(), payer.get("created_at"));
         Assert.assertEquals(payer.getUpdatedAt(), payer.get("updated_at"));
         Assert.assertEquals(payer.getNames(), payer.get("names"));
-        Assert.assertEquals(payer.getSupportedEndpoints().size(), ((List)payer.get("supported_endpoints")).size());
-        Assert.assertEquals(payer.getSupportedEndpoints().get(0).getRawValues(), ((List)payer.get("supported_endpoints")).get(0));
+        Assert.assertEquals(payer.getSupportedEndpoints().size(), ((List) payer.get("supported_endpoints")).size());
+        Assert.assertEquals(payer.getSupportedEndpoints().get(0).getRawValues(), ((List) payer.get("supported_endpoints")).get(0));
     }
 
     @Test
@@ -72,6 +72,11 @@ public class DeserializerTest extends BaseEligibleTest {
     @Test
     public void testDeserializeMedicareCoverage() throws Exception {
         testObjectDeserialize("medicare_coverage.json", Coverage.Medicare.class);
+    }
+
+    @Test
+    public void testDeserializeClaim() throws Exception {
+        testObjectDeserialize("claim.json", Claim.class);
     }
 
     public <T> void testListDeserialize(String jsonResource, Type typeOfT) throws Exception {
@@ -101,8 +106,9 @@ public class DeserializerTest extends BaseEligibleTest {
 
 
     public static void assertEquals(List source, List destination, LinkedList<String> keys) {
-        if (source == null && destination == null)
+        if (source == null && destination == null) {
             return;
+        }
 
         if (source == null || destination == null) {
             fail(keys + " node failed");
@@ -128,8 +134,9 @@ public class DeserializerTest extends BaseEligibleTest {
     }
 
     public static void assertEquals(Map<String, ?> source, Map<String, ?> destination, LinkedList<String> keys) {
-        if (source == null && destination == null)
+        if (source == null && destination == null) {
             return;
+        }
 
         if (source == null || destination == null) {
             fail(keys + " node failed. Source:" + source + ", Destination: " + destination);

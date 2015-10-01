@@ -76,7 +76,7 @@
 
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
-        <module name="AvoidStarImport"/>
+        <!--<module name="AvoidStarImport"/>--> <!-- allow .* imports -->
         <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
@@ -156,7 +156,10 @@
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
-        <module name="VisibilityModifier"/>
+        <module name="VisibilityModifier">
+            <!-- Used for global setup: Eligible.apiKey = <your api key> -->
+            <property name="publicMemberPattern" value="^(apiKey|apiVersion|isTest)$"/>
+        </module>
 
 
         <!-- Miscellaneous other checks.                   -->
@@ -185,4 +188,10 @@
         <property name="checkFormat" value="$1"/>
         <property name="influenceFormat" value="1"/>
     </module>
+
+    <!-- Suppressions for unit testing code -->
+    <module name="SuppressionFilter">
+        <property name="file" value="${baseDir}/config/checkstyle/suppress.xml" />
+    </module>
+
 </module>

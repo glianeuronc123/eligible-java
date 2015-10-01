@@ -1,8 +1,15 @@
 package com.eligible.net;
 
 /**
- * Created by ankitdimania on 22/09/15.
+ * HTTP Request Methods.
  */
 public enum RequestMethod {
-    GET, POST, DELETE
+    /** HTTP GET. */
+    GET,
+
+    /** HTTP POST. */
+    POST,
+
+    /** HTTP DELETE. */
+    DELETE,
 }

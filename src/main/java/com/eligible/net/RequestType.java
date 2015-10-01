@@ -1,8 +1,12 @@
 package com.eligible.net;
 
 /**
- * Created by ankitdimania on 22/09/15.
+ * HTTP Request type.
  */
 public enum RequestType {
-    NORMAL, MULTIPART
+    /** HTTP NORMAL Request. */
+    NORMAL,
+
+    /** HTTP Multipart Request. */
+    MULTIPART,
 }

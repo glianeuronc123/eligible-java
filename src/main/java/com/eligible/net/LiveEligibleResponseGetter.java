@@ -17,19 +17,25 @@ import java.net.*;
 import java.util.*;
 
 import static com.eligible.Eligible.*;
-import static com.eligible.util.NetworkUtil.CHARSET;
-import static com.eligible.util.NetworkUtil.urlEncode;
+import static com.eligible.util.NetworkUtil.*;
 import static java.lang.String.valueOf;
+import static java.net.HttpURLConnection.*;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
+/**
+ * Default implementation of {@link EligibleResponseGetter} for making live Eligible API calls.
+ */
 public class LiveEligibleResponseGetter implements EligibleResponseGetter {
-    public static final String DNS_CACHE_TTL_PROPERTY_NAME = "networkaddress.cache.ttl";
 
-    /*
-     * Set this property to override your environment's default
-     * URLStreamHandler; Settings the property should not be needed in most
-     * environments.
+    /**
+     * Set this property to override your environment's default URLStreamHandler;
+     * Settings the property should not be needed in most environments.
      */
     public static final String CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME = "com.eligible.net.customURLStreamHandler";
+
+    private static final String DNS_CACHE_TTL_PROPERTY_NAME = "networkaddress.cache.ttl";
+    private static final int CONNECTION_TIMEOUT_MILLIS = (int) SECONDS.toMillis(30);
+    private static final int READ_TIMEOUT_MILLIS = (int) SECONDS.toMillis(80);
 
     @Override
     public <T> T request(
@@ -38,8 +44,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             Map<String, Object> params,
             Type typeOfT,
             RequestType type,
-            RequestOptions options) throws AuthenticationException, InvalidRequestException, APIConnectionException, APIException {
-        return _request(method, url, params, typeOfT, type, options);
+            RequestOptions options)
+            throws AuthenticationException, InvalidRequestException, APIConnectionException, APIException {
+        return requestInternal(method, url, params, typeOfT, type, options);
     }
 
     private static String urlEncodePair(String k, String v)
@@ -87,11 +94,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                         .getConstructor();
                 URLStreamHandler customHandler = constructor.newInstance();
                 eligibleURL = new URL(null, url, customHandler);
-            } catch (ReflectiveOperationException e) {
-                throw new IOException(e);
-            } catch (SecurityException e) {
-                throw new IOException(e);
-            } catch (IllegalArgumentException e) {
+            } catch (ReflectiveOperationException | SecurityException | IllegalArgumentException e) {
                 throw new IOException(e);
             }
         } else {
@@ -109,8 +112,8 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         } else {
             conn = (HttpURLConnection) eligibleURL.openConnection();
         }
-        conn.setConnectTimeout(30 * 1000);
-        conn.setReadTimeout(80 * 1000);
+        conn.setConnectTimeout(CONNECTION_TIMEOUT_MILLIS);
+        conn.setReadTimeout(READ_TIMEOUT_MILLIS);
         conn.setUseCaches(false);
         for (Map.Entry<String, String> header : getHeaders(options).entrySet()) {
             conn.setRequestProperty(header.getKey(), header.getValue());
@@ -189,11 +192,13 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
     static String createJsonPayload(Map<String, Object> params, RequestOptions options)
             throws InvalidRequestException {
-        Map<String, String> flatParams = flattenParams(params);
-        flatParams.put("api_key", options.getApiKey());
-        flatParams.put("test", valueOf(options.isTest()));
+        if (params == null) {
+            params = new HashMap<String, Object>();
+        }
+        params.put("api_key", options.getApiKey());
+        params.put("test", valueOf(options.isTest()));
 
-        return APIResource.GSON.toJson(flatParams);
+        return APIResource.GSON.toJson(params);
     }
 
 
@@ -223,9 +228,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                 }
                 flatParams.putAll(flattenParams(flatNestedMap));
             } else if ("".equals(value)) {
-                throw new InvalidRequestException("You cannot set '" + key + "' to an empty string. " +
-                        "We interpret empty strings as null in requests. " +
-                        "You may set '" + key + "' to null to delete the property.",
+                throw new InvalidRequestException("You cannot set '" + key + "' to an empty string. "
+                        + "We interpret empty strings as null in requests. "
+                        + "You may set '" + key + "' to null to delete the property.",
                         key);
             } else if (value == null) {
                 flatParams.put(key, "");
@@ -237,9 +242,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
     }
 
     @Getter
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     private static class Error extends EligibleObject {
-        String error;
+        private String error;
     }
 
     private static String getResponseBody(InputStream responseStream)
@@ -293,7 +298,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             String rBody;
             Map<String, List<String>> headers;
 
-            if (rCode >= 200 && rCode < 300) {
+            if (rCode >= HTTP_OK && rCode < HTTP_MULT_CHOICE) {
                 rBody = getResponseBody(conn.getInputStream());
             } else {
                 rBody = getResponseBody(conn.getErrorStream());
@@ -316,9 +321,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         }
     }
 
-    private static <T> T _request(RequestMethod method,
-                                  String url, Map<String, Object> params, Type typeOfT,
-                                  RequestType type, RequestOptions options)
+    private static <T> T requestInternal(RequestMethod method,
+                                         String url, Map<String, Object> params, Type typeOfT,
+                                         RequestType type, RequestOptions options)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
         if (options == null) {
@@ -342,7 +347,8 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             throw new AuthenticationException(
                     "No API key provided. (HINT: set your API key using 'Eligible.apiKey = <API-KEY>'. "
                             + "You can generate API keys from the Eligible web interface. "
-                            + "See https://eligible.com/profile/access_keys for details or email support@eligible.com if you have questions.");
+                            + "See https://eligible.com/profile/access_keys for details "
+                            + "or email support@eligible.com if you have questions.");
         }
 
         try {
@@ -364,7 +370,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             int rCode = response.getResponseCode();
             String rBody = response.getResponseBody();
 
-            if (rCode < 200 || rCode >= 300) {
+            if (rCode < HTTP_OK || rCode >= HTTP_MULT_CHOICE) {
                 handleAPIError(rBody, rCode);
             }
             return APIResource.GSON.fromJson(rBody, typeOfT);
@@ -421,7 +427,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         try {
             conn = createEligibleConnection(url, options);
 
-            String boundary = MultipartProcessor.getBoundary();
+            String boundary = getBoundary();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", String.format(
@@ -469,7 +475,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             String rBody;
             Map<String, List<String>> headers;
 
-            if (rCode >= 200 && rCode < 300) {
+            if (rCode >= HTTP_OK && rCode < HTTP_MULT_CHOICE) {
                 rBody = getResponseBody(conn.getInputStream());
             } else {
                 rBody = getResponseBody(conn.getErrorStream());
@@ -499,23 +505,27 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         JsonElement rBodyJson = APIResource.GSON.toJsonTree(rBody);
 
         String message = null;
-        if(rBodyJson.isJsonObject()) {
+        if (rBodyJson.isJsonObject()) {
             Error error = APIResource.GSON.fromJson(rBody, Error.class);
             message = error.getError();
         } else if (rBodyJson.isJsonPrimitive()) {
             message = rBodyJson.getAsString();
         }
         switch (rCode) {
-            case 400:
+            case HTTP_BAD_REQUEST:
                 throw new InvalidRequestException(message);
-            case 404:
+            case HTTP_NOT_FOUND:
                 throw new InvalidRequestException(message);
-            case 401:
+            case HTTP_UNAUTHORIZED:
                 throw new AuthenticationException(message);
             default:
                 throw new APIException(message);
         }
     }
+
+    // GAE requests can time out after 60 seconds, so make sure we leave
+    // some time for the application to handle a slow Eligible
+    private static final Double GAE_DEADLINE = Double.valueOf(55);
 
     /*
      * This is slower than usual because of reflection but avoids having to
@@ -568,11 +578,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             Class<?> fetchOptionsClass = Class
                     .forName("com.google.appengine.api.urlfetch.FetchOptions");
 
-            // GAE requests can time out after 60 seconds, so make sure we leave
-            // some time for the application to handle a slow Eligible
             fetchOptionsClass.getDeclaredMethod("setDeadline",
                     Double.class)
-                    .invoke(fetchOptions, (double) 55);
+                    .invoke(fetchOptions, GAE_DEADLINE);
 
             Class<?> requestClass = Class
                     .forName("com.google.appengine.api.urlfetch.HTTPRequest");
@@ -612,15 +620,8 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             String body = new String((byte[]) response.getClass()
                     .getDeclaredMethod("getContent").invoke(response), CHARSET);
             return new EligibleResponse(responseCode, body);
-        } catch (ReflectiveOperationException e) {
-            throw new APIException(unknownErrorMessage, e);
-        } catch (MalformedURLException e) {
-            throw new APIException(unknownErrorMessage, e);
-        } catch (SecurityException e) {
-            throw new APIException(unknownErrorMessage, e);
-        } catch (IllegalArgumentException e) {
-            throw new APIException(unknownErrorMessage, e);
-        } catch (UnsupportedEncodingException e) {
+        } catch (ReflectiveOperationException | MalformedURLException | SecurityException
+                | IllegalArgumentException | UnsupportedEncodingException e) {
             throw new APIException(unknownErrorMessage, e);
         }
     }

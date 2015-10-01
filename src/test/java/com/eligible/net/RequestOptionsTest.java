@@ -6,9 +6,9 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class RequestOptionsTest {
-    final String API_KEY = "test_api_key";
-    final String API_VERSION = "test_api_version";
-    final boolean TEST = true;
+    private static final String API_KEY = "test_api_key";
+    private static final String API_VERSION = "test_api_version";
+    private static final boolean TEST = true;
 
     @Test
     public void testGetDefault() {
@@ -29,15 +29,6 @@ public class RequestOptionsTest {
                                 .setApiVersion(API_VERSION)
                                 .setTest(TEST).build();
         verifyRequestOptions(ro, API_KEY, API_VERSION, TEST);
-    }
-
-    @Test
-    public void testRequestOptionsBuilderClear() {
-        RequestOptions ro = RequestOptions.builder()
-                                .clearApiKey()
-                                .clearApiVersion()
-                                .clearTest().build();
-        verifyRequestOptions(ro, null, null, false);
     }
 
     private void verifyRequestOptions(RequestOptions ro, String apiKey, String apiVersion, boolean test) {

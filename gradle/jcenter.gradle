@@ -11,6 +11,28 @@ publishing {
             artifactId archivesBaseName
             version version
 
+            pom.withXml {
+                def root = asNode()
+
+                root.appendNode('name',         'eligible-java')
+                root.appendNode('description',  'Java bindings for Eligible APIs (https://eligible.com).')
+                root.appendNode('url',          'https://github.com/eligible/eligible-java')
+
+                def scm = root.appendNode('scm')
+                scm.appendNode('url', 'https://github.com/eligible/eligible-java')
+                scm.appendNode('connection', 'git@github.com:eligible/eligible-java.git')
+                scm.appendNode('developerConnection', 'git@github.com:eligible/eligible-java.git')
+
+                def license = root.appendNode('licenses').appendNode('license')
+                license.appendNode('name', 'The MIT License (MIT)')
+                license.appendNode('url', 'https://opensource.org/licenses/MIT')
+
+                def developer = root.appendNode('developers').appendNode('developer')
+                developer.appendNode('id', 'eligible')
+                developer.appendNode('name', 'Eligible Engineering')
+                developer.appendNode('email', 'engineering@eligible.com')
+            }
+
             artifact sourcesJar
             artifact javadocJar
         }

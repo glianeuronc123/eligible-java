@@ -25,16 +25,29 @@ import java.util.Map;
 import static com.eligible.util.NetworkUtil.CHARSET;
 import static com.eligible.util.NetworkUtil.urlEncode;
 
+/**
+ * Base class for all Eligible API Endpoints.
+ */
 public abstract class APIResource extends EligibleObject {
+
+    /**
+     * {@link EligibleResponseGetter} for fetching API responses. It can be overridden to a mock for TESTING.
+     *
+     * @param eligibleResponseGetter eligible response getter
+     */
     @Setter
     private static EligibleResponseGetter eligibleResponseGetter = new LiveEligibleResponseGetter();
 
-
+    /**
+     * {@link Gson} deserializer for API responses.
+     */
     public static final Gson GSON = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .registerTypeAdapterFactory(new EligibleObjectTypeAdapterFactory())
             .registerTypeAdapter(Dates.class, new DatesDeserializer())
-            .registerTypeAdapter(new TypeToken<List<FinancialFlow>>() { }.getType(), new FinancialFlowListDeserializer())
+            .registerTypeAdapter(
+                    new TypeToken<List<FinancialFlow>>() { }.getType(),
+                    new FinancialFlowListDeserializer())
             .create();
 
     protected static String className(Class<?> clazz) {

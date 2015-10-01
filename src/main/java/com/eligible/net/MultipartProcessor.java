@@ -4,22 +4,27 @@ import lombok.Cleanup;
 
 import java.io.*;
 import java.net.URLConnection;
-import java.util.Random;
 
+/**
+ * Implementation for making HTTP multipart requests.
+ */
 public class MultipartProcessor {
     private final String boundary;
     private static final String LINE_BREAK = "\r\n";
+    private static final int OUTPUT_BUFFER_SIZE = 4096;
     private OutputStream outputStream;
     private PrintWriter writer;
     private String charset;
     private java.net.HttpURLConnection conn;
 
-    public static String getBoundary() {
-        Random random = new Random();
-        Long positiveRandomLong = Math.abs(random.nextLong());
-        return String.valueOf(positiveRandomLong);
-    }
-
+    /**
+     * Create a HTTP Multipart Processor.
+     *
+     * @param conn
+     * @param boundary
+     * @param charset
+     * @throws IOException
+     */
     public MultipartProcessor(java.net.HttpURLConnection conn, String boundary, String charset)
             throws IOException {
         this.boundary = boundary;
@@ -30,6 +35,12 @@ public class MultipartProcessor {
         this.writer = new PrintWriter(new OutputStreamWriter(outputStream, charset), true);
     }
 
+    /**
+     * Add for data into request.
+     *
+     * @param name
+     * @param value
+     */
     public void addFormField(String name, String value) {
         writer.append("--" + boundary).append(LINE_BREAK);
         writer.append("Content-Disposition: form-data; name=\"" + name + "\"")
@@ -39,6 +50,13 @@ public class MultipartProcessor {
         writer.flush();
     }
 
+    /**
+     * Add file to be uploading into request.
+     *
+     * @param name
+     * @param file
+     * @throws IOException
+     */
     public void addFileField(String name, File file) throws IOException {
         String fileName = file.getName();
         writer.append("--" + boundary).append(LINE_BREAK);
@@ -56,7 +74,7 @@ public class MultipartProcessor {
         writer.flush();
 
         @Cleanup FileInputStream inputStream = new FileInputStream(file);
-        byte[] buffer = new byte[4096];
+        byte[] buffer = new byte[OUTPUT_BUFFER_SIZE];
         int bytesRead;
         while ((bytesRead = inputStream.read(buffer)) != -1) {
             outputStream.write(buffer, 0, bytesRead);
@@ -67,6 +85,10 @@ public class MultipartProcessor {
         writer.flush();
     }
 
+    /**
+     * Flush streams and cleanup.
+     * @throws IOException
+     */
     public void finish() throws IOException {
         writer.append("--" + boundary + "--").append(LINE_BREAK);
         writer.flush();
