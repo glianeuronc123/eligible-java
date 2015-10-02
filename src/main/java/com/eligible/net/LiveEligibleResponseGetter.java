@@ -358,12 +358,10 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                     response = getEligibleResponse(method, url, params, options);
                     break;
                 case MULTIPART:
-                    response = getMultipartEligibleResponse(method, url, params,
-                            options);
+                    response = getMultipartEligibleResponse(method, url, params, options);
                     break;
                 default:
-                    throw new RuntimeException(
-                            "Invalid APIResource request type. "
+                    throw new RuntimeException("Invalid APIResource request type. "
                                     + "This indicates a bug in the Eligible bindings. Please contact "
                                     + "support@eligible.com for assistance.");
             }

@@ -8,9 +8,9 @@ import com.eligible.exception.InvalidRequestException;
 import com.eligible.json.deserializer.DatesDeserializer;
 import com.eligible.json.deserializer.EligibleObjectTypeAdapterFactory;
 import com.eligible.json.deserializer.FinancialFlowListDeserializer;
-import com.eligible.model.Dates;
 import com.eligible.model.EligibleObject;
-import com.eligible.model.FinancialFlow;
+import com.eligible.model.coverage.Dates;
+import com.eligible.model.coverage.FinancialFlow;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -53,12 +53,15 @@ public abstract class APIResource extends EligibleObject {
     protected static String className(Class<?> clazz) {
         String className = clazz.getSimpleName().toLowerCase();
 
-        if (className.equals("searchoptions")) {
-            return "search_options";
-        } else if (className.equals("costestimates")) {
-            return "cost_estimates";
-        } else {
-            return className;
+        switch (className) {
+            case "searchoptions":
+                return "search_options";
+            case "costestimates":
+                return "cost_estimates";
+            case "paymentreports":
+                return "payment_reports";
+            default:
+                return className;
         }
     }
 

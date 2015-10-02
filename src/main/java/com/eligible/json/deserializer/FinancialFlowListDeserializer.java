@@ -1,6 +1,6 @@
 package com.eligible.json.deserializer;
 
-import com.eligible.model.FinancialFlow;
+import com.eligible.model.coverage.FinancialFlow;
 import com.eligible.net.APIResource;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;

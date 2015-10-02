@@ -1,6 +1,7 @@
 package com.eligible.model;
 
 import com.eligible.BaseEligibleTest;
+import com.eligible.model.coverage.Dates;
 import com.eligible.net.APIResource;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

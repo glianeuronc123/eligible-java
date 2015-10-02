@@ -1,7 +1,7 @@
 package com.eligible.json.deserializer;
 
-import com.eligible.model.Date;
-import com.eligible.model.Dates;
+import com.eligible.model.coverage.Date;
+import com.eligible.model.coverage.Dates;
 import com.eligible.net.APIResource;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
