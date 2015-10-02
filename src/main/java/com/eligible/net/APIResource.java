@@ -58,6 +58,8 @@ public abstract class APIResource extends EligibleObject {
                 return "search_options";
             case "costestimates":
                 return "cost_estimates";
+            case "paymentreport":
+                return "payment_report";
             case "paymentreports":
                 return "payment_reports";
             default:

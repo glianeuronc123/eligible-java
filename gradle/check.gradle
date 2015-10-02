@@ -1,7 +1,7 @@
 
 // exclude generated sources
 def excludePattern = 'com/eligible/model/'
-def excludePatternAntStyle = '**/' + excludePattern + '*'
+def excludePatternAntStyle = '**/' + excludePattern + '**/*'
 
 
 // Checkstyle

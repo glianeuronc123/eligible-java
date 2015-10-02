@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class Plan extends EligibleObject {
     String type;
     String coverageStatus;

@@ -1,4 +1,4 @@
-package com.eligible.model.coverage;
+package com.eligible.model.claim;
 
 import com.eligible.model.EligibleObject;
 import lombok.EqualsAndHashCode;
@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class FinancialFlowsAmounts extends EligibleObject {
-    FinancialFlows amounts;
+public class EntityIdentifier extends EligibleObject {
+    String name;
+    String id;
 }

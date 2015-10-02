@@ -1,6 +1,5 @@
-package com.eligible.model.coverage;
+package com.eligible.model;
 
-import com.eligible.model.EligibleObject;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

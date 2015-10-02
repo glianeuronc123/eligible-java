@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class CostEstimate extends EligibleObject {
     Double providerPrice;
     CostEstimateEquation costEstimateEquation;

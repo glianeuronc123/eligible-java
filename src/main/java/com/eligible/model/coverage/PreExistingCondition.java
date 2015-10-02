@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class PreExistingCondition extends EligibleObject {
     List<Map<String, String>> waitingPeriod;
 }

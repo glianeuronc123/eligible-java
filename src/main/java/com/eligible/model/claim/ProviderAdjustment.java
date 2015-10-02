@@ -6,9 +6,9 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class Error extends EligibleObject {
-    String code;
-    String param;
-    String message;
-    String expectedValue;
+public class ProviderAdjustment extends EligibleObject {
+    String reasonCode;
+    String reasonLabel;
+    String id;
+    String amount;
 }

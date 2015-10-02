@@ -12,19 +12,32 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 import static com.eligible.util.TestUtil.resource;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Main API Tests for running real Sandbox API calls.
  */
 public class EligibleTest {
     static Map<String, Object> defaultCoverageParams = new HashMap<String, Object>();
+    static Map<String, Object> invalidCoverageParams = new HashMap<String, Object>();
+    static Map<String, Object> emptyCoverageParams = Collections.emptyMap();
     static Map<String, Object> defaultCoverageMedicareParams = new HashMap<String, Object>();
     static Map<String, Object> defaultCoverageCostEstimateParams = new HashMap<String, Object>();
     static Map<String, Object> defaultClaimParams = new HashMap<String, Object>();
+    static String defaultClaimAckReferenceId = "12121212";
+    static Map<String, Object> defaultClaimAckParams = new HashMap<String, Object>();
+    static String defaultClaimPaymentReportReferenceId = "BDA85HY09IJ";
 
     @Before
     public void before() {
@@ -44,6 +57,8 @@ public class EligibleTest {
         defaultCoverageParams.put("member_last_name", "FRANKLIN");
         defaultCoverageParams.put("member_dob", "1701-12-12");
         defaultCoverageParams.put("service_type", "30");
+
+        invalidCoverageParams.put("provider_id", "");
 
         defaultCoverageMedicareParams.put("provider_last_name", "Doe");
         defaultCoverageMedicareParams.put("provider_first_name", "John");
@@ -65,6 +80,11 @@ public class EligibleTest {
         defaultCoverageCostEstimateParams.put("member_last_name", "FRANKLIN");
         defaultCoverageCostEstimateParams.put("member_dob", "1701-12-12");
 
+        defaultClaimParams.put("internal_id", "12345");
+        defaultClaimParams.put("submission_status", "accepted");
+        defaultClaimParams.put("internal_id", "12345");
+        defaultClaimParams.put("claim_submitted_date", "2014-02-15");
+
 
         String claimReqJson = new Scanner(resource("claim_request.json", EligibleTest.class))
                 .useDelimiter("\\A").next();
@@ -81,6 +101,11 @@ public class EligibleTest {
         assertEquals(test, Eligible.getApiBase());
 
         Eligible.overrideApiBase(Eligible.LIVE_API_BASE);
+    }
+
+    @Test(expected = AuthenticationException.class)
+    public void testAuthenticationException() throws Exception {
+        Payer.retrieve("FLBLS", RequestOptions.builder().setApiKey("invalid key").build());
     }
 
     @Test
@@ -182,6 +207,16 @@ public class EligibleTest {
         assertNotNull(coverage.getServices().get(0));
     }
 
+    @Test(expected = InvalidRequestException.class)
+    public void testFlatternParamsCheck() throws EligibleException {
+        Coverage.all(invalidCoverageParams);
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void testEmptyParamsCheck() throws EligibleException {
+        Coverage.all(emptyCoverageParams);
+    }
+
     @Test
     public void testCoverageAllEmptyParams() throws EligibleException {
         try {
@@ -251,6 +286,52 @@ public class EligibleTest {
         assertNotNull(claim.getId());
         assertNotNull(claim.getSuccess());
         assertNotNull(claim.getCreatedAt());
+    }
+
+    @Test
+    public void testGetAcknowledgements() throws EligibleException {
+        Claim.Acknowledgements acknowledgements = Claim.getAcknowledgements(defaultClaimAckReferenceId);
+        assertNotNull(acknowledgements);
+        assertNotNull(acknowledgements.getReferenceId());
+        assertNotNull(acknowledgements.getId());
+        assertNotNull(acknowledgements.getPayerControlNumber());
+        assertNotNull(acknowledgements.getPage());
+        assertNotNull(acknowledgements.getPerPage());
+        assertNotNull(acknowledgements.getNumOfPages());
+        assertNotNull(acknowledgements.getTotal());
+        assertNotNull(acknowledgements.getAcknowledgements());
+        assertFalse(acknowledgements.getAcknowledgements().isEmpty());
+        assertFalse(acknowledgements.getAcknowledgements().get(1).getMessage().isEmpty());
+        assertNotNull(acknowledgements.getAcknowledgements().get(1).getStatus());
+    }
+
+    @Test
+    public void testQueryAcknowledgements() throws EligibleException {
+        Claim.Acknowledgements acknowledgements = Claim.queryAcknowledgements(defaultClaimAckParams);
+        assertNotNull(acknowledgements);
+        assertNotNull(acknowledgements.getPage());
+        assertNotNull(acknowledgements.getPerPage());
+        assertNotNull(acknowledgements.getNumOfPages());
+        assertNotNull(acknowledgements.getTotal());
+        assertNotNull(acknowledgements.getAcknowledgements());
+        assertFalse(acknowledgements.getAcknowledgements().isEmpty());
+    }
+
+    @Test
+    public void testGetPaymentReports() throws EligibleException {
+        Claim.PaymentReport report = Claim.getPaymentReports(defaultClaimPaymentReportReferenceId);
+        assertNotNull(report);
+        assertNotNull(report.getReferenceId());
+        assertNotNull(report.getId());
+        assertNotNull(report.getEffectiveDate());
+        assertNotNull(report.getPayer());
+        assertNotNull(report.getFinancials());
+        assertNotNull(report.getPayee());
+        assertNotNull(report.getPatient());
+        assertNotNull(report.getCorrectedPatient());
+        assertNotNull(report.getOtherPatient());
+        assertNotNull(report.getServiceProvider());
+        assertNotNull(report.getClaim());
     }
 
 }

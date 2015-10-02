@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class CopaymentX2YDaysPerSpell extends EligibleObject {
     Double monetaryAmount;
     Integer remainingDays;

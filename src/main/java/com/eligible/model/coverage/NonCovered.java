@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 // TODO check similarity with {@link FinancialFlow}
 public class NonCovered extends EligibleObject {
     String type;

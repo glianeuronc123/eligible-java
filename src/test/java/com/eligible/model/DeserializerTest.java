@@ -80,6 +80,21 @@ public class DeserializerTest extends BaseEligibleTest {
         testObjectDeserialize("claim.json", Claim.class);
     }
 
+    @Test
+    public void testDeserializeClaimAcknowledgements() throws Exception {
+        testObjectDeserialize("acknowledgement.json", Claim.Acknowledgements.class);
+    }
+
+    @Test
+    public void testDeserializeClaimPaymentReport() throws Exception {
+        testObjectDeserialize("payment_report.json", Claim.PaymentReport.class);
+    }
+
+    @Test
+    public void testDeserializeClaimPaymentReports() throws Exception {
+        testObjectDeserialize("payment_reports.json", Claim.PaymentReports.class);
+    }
+
     public <T> void testListDeserialize(String jsonResource, Type typeOfT) throws Exception {
         String json = resource(jsonResource);
         List source = gson.fromJson(json, List.class);

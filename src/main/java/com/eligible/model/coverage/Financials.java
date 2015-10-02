@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class Financials extends EligibleObject {
     Financial deductible;
     Financial stopLoss;

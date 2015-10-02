@@ -11,8 +11,22 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class Endpoint extends EligibleObject {
+
+    String endpoint;
+    Double passThroughFee;
+    Boolean enrollmentRequired;
+    String averageEnrollmentProcessTime;
+    List<String> enrollmentMandatoryFields;
+    Boolean signatureRequired;
+    Boolean blueInkRequired;
+    String message;
+    String status;
+    String statusDetails;
+    String statusUpdatedAt;
+    Boolean originalSignaturePdf;
+
 
     @Getter
     @RequiredArgsConstructor
@@ -56,32 +70,20 @@ public class Endpoint extends EligibleObject {
         ;
 
         private static Map<String, EndpointType> endpointTypeMap = new TreeMap<String, EndpointType>(String.CASE_INSENSITIVE_ORDER) {{
-           for(EndpointType endpointType : EndpointType.values())
-               put(endpointType.getValue(), endpointType);
+            for (EndpointType endpointType : EndpointType.values()) {
+                put(endpointType.getValue(), endpointType);
+            }
         }};
 
         final String value;
 
-        public static EndpointType fromValue(String value){
+        public static EndpointType fromValue(String value) {
             EndpointType endpointType = endpointTypeMap.get(value);
 
-            if(endpointType == null) {
+            if (endpointType == null) {
                 throw new RuntimeException("EndpointType for " + value + " not found");
             }
             return endpointType;
         }
     }
-
-    String endpoint;
-    Double passThroughFee;
-    Boolean enrollmentRequired;
-    String averageEnrollmentProcessTime;
-    List<String> enrollmentMandatoryFields;
-    Boolean signatureRequired;
-    Boolean blueInkRequired;
-    String message;
-    String status;
-    String statusDetails;
-    String statusUpdatedAt;
-    Boolean originalSignaturePdf;
 }

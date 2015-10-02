@@ -151,43 +151,43 @@
       "billed": 70,
       "paid": 70,
       "patient_responsibility": 0,
-      "total_coverage": null,
-      "prompt_payment_discount": null,
-      "per_day_limit": null,
-      "patient_paid": null,
-      "revised_intrest": null,
-      "negetive_ladger_balance": null,
-      "tax": null,
-      "total_claim_before_taxes": null,
+      "total_coverage": 1.2,
+      "prompt_payment_discount": 1.2,
+      "per_day_limit": 1.2,
+      "patient_paid": 1.2,
+      "revised_intrest": 1.2,
+      "negetive_ladger_balance": 1.2,
+      "tax": 1.2,
+      "total_claim_before_taxes": 1.2,
       "federal": {
-        "category_1": null,
-        "category_2": null,
-        "category_3": null,
-        "category_4": null,
-        "category_5": null
+        "category_1": 1.2,
+        "category_2": 1.2,
+        "category_3": 1.2,
+        "category_4": 1.2,
+        "category_5": 1.2
       }
     },
     "adjustments": [],
     "quantity": {
       "actual": {
-        "covered": null,
-        "co_insured": null,
-        "life_time_reserve": null
+        "covered": 1,
+        "co_insured": 1,
+        "life_time_reserve": 1
       },
       "estimated": {
-        "life_time_reserve": null,
-        "non_covered": null
+        "life_time_reserve": 1,
+        "non_covered": 1
       },
       "not_replaced_blood_unit": 5,
       "outlier_days": 14,
-      "prescription": null,
-      "visits": null,
+      "prescription": 1,
+      "visits": 1,
       "federal": {
-        "category_1": null,
-        "category_2": null,
-        "category_3": null,
-        "category_4": null,
-        "category_5": null
+        "category_1": 1,
+        "category_2": 1,
+        "category_3": 1,
+        "category_4": 1,
+        "category_5": 1
       }
     },
     "additional_ids": [
@@ -234,16 +234,16 @@
         "amount": {
           "billed": 70,
           "paid": 70,
-          "total_coverage": null,
-          "deduction": null,
-          "tax": null,
-          "total_claim_before_taxes": null,
+          "total_coverage": 1.2,
+          "deduction": 1.2,
+          "tax": 1.2,
+          "total_claim_before_taxes": 1.2,
           "federal": {
-            "category_1": null,
-            "category_2": null,
-            "category_3": null,
-            "category_4": null,
-            "category_5": null
+            "category_1": 1.2,
+            "category_2": 1.2,
+            "category_3": 1.2,
+            "category_4": 1.2,
+            "category_5": 1.2
           }
         },
         "quantity": {

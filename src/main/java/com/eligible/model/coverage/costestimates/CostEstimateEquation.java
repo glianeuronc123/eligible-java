@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class CostEstimateEquation extends EligibleObject {
     List<FinancialFlow> deductible;
     List<FinancialFlow> coinsurance;

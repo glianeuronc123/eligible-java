@@ -4,12 +4,12 @@ apply plugin: 'jacoco'
 
 ext {
     limits = [
-        'instruction': 51,
-        'branch'     : 42,
-        'line'       : 57,
-        'complexity' : 48,
-        'method'     : 64,
-        'class'      : 80, //TODO - 100%
+        'instruction': 56,
+        'branch'     : 50,
+        'line'       : 60,
+        'complexity' : 54,
+        'method'     : 67,
+        'class'      : 81, //TODO - 100%
     ]
 }
 
@@ -31,8 +31,14 @@ jacocoTestReport {
         parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
         def results = parser.parse(report)
 
-        def filter_packages_list = ['com/eligible/model']
+        def filter_packages_list = ['com/eligible/model'
+                                    ,'com/eligible/model/claim'
+                                    ,'com/eligible/model/coverage'
+                                    ,'com/eligible/model/coverage/costestimates'
+                                    ,'com/eligible/model/coverage/medicare'
+                                    ,'com/eligible/model/payer',]
         def filtered_packages = results.package.findAll { !filter_packages_list.contains(it.'@name') }
+
 
         def percentage = { type ->
             def covered = 0.0

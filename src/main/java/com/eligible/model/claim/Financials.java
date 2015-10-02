@@ -5,6 +5,19 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class Financials extends EligibleObject {
+    String typeCode;
+    String typeLabel;
+    String totalPaymentAmount;
+    Boolean credit;
+    Boolean debit;
+    String paymentMethodCode;
+    String paymentMethodLabel;
+    String paymentFormatCode;
+    String paymentFormatLabel;
+    String paymentDate;
+    String paymentTraceNumber;
+    DepositoryFinancialInstitution sender;
+    DepositoryFinancialInstitution receiver;
 }

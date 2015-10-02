@@ -2,6 +2,7 @@ package com.eligible;
 
 import com.eligible.exception.EligibleException;
 import com.eligible.net.*;
+import com.eligible.util.ObjectUtils;
 import lombok.AllArgsConstructor;
 import org.junit.After;
 import org.junit.Before;
@@ -152,17 +153,33 @@ public class BaseMockedNetwokEligibleTest extends BaseEligibleTest {
         public boolean matches(Object obj) {
             RequestOptions defaultOptions = RequestOptions.getDefault();
             if (obj == null) {
-                return this.other == null || this.other.equals(defaultOptions);
+                return this.other == null || equals(this.other, defaultOptions);
             } else if (obj instanceof RequestOptions) {
                 RequestOptions requestOptions = (RequestOptions) obj;
                 if (this.other == null) {
-                    return requestOptions.equals(defaultOptions);
+                    return equals(requestOptions, defaultOptions);
                 } else {
-                    return this.other.equals(requestOptions);
+                    return equals(this.other, requestOptions);
                 }
             } else {
                 return false;
             }
+        }
+
+        private boolean equals(RequestOptions ro1, RequestOptions ro2) {
+            if (!ObjectUtils.equals(ro1.getApiKey(), ro2.getApiKey())) {
+                return false;
+            }
+
+            if (!ObjectUtils.equals(ro1.getApiVersion(), ro2.getApiVersion())) {
+                return false;
+            }
+
+            if (!ObjectUtils.equals(ro1.isTest(), ro2.isTest())) {
+                return false;
+            }
+
+            return true;
         }
     }
 

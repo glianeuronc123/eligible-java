@@ -6,9 +6,9 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class Error extends EligibleObject {
+public class RemittanceDeliverMethod extends EligibleObject {
     String code;
-    String param;
-    String message;
-    String expectedValue;
+    String codeLabel;
+    String name;
+    String communicationNumber;
 }

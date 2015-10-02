@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class FinancialFlow extends EligibleObject {
     String percent;
     String amount;

@@ -1,15 +1,13 @@
 package com.eligible.model.coverage;
 
-import com.eligible.model.EligibleObject;
+import com.eligible.model.Address;
+import com.eligible.model.Person;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
-public class Demographic extends EligibleObject {
-    String lastName;
-    String firstName;
-    String middleName;
+@EqualsAndHashCode(callSuper = true)
+public class Demographic extends Person {
     String memberId;
     String groupId;
     String groupName;

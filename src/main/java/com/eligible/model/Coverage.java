@@ -4,7 +4,6 @@ import com.eligible.exception.APIConnectionException;
 import com.eligible.exception.APIException;
 import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.InvalidRequestException;
-import com.eligible.model.coverage.Address;
 import com.eligible.model.coverage.Demographics;
 import com.eligible.model.coverage.Insurance;
 import com.eligible.model.coverage.Plan;

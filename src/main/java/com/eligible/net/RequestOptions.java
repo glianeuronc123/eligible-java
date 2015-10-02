@@ -23,8 +23,6 @@ import static com.eligible.util.StringUtil.normalizeString;
  */
 @Getter
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class RequestOptions {
     /**
      * Default values are taken from following variables.
@@ -79,7 +77,8 @@ public class RequestOptions {
     /**
      * Represents builder pattern for {@link RequestOptions}.
      */
-    @Data
+    @Getter
+    @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     @Accessors(chain = true)

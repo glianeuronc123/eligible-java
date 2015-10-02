@@ -1,19 +1,33 @@
 package com.eligible.util;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import static com.eligible.util.StringUtil.normalizeString;
+import static com.eligible.util.NetworkUtil.*;
+import static com.eligible.util.NetworkUtil.urlEncode;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class NetworkUtilTest {
 
     @Test
-    public void testUrlEncode() {
-        Assert.assertEquals("abc", normalizeString("abc"));
+    public void testUrlEncode() throws Exception {
+        assertEquals("abc", urlEncode("abc"));
     }
 
     @Test
-    public void testUrlEncodeNull() {
-        Assert.assertEquals(null, normalizeString(null));
+    public void testUrlEncodeNull() throws Exception {
+        assertNull(urlEncode(null));
     }
+
+    @Test
+    public void testGetBoundary() throws Exception {
+        assertNotNull(getBoundary());
+    }
+
+    @Test
+    public void testGetBoundaryParsing() throws Exception {
+        assertNotNull(Long.parseLong(getBoundary()));
+    }
+
 }
