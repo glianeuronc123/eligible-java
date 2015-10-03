@@ -1,7 +1,10 @@
 package com.eligible.net;
 
 import com.eligible.Eligible;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import static com.eligible.util.StringUtil.normalizeString;

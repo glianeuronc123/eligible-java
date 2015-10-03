@@ -1,7 +1,12 @@
 package com.eligible;
 
 import com.eligible.exception.EligibleException;
-import com.eligible.net.*;
+import com.eligible.net.APIResource;
+import com.eligible.net.EligibleResponseGetter;
+import com.eligible.net.LiveEligibleResponseGetter;
+import com.eligible.net.RequestMethod;
+import com.eligible.net.RequestOptions;
+import com.eligible.net.RequestType;
 import com.eligible.util.ObjectUtils;
 import lombok.AllArgsConstructor;
 import org.junit.After;
@@ -14,7 +19,9 @@ import java.util.Map;
 
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /** Eligible Test base for mocking {@link EligibleResponseGetter}. */
 public class BaseMockedNetwokEligibleTest extends BaseEligibleTest {

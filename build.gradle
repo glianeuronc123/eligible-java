@@ -33,7 +33,7 @@ dependencies {
     // lombok
     compile 'org.projectlombok:lombok:1.16.6'
 
-    testCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.+'
     testCompile 'com.google.guava:guava:18.0'
     testCompile 'org.mockito:mockito-core:1.10.19'
 }

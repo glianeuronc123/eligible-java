@@ -16,8 +16,14 @@ hs_err_pid*
 # Vim files
 *.sw[a-z]
 
+# Development project
+eligible-test/
+
 # Eclipse files
 .classpath
 .project
 .settings
+
+# Build directory
 target
+build

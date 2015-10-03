@@ -2,7 +2,7 @@ package com.eligible.util;
 
 import org.junit.Test;
 
-import static com.eligible.util.NetworkUtil.*;
+import static com.eligible.util.NetworkUtil.getBoundary;
 import static com.eligible.util.NetworkUtil.urlEncode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

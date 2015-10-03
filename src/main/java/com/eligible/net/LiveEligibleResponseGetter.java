@@ -1,5 +1,6 @@
 package com.eligible.net;
 
+import com.eligible.Eligible;
 import com.eligible.exception.APIConnectionException;
 import com.eligible.exception.APIException;
 import com.eligible.exception.AuthenticationException;
@@ -9,17 +10,39 @@ import com.google.gson.JsonElement;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.net.*;
-import java.util.*;
+import java.net.Authenticator;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
+import java.net.URL;
+import java.net.URLStreamHandler;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
-import static com.eligible.Eligible.*;
-import static com.eligible.util.NetworkUtil.*;
+import static com.eligible.util.NetworkUtil.CHARSET;
+import static com.eligible.util.NetworkUtil.getBoundary;
+import static com.eligible.util.NetworkUtil.urlEncode;
+import static com.eligible.util.StringUtil.isBlank;
+import static com.eligible.util.StringUtil.isEmpty;
+import static java.lang.String.format;
 import static java.lang.String.valueOf;
-import static java.net.HttpURLConnection.*;
+import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
+import static java.net.HttpURLConnection.HTTP_MULT_CHOICE;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static java.net.HttpURLConnection.HTTP_OK;
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -51,7 +74,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
     private static String urlEncodePair(String k, String v)
             throws UnsupportedEncodingException {
-        return String.format("%s=%s", urlEncode(k), urlEncode(v));
+        return format("%s=%s", urlEncode(k), urlEncode(v));
     }
 
     static Map<String, String> getHeaders(RequestOptions options) {
@@ -59,8 +82,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         String apiVersion = options.getApiVersion();
         headers.put("Accept-Charset", CHARSET);
         headers.put("Accept", "application/json");
-        headers.put("User-Agent",
-                String.format("Eligible/v1.5 JavaBindings/%s", VERSION));
+        headers.put("User-Agent", format("Eligible/%s JavaBindings/%s", apiVersion, Eligible.VERSION));
 
         // debug headers
         String[] propertyNames = {"os.name", "os.version", "os.arch",
@@ -70,7 +92,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         for (String propertyName : propertyNames) {
             propertyMap.put(propertyName, System.getProperty(propertyName));
         }
-        propertyMap.put("bindings.version", VERSION);
+        propertyMap.put("bindings.version", Eligible.VERSION);
         propertyMap.put("lang", "Java");
         propertyMap.put("publisher", "Eligible");
         headers.put("X-Eligible-Client-User-Agent", APIResource.GSON.toJson(propertyMap));
@@ -83,15 +105,13 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
     private static HttpURLConnection createEligibleConnection(
             String url, RequestOptions options) throws IOException {
         URL eligibleURL;
-        String customURLStreamHandlerClassName = System.getProperty(
-                CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME, null);
+        String customURLStreamHandlerClassName = System.getProperty(CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME, null);
         if (customURLStreamHandlerClassName != null) {
             // instantiate the custom handler provided
             try {
                 Class<URLStreamHandler> clazz = (Class<URLStreamHandler>) Class
                         .forName(customURLStreamHandlerClassName);
-                Constructor<URLStreamHandler> constructor = clazz
-                        .getConstructor();
+                Constructor<URLStreamHandler> constructor = clazz.getConstructor();
                 URLStreamHandler customHandler = constructor.newInstance();
                 eligibleURL = new URL(null, url, customHandler);
             } catch (ReflectiveOperationException | SecurityException | IllegalArgumentException e) {
@@ -101,12 +121,12 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             eligibleURL = new URL(url);
         }
         HttpURLConnection conn;
-        if (getConnectionProxy() != null) {
-            conn = (HttpURLConnection) eligibleURL.openConnection(getConnectionProxy());
+        if (Eligible.getConnectionProxy() != null) {
+            conn = (HttpURLConnection) eligibleURL.openConnection(Eligible.getConnectionProxy());
             Authenticator.setDefault(new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return getProxyCredential();
+                    return Eligible.getProxyCredential();
                 }
             });
         } else {
@@ -123,12 +143,12 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
     }
 
     private static String formatURL(String url, String query) {
-        if (query == null || query.isEmpty()) {
+        if (isEmpty(query)) {
             return url;
         } else {
             // In some cases, URL can already contain a question mark (eg, upcoming invoice lines)
             String separator = url.contains("?") ? "&" : "?";
-            return String.format("%s%s%s", url, separator, query);
+            return format("%s%s%s", url, separator, query);
         }
     }
 
@@ -147,8 +167,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", String.format(
-                "application/json;charset=%s", CHARSET));
+        conn.setRequestProperty("Content-Type", format("application/json;charset=%s", CHARSET));
 
         OutputStream output = null;
         try {
@@ -216,7 +235,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                 Map<?, ?> nestedMap = (Map<?, ?>) value;
                 for (Map.Entry<?, ?> nestedEntry : nestedMap.entrySet()) {
                     flatNestedMap.put(
-                            String.format("%s[%s]", key, nestedEntry.getKey()),
+                            format("%s[%s]", key, nestedEntry.getKey()),
                             nestedEntry.getValue());
                 }
                 flatParams.putAll(flattenParams(flatNestedMap));
@@ -224,7 +243,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                 Map<String, Object> flatNestedMap = new LinkedHashMap<String, Object>();
                 Iterator<?> it = ((List<?>) value).iterator();
                 for (int index = 0; it.hasNext(); ++index) {
-                    flatNestedMap.put(String.format("%s[%s]", key, index), it.next());
+                    flatNestedMap.put(format("%s[%s]", key, index), it.next());
                 }
                 flatParams.putAll(flattenParams(flatNestedMap));
             } else if ("".equals(value)) {
@@ -287,11 +306,8 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                     break;
                 default:
                     throw new APIConnectionException(
-                            String.format(
-                                    "Unrecognized HTTP method %s. "
-                                            + "This indicates a bug in the Eligible bindings. Please contact "
-                                            + "support@eligible.com for assistance.",
-                                    method));
+                            format("Unrecognized HTTP method %s. This indicates a bug in the Eligible bindings. "
+                                    + "Please contact support@eligible.com for assistance.", method));
             }
             // trigger the request
             int rCode = conn.getResponseCode();
@@ -308,12 +324,11 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
         } catch (IOException e) {
             throw new APIConnectionException(
-                    String.format(
-                            "IOException during API request to Eligible (%s): %s "
+                    format("IOException during API request to Eligible (%s): %s "
                                     + "Please check your internet connection and try again. If this problem persists,"
                                     + "you should check Eligible's service status at https://twitter.com/eligibleapi,"
                                     + " or let us know at support@eligible.com.",
-                            getApiBase(), e.getMessage()), e);
+                            Eligible.getApiBase(), e.getMessage()), e);
         } finally {
             if (conn != null) {
                 conn.disconnect();
@@ -343,7 +358,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         }
 
         String apiKey = options.getApiKey();
-        if (apiKey == null || apiKey.trim().isEmpty()) {
+        if (isBlank(apiKey)) {
             throw new AuthenticationException(
                     "No API key provided. (HINT: set your API key using 'Eligible.apiKey = <API-KEY>'. "
                             + "You can generate API keys from the Eligible web interface. "
@@ -362,8 +377,8 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                     break;
                 default:
                     throw new RuntimeException("Invalid APIResource request type. "
-                                    + "This indicates a bug in the Eligible bindings. Please contact "
-                                    + "support@eligible.com for assistance.");
+                            + "This indicates a bug in the Eligible bindings. Please contact "
+                            + "support@eligible.com for assistance.");
             }
             int rCode = response.getResponseCode();
             String rBody = response.getResponseBody();
@@ -428,8 +443,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             String boundary = getBoundary();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", String.format(
-                    "multipart/form-data; boundary=%s", boundary));
+            conn.setRequestProperty("Content-Type", format("multipart/form-data; boundary=%s", boundary));
 
             MultipartProcessor multipartProcessor = null;
             try {
@@ -483,12 +497,11 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
         } catch (IOException e) {
             throw new APIConnectionException(
-                    String.format(
-                            "IOException during API request to Eligible (%s): %s "
+                    format("IOException during API request to Eligible (%s): %s "
                                     + "Please check your internet connection and try again. If this problem persists,"
                                     + "you should check Eligible's service status at https://twitter.com/eligibleapi,"
                                     + " or let us know at support@eligible.com.",
-                            getApiBase(), e.getMessage()), e);
+                            Eligible.getApiBase(), e.getMessage()), e);
         } finally {
             if (conn != null) {
                 conn.disconnect();
@@ -549,7 +562,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
         try {
             if (method == RequestMethod.GET || method == RequestMethod.DELETE) {
-                url = String.format("%s?%s", url, query);
+                url = format("%s?%s", url, query);
             }
             URL fetchURL = new URL(url);
 

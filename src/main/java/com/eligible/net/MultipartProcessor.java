@@ -2,7 +2,12 @@ package com.eligible.net;
 
 import lombok.Cleanup;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.URLConnection;
 
 /**

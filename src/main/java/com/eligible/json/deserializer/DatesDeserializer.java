@@ -3,7 +3,12 @@ package com.eligible.json.deserializer;
 import com.eligible.model.coverage.Date;
 import com.eligible.model.coverage.Dates;
 import com.eligible.net.APIResource;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
