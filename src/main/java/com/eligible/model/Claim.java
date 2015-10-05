@@ -29,10 +29,10 @@ public class Claim extends APIResource {
     String referenceId;
 
 
-    public static Claim all(Map<String, Object> params)
+    public static Claim create(Map<String, Object> params)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
-        return all(params, null);
+        return create(params, null);
     }
 
     public static Acknowledgements getAcknowledgements(String referenceId)
@@ -59,7 +59,7 @@ public class Claim extends APIResource {
         return queryPaymentReports(params, null);
     }
 
-    public static Claim all(Map<String, Object> params, RequestOptions options)
+    public static Claim create(Map<String, Object> params, RequestOptions options)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
         return request(RequestMethod.POST, classURL(Claim.class), params, Claim.class, options);

@@ -280,7 +280,7 @@ public class EligibleTest {
 
     @Test
     public void testClaim() throws EligibleException {
-        Claim claim = Claim.all(defaultClaimParams);
+        Claim claim = Claim.create(defaultClaimParams);
         assertNotNull(claim);
         assertNotNull(claim.getReferenceId());
         assertNotNull(claim.getId());

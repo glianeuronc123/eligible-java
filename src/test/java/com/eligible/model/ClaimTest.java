@@ -10,7 +10,7 @@ public class ClaimTest extends BaseMockedNetwokEligibleTest {
 
     @Test
     public void testAll() throws EligibleException {
-        Claim.all(DUMMAY_PARAMS);
+        Claim.create(DUMMAY_PARAMS);
 
         verifyPost(Claim.class, "https://gds.eligibleapi.com/v1.5/claims", DUMMAY_PARAMS);
         verifyNoMoreInteractions(networkMock);
