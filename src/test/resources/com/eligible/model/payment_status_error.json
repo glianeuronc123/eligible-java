@@ -1,0 +1,15 @@
+{
+  "created_at": "2015-10-08T12:13:16-04:00",
+  "eligible_id": "8GT9STINNTKO3D",
+  "error": {
+    "response_code": "Y",
+    "response_description": "Yes",
+    "agency_qualifier_code": null,
+    "agency_qualifier_description": null,
+    "reject_reason_code": "41",
+    "reject_reason_description": "Authorization/Access Restrictions",
+    "follow_up_action_code": "C",
+    "follow_up_action_description": "Please Correct and Resubmit",
+    "details": "Invalid credentials. Please correct the provider_npi, provider_pin parameters."
+  }
+}

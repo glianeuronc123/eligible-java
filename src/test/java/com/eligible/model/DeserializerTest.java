@@ -1,9 +1,12 @@
 package com.eligible.model;
 
 import com.eligible.BaseEligibleTest;
+import com.eligible.exception.APIErrorResponseException;
 import com.eligible.model.coverage.Dates;
 import com.eligible.net.APIResource;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,32 +22,43 @@ import static org.junit.Assert.fail;
 
 public class DeserializerTest extends BaseEligibleTest {
 
-    private static Gson gson = APIResource.GSON;
+    private static Gson apiGson = APIResource.GSON;
 
     @Test
     public void testDeserializeDates() throws Exception {
-        gson.fromJson(resource("dates.json"), Dates.class);     // should not throw error
+        apiGson.fromJson(resource("dates.json"), Dates.class);     // should not throw error
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testDeserializeDatesException() throws Exception {
-        gson.fromJson("{}", Dates.class);                       // should throw error
+        apiGson.fromJson("{}", Dates.class);                       // should throw error
+    }
+
+    @Test
+    public void testDeserializeErrorResponse() throws Exception {
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+        testObjectDeserialize(gson, "payment_status_error.json", APIErrorResponse.class);
+    }
+
+    @Test (expected = APIErrorResponseException.class)
+    public void testDeserializeErrorResponseException() throws Exception {
+        apiGson.fromJson(resource("payment_status_error.json"), EligibleObject.class);
     }
 
     @Test
     public void testDeserializePayerList() throws Exception {
         Type listPayerType = new TypeToken<List<Payer>>() { }.getType();
-        testListDeserialize("payers.json", listPayerType);
+        testListDeserialize(apiGson, "payers.json", listPayerType);
     }
 
     @Test
     public void testDeserializePayer() throws Exception {
-        testObjectDeserialize("payer.json", Payer.class);
+        testObjectDeserialize(apiGson, "payer.json", Payer.class);
     }
 
     @Test
     public void testDeserializePayerRawValues() throws Exception {
-        Payer payer = testObjectDeserialize("payer.json", Payer.class);
+        Payer payer = testObjectDeserialize(apiGson, "payer.json", Payer.class);
         Assert.assertNotNull(payer.get("payer_id"));
         Assert.assertEquals(payer.getPayerId(), payer.get("payer_id"));
         Assert.assertEquals(payer.getCreatedAt(), payer.get("created_at"));
@@ -57,50 +71,50 @@ public class DeserializerTest extends BaseEligibleTest {
     @Test
     public void testDeserializeSearchOptionsList() throws Exception {
         Type listSearchOptionsType = new TypeToken<List<Payer.SearchOptions>>() { }.getType();
-        testListDeserialize("search_options_list.json", listSearchOptionsType);
+        testListDeserialize(apiGson, "search_options_list.json", listSearchOptionsType);
     }
 
     @Test
     public void testDeserializeSearchOptions() throws Exception {
-        testObjectDeserialize("search_options.json", Payer.SearchOptions.class);
+        testObjectDeserialize(apiGson, "search_options.json", Payer.SearchOptions.class);
     }
 
     @Test
     public void testDeserializeCoverage() throws Exception {
-        testObjectDeserialize("coverage.json", Coverage.class);
+        testObjectDeserialize(apiGson, "coverage.json", Coverage.class);
     }
 
     @Test
     public void testDeserializeMedicareCoverage() throws Exception {
-        testObjectDeserialize("medicare_coverage.json", Coverage.Medicare.class);
+        testObjectDeserialize(apiGson, "medicare_coverage.json", Coverage.Medicare.class);
     }
 
     @Test
     public void testDeserializeClaim() throws Exception {
-        testObjectDeserialize("claim.json", Claim.class);
+        testObjectDeserialize(apiGson, "claim.json", Claim.class);
     }
 
     @Test
     public void testDeserializeClaimAcknowledgements() throws Exception {
-        testObjectDeserialize("acknowledgement.json", Claim.Acknowledgements.class);
+        testObjectDeserialize(apiGson, "acknowledgement.json", Claim.Acknowledgements.class);
     }
 
     @Test
     public void testDeserializeClaimPaymentReport() throws Exception {
-        testObjectDeserialize("payment_report.json", Claim.PaymentReport.class);
+        testObjectDeserialize(apiGson, "payment_report.json", Claim.PaymentReport.class);
     }
 
     @Test
     public void testDeserializeClaimPaymentReports() throws Exception {
-        testObjectDeserialize("payment_reports.json", Claim.PaymentReports.class);
+        testObjectDeserialize(apiGson, "payment_reports.json", Claim.PaymentReports.class);
     }
 
     @Test
     public void testDeserializePaymentStatus() throws Exception {
-        testObjectDeserialize("payment_status.json", PaymentStatus.class);
+        testObjectDeserialize(apiGson, "payment_status.json", PaymentStatus.class);
     }
 
-    public <T> void testListDeserialize(String jsonResource, Type typeOfT) throws Exception {
+    public <T> void testListDeserialize(Gson gson, String jsonResource, Type typeOfT) throws Exception {
         String json = resource(jsonResource);
         List source = gson.fromJson(json, List.class);
 
@@ -111,7 +125,7 @@ public class DeserializerTest extends BaseEligibleTest {
         assertEquals(source, destination, newLinkedList(newArrayList(typeOfT.toString())));
     }
 
-    public <T extends EligibleObject> T testObjectDeserialize(String jsonResource, Class<T> typeOfT) throws Exception {
+    public <T extends EligibleObject> T testObjectDeserialize(Gson gson, String jsonResource, Class<T> typeOfT) throws Exception {
         String json = resource(jsonResource);
         Map source = gson.fromJson(json, Map.class);
 

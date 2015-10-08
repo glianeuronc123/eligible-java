@@ -49,7 +49,7 @@ public class PayerTest extends BaseMockedNetwokEligibleTest {
     }
 
 
-    public static class NetworkStreamMockTests extends BaseMockedNetwokStreamEligibleTest {
+    public static class NetworkStreamMockTest extends BaseMockedNetwokStreamEligibleTest {
 
         @Test
         public void testPayersAll() throws Exception {
