@@ -6,6 +6,7 @@ import com.eligible.exception.InvalidRequestException;
 import com.eligible.model.Claim;
 import com.eligible.model.Coverage;
 import com.eligible.model.Payer;
+import com.eligible.model.PaymentStatus;
 import com.eligible.net.APIResource;
 import com.eligible.net.RequestOptions;
 import org.junit.Before;
@@ -40,6 +41,7 @@ public class EligibleTest {
     static String defaultClaimPaymentReportClaimReferenceId = "BDA85HY09IJ";
     static String defaultClaimPaymentReportId = "ABX45DGER44";
     static Map<String, Object> defaultPaymentReportsParams = new HashMap<String, Object>();
+    static Map<String, Object> defaultPaymentStatusParams = new HashMap<String, Object>();
 
     @Before
     public void before() {
@@ -90,6 +92,19 @@ public class EligibleTest {
         defaultPaymentReportsParams.put("internal_id", "12345");
         defaultPaymentReportsParams.put("start_date", "2014-02-15");
         defaultPaymentReportsParams.put("end_date", "2014-02-16");
+
+        defaultPaymentStatusParams.put("payer_id", "00001");
+        defaultPaymentStatusParams.put("provider_npi", "0123456789");
+        defaultPaymentStatusParams.put("provider_tax_id", "111223333");
+        defaultPaymentStatusParams.put("member_id", "ZZZ445554301");
+        defaultPaymentStatusParams.put("member_first_name", "IDA");
+        defaultPaymentStatusParams.put("member_last_name", "FRANKLIN");
+        defaultPaymentStatusParams.put("member_dob", "1701-12-12");
+        defaultPaymentStatusParams.put("payer_control_number", "123123123");
+        defaultPaymentStatusParams.put("charge_amount", "125.00");
+        defaultPaymentStatusParams.put("start_date", "2010-06-15");
+        defaultPaymentStatusParams.put("end_date", "2010-06-15");
+        defaultPaymentStatusParams.put("trace_number", "BHUYTOK98IK");
 
 
         String claimReqJson = new Scanner(resource("claim_request.json", EligibleTest.class))
@@ -370,6 +385,25 @@ public class EligibleTest {
         assertFalse(reports.getReports().isEmpty());
         assertNotNull(reports.getReports().get(0));
         assertNotNull(reports.getReports().get(0).getReferenceId());
+    }
+
+    @Test
+    public void testPaymentStatus() throws EligibleException {
+        PaymentStatus status = PaymentStatus.retrieve(defaultPaymentStatusParams);
+        assertNotNull(status);
+        assertNotNull(status.getEligibleId());
+        assertNotNull(status.getId());
+        assertNotNull(status.getCreatedAt());
+        assertNotNull(status.getPayer());
+        assertNotNull(status.getServiceProvider());
+        assertFalse(status.getServiceProvider().isEmpty());
+        assertNotNull(status.getServiceProvider().get(0));
+        assertNotNull(status.getPatients());
+        assertFalse(status.getPatients().isEmpty());
+        assertNotNull(status.getPatients().get(0));
+        assertNotNull(status.getClaims());
+        assertFalse(status.getClaims().isEmpty());
+        assertNotNull(status.getClaims().get(0));
     }
 
 }
