@@ -24,4 +24,22 @@ public abstract class StringUtil {
         }
         return normalized;
     }
+
+    /**
+     * Check if the string is empty or null.
+     * @param param
+     * @return true if empty.
+     */
+    public static boolean isEmpty(String param) {
+        return param == null || param.isEmpty();
+    }
+
+    /**
+     * Check if the string is null, empty or only spaces.
+     * @param param
+     * @return true if blank.
+     */
+    public static boolean isBlank(String param) {
+        return param == null || param.trim().isEmpty();
+    }
 }

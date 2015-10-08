@@ -20,4 +20,7 @@ hs_err_pid*
 .classpath
 .project
 .settings
+
+# Build directory
 target
+build

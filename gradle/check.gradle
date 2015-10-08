@@ -1,7 +1,7 @@
 
 // exclude generated sources
 def excludePattern = 'com/eligible/model/'
-def excludePatternAntStyle = '**/' + excludePattern + '*'
+def excludePatternAntStyle = '**/' + excludePattern + '**/*'
 
 
 // Checkstyle
@@ -25,6 +25,6 @@ tasks.withType(FindBugs) {
     }
 }
 
-tasks.withType(Pmd) {
-    exclude excludePatternAntStyle
-}
+
+// pmd
+apply plugin: 'pmd'

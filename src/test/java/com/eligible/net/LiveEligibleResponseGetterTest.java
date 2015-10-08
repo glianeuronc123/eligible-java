@@ -6,7 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import static com.eligible.net.LiveEligibleResponseGetter.createHtmlQuery;
 import static org.junit.Assert.assertEquals;

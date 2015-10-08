@@ -4,6 +4,7 @@ import com.eligible.exception.APIConnectionException;
 import com.eligible.exception.APIException;
 import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.InvalidRequestException;
+import com.eligible.model.payer.Endpoint;
 import com.eligible.net.APIResource;
 import com.eligible.net.RequestMethod;
 import com.eligible.net.RequestOptions;
@@ -82,7 +83,7 @@ public class Payer extends APIResource {
     @EqualsAndHashCode(callSuper=false)
     public static class SearchOptions extends APIResource {
         String payerId;
-        List<SearchOptionList> searchOptions;
+        List<List<String>> searchOptions;
 
         public static List<SearchOptions> all()
                 throws AuthenticationException, InvalidRequestException,
@@ -123,7 +124,4 @@ public class Payer extends APIResource {
         }
     }
 
-    public interface SearchOptionList extends List<String> {
-
-    }
 }

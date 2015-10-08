@@ -1,0 +1,281 @@
+{
+  "reference_id": "89898989",
+  "effective_date": "2013-05-13",
+  "payer": {
+    "name": "BLUE CROSS AND BLUE SHIELD OF LA",
+    "id": "LABLS",
+    "address": {
+      "street_line_1": "P O BOX 98029",
+      "street_line_2": null,
+      "city": "BATON ROUGE",
+      "state": "LA",
+      "zip": "70898"
+    },
+    "contacts": [
+      {
+        "department_code": "CX",
+        "department_label": "Payers Claim Office. Location responsible for paying bills related to medical care received",
+        "name": "EDI Clearing House",
+        "details": [
+          {
+            "type_code": "EM",
+            "type_label": "Electronic Mail",
+            "value": "edich@bcbsla.com"
+          },
+          {
+            "type_code": "TE",
+            "type_label": "Telephone",
+            "value": "2252914334"
+          }
+        ]
+      },
+      {
+        "department_code": "BL",
+        "department_label": "Technical Department",
+        "name": "EDI Clearing House",
+        "details": [
+          {
+            "type_code": "EM",
+            "type_label": "Electronic Mail",
+            "value": "edich@bcbsla.com"
+          },
+          {
+            "type_code": "TE",
+            "type_label": "Telephone",
+            "value": "2252914334"
+          }
+        ]
+      }
+    ],
+    "crossover_payer": {
+      "name": "",
+      "id": ""
+    },
+    "corrected_priority_payer": {
+      "name": "",
+      "id": ""
+    }
+  },
+  "financials": {
+    "type_code": "I",
+    "type_label": "Remittance Information Only",
+    "total_payment_amount": "123",
+    "credit": true,
+    "debit": false,
+    "payment_method_code": "ACH",
+    "payment_method_label": "Automated Clearing House (ACH)",
+    "payment_format_code": "CCP",
+    "payment_format_label": "Cash Concentration/Disbursement plus Addenda (CCD+) (ACH)",
+    "payment_date": "2013-05-21",
+    "payment_trace_number": "12345",
+    "sender": {
+      "dfi_id_qualifier": "01",
+      "dfi_id_qualifier_label": "ABA Transit Routing Number Including Check Digits (9 digits)",
+      "dfi_id": "065000171",
+      "account_number": "0716784580",
+      "id": "1237384555",
+      "supplemental_code": ""
+    },
+    "receiver": {
+      "dfi_id_qualifier": "01",
+      "dfi_id_qualifier_label": "ABA Transit Routing Number Including Check Digits (9 digits)",
+      "dfi_id": "1234568",
+      "account_type": "Demand Deposit",
+      "account_number": "123456789"
+    }
+  },
+  "payee": {
+    "name": "Eligible Inc.",
+    "npi": "1234567890",
+    "address": {
+      "street_line_1": "1842 Union Street",
+      "street_line_2": "",
+      "city": "SAN FRANCISCO",
+      "state": "CA",
+      "zip": "94123"
+    },
+    "additional_ids": [
+      {
+        "type_code": "TJ",
+        "type_label": "Federal Taxpayer's Identification Number",
+        "value": "1234567890"
+      },
+      {
+        "type_code": "PQ",
+        "type_label": "Payee Identification",
+        "value": "12345456"
+      }
+    ],
+    "adjustments": [],
+    "delivery_method": null
+  },
+  "patient": {
+    "first_name": "BENJAMIN",
+    "last_name": "FRANKLIN",
+    "middle_name": "",
+    "id": "XXXXX12345"
+  },
+  "corrected_patient": {
+    "first_name": null,
+    "last_name": null,
+    "middle_name": null,
+    "id": null
+  },
+  "other_patient": {
+    "first_name": null,
+    "last_name": null,
+    "middle_name": null,
+    "id": null
+  },
+  "service_provider": {
+    "first_name": "",
+    "last_name": "",
+    "middle_name": "",
+    "npi": ""
+  },
+  "claim": {
+    "control_number": "140852092800",
+    "received_date": "2013-05-09",
+    "expiration_date": "2014-06-09",
+    "filing_indicator_type": "12",
+    "filing_indicator_label": "Preferred Provider Organization (PPO)",
+    "place_of_service": "15",
+    "frequency": "1",
+    "responsibility_sequence": "primary",
+    "status": [
+      "processed"
+    ],
+    "drg_code": "",
+    "drg_quantity": "",
+    "amount": {
+      "billed": 70,
+      "paid": 70,
+      "patient_responsibility": 0,
+      "total_coverage": 1.2,
+      "prompt_payment_discount": 1.2,
+      "per_day_limit": 1.2,
+      "patient_paid": 1.2,
+      "revised_intrest": 1.2,
+      "negetive_ladger_balance": 1.2,
+      "tax": 1.2,
+      "total_claim_before_taxes": 1.2,
+      "federal": {
+        "category_1": 1.2,
+        "category_2": 1.2,
+        "category_3": 1.2,
+        "category_4": 1.2,
+        "category_5": 1.2
+      }
+    },
+    "adjustments": [],
+    "quantity": {
+      "actual": {
+        "covered": 1,
+        "co_insured": 1,
+        "life_time_reserve": 1
+      },
+      "estimated": {
+        "life_time_reserve": 1,
+        "non_covered": 1
+      },
+      "not_replaced_blood_unit": 5,
+      "outlier_days": 14,
+      "prescription": 1,
+      "visits": 1,
+      "federal": {
+        "category_1": 1,
+        "category_2": 1,
+        "category_3": 1,
+        "category_4": 1,
+        "category_5": 1
+      }
+    },
+    "additional_ids": [
+      {
+        "type_code": "1L",
+        "type_label": "Group or Policy Number",
+        "value": "000P086210000"
+      },
+      {
+        "type_code": "CE",
+        "type_label": "Class of Contract Code",
+        "value": "PREFERRED PROVIDER ORGANIZATION"
+      }
+    ],
+    "rendering_provider_ids": [
+      {
+        "type_code": "1C",
+        "type_label": "Medicare Provider Number",
+        "value": "12345678"
+      },
+      {
+        "type_code": "1D",
+        "type_label": "Medicaid Provider Number",
+        "value": "12345678"
+      }
+    ],
+    "moa_codes": [
+      "MA01",
+      "MA27",
+      "MA07"
+    ],
+    "allowed_amount": 111.12,
+    "contacts": [],
+    "service_lines": [
+      {
+        "procedure_qualifier": "HC",
+        "procedure_code": "12345",
+        "procedure_modifiers": [
+          "U1"
+        ],
+        "revenue_code": "",
+        "service_start": "2013-02-13",
+        "service_end": "2013-02-13",
+        "amount": {
+          "billed": 70,
+          "paid": 70,
+          "total_coverage": 1.2,
+          "deduction": 1.2,
+          "tax": 1.2,
+          "total_claim_before_taxes": 1.2,
+          "federal": {
+            "category_1": 1.2,
+            "category_2": 1.2,
+            "category_3": 1.2,
+            "category_4": 1.2,
+            "category_5": 1.2
+          }
+        },
+        "quantity": {
+          "billed": 0,
+          "paid": 1,
+          "federal": {
+            "category_1": null,
+            "category_2": null,
+            "category_3": null,
+            "category_4": null,
+            "category_5": null
+          }
+        },
+        "rendering_provider_ids": [
+          {
+            "type_code": "1C",
+            "type_label": "Medicare Provider Number",
+            "value": "12345678"
+          },
+          {
+            "type_code": "1D",
+            "type_label": "Medicaid Provider Number",
+            "value": "12345678"
+          }
+        ],
+        "allowed_amount": 111.12,
+        "additional_ids": [],
+        "remark_codes": [],
+        "provider_control_number": "37928",
+        "healthcare_policy": [],
+        "adjustments": []
+      }
+    ]
+  }
+}
