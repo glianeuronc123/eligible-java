@@ -18,7 +18,8 @@ import lombok.Getter;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
 
 
 @Getter
@@ -47,10 +48,16 @@ public class Claim extends APIResource {
         return queryAcknowledgements(params, null);
     }
 
-    public static PaymentReport getPaymentReports(String referenceId)
+    public static PaymentReport getPaymentReport(String referenceId)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
-        return getPaymentReports(referenceId, null);
+        return getPaymentReport(referenceId, (RequestOptions) null);
+    }
+
+    public static PaymentReport getPaymentReport(String referenceId, String paymentReportId)
+            throws AuthenticationException, InvalidRequestException,
+            APIConnectionException, APIException {
+        return getPaymentReport(referenceId, paymentReportId, null);
     }
 
     public static PaymentReports queryPaymentReports(Map<String, Object> params)
@@ -77,10 +84,16 @@ public class Claim extends APIResource {
         return Acknowledgements.query(params, options);
     }
 
-    public static PaymentReport getPaymentReports(String referenceId, RequestOptions options)
+    public static PaymentReport getPaymentReport(String referenceId, RequestOptions options)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
         return PaymentReport.retrieve(referenceId, options);
+    }
+
+    public static PaymentReport getPaymentReport(String claimReferenceId, String paymentReportId, RequestOptions options)
+            throws AuthenticationException, InvalidRequestException,
+            APIConnectionException, APIException {
+        return PaymentReport.retrieve(claimReferenceId, paymentReportId, options);
     }
 
     public static PaymentReports queryPaymentReports(Map<String, Object> params, RequestOptions options)
@@ -156,13 +169,26 @@ public class Claim extends APIResource {
         public static PaymentReport retrieve(String referenceId)
                 throws AuthenticationException, InvalidRequestException,
                 APIConnectionException, APIException {
-            return retrieve(referenceId, null);
+            return retrieve(referenceId, (RequestOptions) null);
+        }
+
+        public static PaymentReport retrieve(String claimReferenceId, String paymentReportId)
+                throws AuthenticationException, InvalidRequestException,
+                APIConnectionException, APIException {
+            return retrieve(claimReferenceId, paymentReportId, null);
         }
 
         public static PaymentReport retrieve(String referenceId, RequestOptions options)
                 throws AuthenticationException, InvalidRequestException,
                 APIConnectionException, APIException {
             String url = format("%s/%ss", instanceURL(Claim.class, referenceId), className(PaymentReport.class));
+            return request(RequestMethod.GET, url, null, PaymentReport.class, options);
+        }
+
+        public static PaymentReport retrieve(String referenceId, String paymentReportId, RequestOptions options)
+                throws AuthenticationException, InvalidRequestException,
+                APIConnectionException, APIException {
+            String url = format("%s/%ss/%s", instanceURL(Claim.class, referenceId), className(PaymentReport.class), paymentReportId);
             return request(RequestMethod.GET, url, null, PaymentReport.class, options);
         }
 

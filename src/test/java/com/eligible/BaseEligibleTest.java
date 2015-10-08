@@ -13,7 +13,7 @@ import java.util.Map;
 public class BaseEligibleTest {
 
     /** DUMMY PARAMETER Object for API calls. */
-    protected static final Map<String, Object> DUMMAY_PARAMS = new HashMap<String, Object>() { {
+    protected static final Map<String, Object> DUMMY_PARAMS = new HashMap<String, Object>() { {
             put("dummy_key", "dummay_value");
     } };
 

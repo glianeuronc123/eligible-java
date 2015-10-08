@@ -37,7 +37,9 @@ public class EligibleTest {
     static Map<String, Object> defaultClaimParams = new HashMap<String, Object>();
     static String defaultClaimAckReferenceId = "12121212";
     static Map<String, Object> defaultClaimAckParams = new HashMap<String, Object>();
-    static String defaultClaimPaymentReportReferenceId = "BDA85HY09IJ";
+    static String defaultClaimPaymentReportClaimReferenceId = "BDA85HY09IJ";
+    static String defaultClaimPaymentReportId = "ABX45DGER44";
+    static Map<String, Object> defaultPaymentReportsParams = new HashMap<String, Object>();
 
     @Before
     public void before() {
@@ -80,10 +82,14 @@ public class EligibleTest {
         defaultCoverageCostEstimateParams.put("member_last_name", "FRANKLIN");
         defaultCoverageCostEstimateParams.put("member_dob", "1701-12-12");
 
-        defaultClaimParams.put("internal_id", "12345");
-        defaultClaimParams.put("submission_status", "accepted");
-        defaultClaimParams.put("internal_id", "12345");
-        defaultClaimParams.put("claim_submitted_date", "2014-02-15");
+        defaultClaimAckParams.put("internal_id", "12345");
+        defaultClaimAckParams.put("submission_status", "accepted");
+        defaultClaimAckParams.put("internal_id", "12345");
+        defaultClaimAckParams.put("claim_submitted_date", "2014-02-15");
+
+        defaultPaymentReportsParams.put("internal_id", "12345");
+        defaultPaymentReportsParams.put("start_date", "2014-02-15");
+        defaultPaymentReportsParams.put("end_date", "2014-02-16");
 
 
         String claimReqJson = new Scanner(resource("claim_request.json", EligibleTest.class))
@@ -318,8 +324,8 @@ public class EligibleTest {
     }
 
     @Test
-    public void testGetPaymentReports() throws EligibleException {
-        Claim.PaymentReport report = Claim.getPaymentReports(defaultClaimPaymentReportReferenceId);
+    public void testGetPaymentReport() throws EligibleException {
+        Claim.PaymentReport report = Claim.getPaymentReport(defaultClaimPaymentReportClaimReferenceId);
         assertNotNull(report);
         assertNotNull(report.getReferenceId());
         assertNotNull(report.getId());
@@ -332,6 +338,38 @@ public class EligibleTest {
         assertNotNull(report.getOtherPatient());
         assertNotNull(report.getServiceProvider());
         assertNotNull(report.getClaim());
+    }
+
+    @Test
+    public void testGetPaymentReportWithId() throws EligibleException {
+        Claim.PaymentReport report = Claim.getPaymentReport(defaultClaimPaymentReportClaimReferenceId, defaultClaimPaymentReportId);
+        assertNotNull(report);
+        assertNotNull(report.getReferenceId());
+        assertNotNull(report.getId());
+        assertNotNull(report.getEffectiveDate());
+        assertNotNull(report.getPayer());
+        assertNotNull(report.getFinancials());
+        assertNotNull(report.getPayee());
+        assertNotNull(report.getPatient());
+        assertNotNull(report.getCorrectedPatient());
+        assertNotNull(report.getOtherPatient());
+        assertNotNull(report.getServiceProvider());
+        assertNotNull(report.getClaim());
+    }
+
+    @Test
+    public void testQueryPaymentReports() throws EligibleException {
+        Claim.PaymentReports reports = Claim.queryPaymentReports(defaultPaymentReportsParams);
+        assertNotNull(reports);
+        assertNotNull(reports.getPage());
+        assertNotNull(reports.getId());
+        assertNotNull(reports.getPerPage());
+        assertNotNull(reports.getNumOfPages());
+        assertNotNull(reports.getTotal());
+        assertNotNull(reports.getReports());
+        assertFalse(reports.getReports().isEmpty());
+        assertNotNull(reports.getReports().get(0));
+        assertNotNull(reports.getReports().get(0).getReferenceId());
     }
 
 }
