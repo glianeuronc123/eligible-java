@@ -1,3 +1,9 @@
+=== 1.2.0 2015-10-08
+
+* Added implementations for `Claim`, `Acknowledgement`, `Payment Report`, and `Payment Status` APIs.
+
+* Added `Error Response` handling.
+
 === 1.1.0 2015-09-30
 
 * Added implementations for `Cost Estimates` APIs.
