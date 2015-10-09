@@ -1,5 +1,6 @@
 package com.eligible;
 
+import com.eligible.exception.APIErrorResponseException;
 import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.EligibleException;
 import com.eligible.exception.InvalidRequestException;
@@ -124,9 +125,13 @@ public class EligibleTest {
         Eligible.overrideApiBase(Eligible.LIVE_API_BASE);
     }
 
-    @Test(expected = AuthenticationException.class)
+    @Test
     public void testAuthenticationException() throws Exception {
-        Payer.retrieve("FLBLS", RequestOptions.builder().setApiKey("invalid key").build());
+        try {
+            Payer.retrieve("FLBLS", RequestOptions.builder().setApiKey("invalid key").build());
+        } catch (AuthenticationException e) {
+            assertEquals("Could not authenticate you. Please re-try with a valid API key.", e.getMessage());
+        }
     }
 
     @Test
@@ -190,7 +195,7 @@ public class EligibleTest {
             Payer.retrieve(null);
             fail("Retrieve null Payer didn't result in exception.");
         } catch (InvalidRequestException e) {
-            assertNotNull(e.getMessage());
+            assertEquals("No payer found with payer_id: null", e.getMessage());
         }
     }
 
@@ -210,7 +215,7 @@ public class EligibleTest {
             Payer.retrieve(null, new RequestOptions("invalid api key", null, true));
             fail("Using invalid ApiKey didn't result in exception.");
         } catch (AuthenticationException e) {
-            assertNotNull(e.getMessage());
+            assertEquals("Could not authenticate you. Please re-try with a valid API key.", e.getMessage());
         }
     }
 
@@ -233,9 +238,30 @@ public class EligibleTest {
         Coverage.all(invalidCoverageParams);
     }
 
-    @Test(expected = InvalidRequestException.class)
+    @Test
     public void testEmptyParamsCheck() throws EligibleException {
-        Coverage.all(emptyCoverageParams);
+        try {
+            Coverage.all(emptyCoverageParams);
+        } catch (InvalidRequestException e) {
+            assertEquals("NPI length should be 10 digits, please correct and resubmit.", e.getMessage());
+            assertAPIErrorResponseException(e.getCause());
+        }
+    }
+
+
+    private void assertAPIErrorResponseException(Throwable cause) {
+        assertNotNull(cause);
+        assertTrue("Cause is not an instance of APIErrorResponseException", cause instanceof APIErrorResponseException);
+        APIErrorResponseException exception = (APIErrorResponseException) cause;
+
+        assertNotNull(exception.getApiResponse());
+        assertNotNull(exception.getApiResponse().getEligibleId());
+        assertNotNull(exception.getApiResponse().getId());
+        assertNotNull(exception.getApiResponse().getCreatedAt());
+        assertNotNull(exception.getApiResponse().getError());
+        assertNotNull(exception.getApiResponse().getError().getResponseCode());
+        assertNotNull(exception.getApiResponse().getError().getResponseDescription());
+        assertNotNull(exception.getApiResponse().getError().getDetails());
     }
 
     @Test
@@ -246,6 +272,7 @@ public class EligibleTest {
             fail("API call didn't throw exception on empty params");
         } catch (InvalidRequestException e) {
             assertNotNull(e.getMessage());
+            assertAPIErrorResponseException(e.getCause());
         }
     }
 
@@ -255,9 +282,10 @@ public class EligibleTest {
             Map<String, Object> invalidParams = new HashMap<String, Object>(defaultCoverageParams);
             invalidParams.put("provider_npi", "ABC3456789"); // Non Numeric Characters in NPI
             Coverage coverage = Coverage.all(invalidParams);
-            fail("API call didn't throw exception on empty params");
+            fail("API call didn't throw exception on invalid params");
         } catch (InvalidRequestException e) {
             assertNotNull(e.getMessage());
+            assertAPIErrorResponseException(e.getCause());
         }
     }
 

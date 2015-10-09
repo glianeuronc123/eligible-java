@@ -9,4 +9,8 @@ public class APIErrorResponse extends EligibleObject {
     String createdAt;
     String eligibleId;
     Error error;
+
+    public String getId() {
+        return getEligibleId();
+    }
 }
