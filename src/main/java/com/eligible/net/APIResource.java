@@ -62,6 +62,8 @@ public abstract class APIResource extends EligibleObject {
                 return "payment_report";
             case "paymentreports":
                 return "payment_reports";
+            case "paymentstatus":
+                return "payment/status";
             default:
                 return className;
         }

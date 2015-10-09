@@ -103,6 +103,7 @@ public class Claim extends APIResource {
     }
 
 
+
     public String getId() {
         return getReferenceId();
     }
