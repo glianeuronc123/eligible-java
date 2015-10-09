@@ -2,11 +2,13 @@ package com.eligible.net;
 
 import com.eligible.Eligible;
 import com.eligible.exception.APIConnectionException;
+import com.eligible.exception.APIErrorResponseException;
 import com.eligible.exception.APIException;
 import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.InvalidRequestException;
 import com.eligible.model.EligibleObject;
 import com.google.gson.JsonElement;
+import com.google.gson.stream.JsonReader;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -14,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -513,24 +516,36 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
     private static void handleAPIError(String rBody, int rCode)
             throws InvalidRequestException, AuthenticationException,
             APIException {
-        JsonElement rBodyJson = APIResource.GSON.toJsonTree(rBody);
-
+        Exception rootCause = null;
         String message = null;
-        if (rBodyJson.isJsonObject()) {
-            Error error = APIResource.GSON.fromJson(rBody, Error.class);
-            message = error.getError();
-        } else if (rBodyJson.isJsonPrimitive()) {
-            message = rBodyJson.getAsString();
+
+        JsonReader jsonReader = new JsonReader(new StringReader(rBody));
+        jsonReader.setLenient(true);
+
+        try {
+            JsonElement rBodyJson = APIResource.GSON.fromJson(jsonReader, JsonElement.class);
+
+            if (rBodyJson.isJsonObject()) {
+                Error error = APIResource.GSON.fromJson(rBody, Error.class);
+                message = error.getError();
+            } else /*if (rBodyJson.isJsonPrimitive())*/ {
+                message = rBody;
+            }
+
+        } catch (APIErrorResponseException e) {
+            rootCause = e;
+            message = e.getApiResponse().getError().getDetails();
         }
+
         switch (rCode) {
             case HTTP_BAD_REQUEST:
-                throw new InvalidRequestException(message);
+                throw new InvalidRequestException(message, null, rootCause);
             case HTTP_NOT_FOUND:
-                throw new InvalidRequestException(message);
+                throw new InvalidRequestException(message, null, rootCause);
             case HTTP_UNAUTHORIZED:
-                throw new AuthenticationException(message);
+                throw new AuthenticationException(message, rootCause);
             default:
-                throw new APIException(message);
+                throw new APIException(message, rootCause);
         }
     }
 

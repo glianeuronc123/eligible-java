@@ -13,6 +13,15 @@ public class AuthenticationException extends EligibleException {
         super(message);
     }
 
+    /**
+     * Create Authentication Exception.
+     * @param message
+     * @param e
+     */
+    public AuthenticationException(String message, Throwable e) {
+        super(message, e);
+    }
+
     private static final long serialVersionUID = 1L;
 
 }
