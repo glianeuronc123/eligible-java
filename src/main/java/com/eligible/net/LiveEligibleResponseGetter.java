@@ -390,6 +390,10 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                 handleAPIError(rBody, rCode);
             }
             return APIResource.GSON.fromJson(rBody, typeOfT);
+
+        } catch (APIErrorResponseException e) {
+            String message = e.getApiResponse().getError().getDetails();
+            throw new APIException(message, e);
         } finally {
             if (allowedToSetTTL) {
                 if (originalDNSCacheTTL == null) {

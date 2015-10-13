@@ -249,7 +249,7 @@ public class EligibleTest {
     }
 
 
-    private void assertAPIErrorResponseException(Throwable cause) {
+    public static void assertAPIErrorResponseException(Throwable cause) {
         assertNotNull(cause);
         assertTrue("Cause is not an instance of APIErrorResponseException", cause instanceof APIErrorResponseException);
         APIErrorResponseException exception = (APIErrorResponseException) cause;
