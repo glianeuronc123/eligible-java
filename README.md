@@ -1,9 +1,10 @@
 # eligible-java
 
+[![Circle CI](https://circleci.com/gh/eligible/eligible-java.svg?style=svg)](https://circleci.com/gh/eligible/eligible-java)
+
 Java bindings for Eligible APIs (https://eligible.com).
 
 You can request an account at https://eligible.com/request-access
-
 
 
 Documentation
