@@ -117,3 +117,7 @@ Note: Gradle must be installed to run tests.
 
 To run all tests, execute `./gradlew test`. You can run particular tests by passing `-Dtest.single=Class#method` -- for example, `-Dtest.single=DeserializerTest`.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/eligible/eligible-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
