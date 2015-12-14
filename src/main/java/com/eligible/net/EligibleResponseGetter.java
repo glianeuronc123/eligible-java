@@ -25,11 +25,12 @@ public interface EligibleResponseGetter {
      * @param type Type of HTTP request
      * @param options {@link RequestOptions} of making API call. {@code RequestOptions.getDefault()} will be used if
      *                                      {@code null} is provided.
+     * @param <T> Type of Response
      * @return API Response
-     * @throws AuthenticationException
-     * @throws InvalidRequestException
-     * @throws APIConnectionException
-     * @throws APIException
+     * @throws AuthenticationException if api key is invalid
+     * @throws InvalidRequestException if input parameters has issues
+     * @throws APIConnectionException if issue with Eligible API connection
+     * @throws APIException if issues with Eligible API
      */
     <T> T request(
             RequestMethod method,

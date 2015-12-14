@@ -17,6 +17,7 @@ public class APIErrorResponseException extends RuntimeException {
      * Create APIErrorResponseException with message, requestId and cause.
      *
      * @param message message
+     * @param apiResponse EligibleAPI response
      */
     public APIErrorResponseException(String message, APIErrorResponse apiResponse) {
         super(message);

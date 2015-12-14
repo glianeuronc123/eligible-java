@@ -7,7 +7,7 @@ public class AuthenticationException extends EligibleException {
 
     /**
      * Create Authentication Exception.
-     * @param message
+     * @param message the detail message.
      */
     public AuthenticationException(String message) {
         super(message);
@@ -15,8 +15,8 @@ public class AuthenticationException extends EligibleException {
 
     /**
      * Create Authentication Exception.
-     * @param message
-     * @param e
+     * @param message the detail message.
+     * @param e root cause.
      */
     public AuthenticationException(String message, Throwable e) {
         super(message, e);

@@ -38,7 +38,7 @@ public class EligibleExample extends EligibleMainBase {
         Plan planObject = coverage.getPlan();           // get<> methods return Object representation
         System.out.println(planObject);
         System.out.println(planObject.dump());
-        System.out.println(planObject.get("dates"));
+        System.out.println((String) planObject.get("dates"));
         System.out.println(planObject.getDates());      // OK, you get the idea now :D
     }
 }

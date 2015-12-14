@@ -9,8 +9,9 @@ public abstract class StringUtil {
 
     /**
      * {@link String#trim()} the input.
-     * @param param
-     * @return trimmed String.
+     *
+     * @param param input
+     * @return trimmed String
      * @throws InvalidParameterException if {@code param} is blank.
      */
     public static String normalizeString(String param) {
@@ -27,7 +28,7 @@ public abstract class StringUtil {
 
     /**
      * Check if the string is empty or null.
-     * @param param
+     * @param param input
      * @return true if empty.
      */
     public static boolean isEmpty(String param) {
@@ -36,7 +37,7 @@ public abstract class StringUtil {
 
     /**
      * Check if the string is null, empty or only spaces.
-     * @param param
+     * @param param input
      * @return true if blank.
      */
     public static boolean isBlank(String param) {

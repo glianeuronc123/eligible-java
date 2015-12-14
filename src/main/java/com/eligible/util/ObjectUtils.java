@@ -7,8 +7,8 @@ public abstract class ObjectUtils {
 
     /**
      * Compares two objects for equality.
-     * @param a
-     * @param b
+     * @param a first obj
+     * @param b second obj
      * @return true if objects are equal
      */
     public static boolean equals(Object a, Object b) {

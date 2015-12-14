@@ -8,9 +8,9 @@ import java.net.Proxy;
 
 /**
  * Eligible Java Bindings.
- * <p/>
+ * <p>
  * {@link Eligible} class represents basic configurations for making API calls.
- * <p/>
+ * </p>
  * <pre>
  *   Eligible.apiKey = &lt;api_key&gt;; (default null)
  *   Eligible.isTest = true; (default false)
@@ -51,6 +51,7 @@ public abstract class Eligible {
 
     /**
      * Connection proxy to tunnel all Eligible connections.
+     *
      * @param proxy proxy host and port setting
      * @return {@link Proxy} host and post setting
      */
@@ -60,6 +61,7 @@ public abstract class Eligible {
 
     /**
      * Credential for proxy authorization if required.
+     *
      * @param auth proxy required userName and password
      * @return {@link PasswordAuthentication}
      */
@@ -71,6 +73,8 @@ public abstract class Eligible {
     /**
      * (FOR TESTING ONLY) If you'd like your API requests to hit your own
      * (mocked) server, you can set this up here by overriding the base api URL.
+     *
+     * @param overriddenApiBase url for eligible api endpoint
      */
     public static void overrideApiBase(final String overriddenApiBase) {
         apiBase = overriddenApiBase;

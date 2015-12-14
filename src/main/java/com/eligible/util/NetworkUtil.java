@@ -17,9 +17,9 @@ public abstract class NetworkUtil {
     /**
      * HTTP encode url content using {@link #CHARSET}.
      *
-     * @param str
+     * @param str input string for encoding
      * @return null if {@code is null}, else encoded string.
-     * @throws UnsupportedEncodingException
+     * @throws UnsupportedEncodingException if {@link #CHARSET} is unsupported
      */
     public static String urlEncode(String str) throws UnsupportedEncodingException {
         // Preserve original behavior that passing null for an object id will lead

@@ -25,10 +25,10 @@ public class MultipartProcessor {
     /**
      * Create a HTTP Multipart Processor.
      *
-     * @param conn
-     * @param boundary
-     * @param charset
-     * @throws IOException
+     * @param conn HTTP connection
+     * @param boundary boundary
+     * @param charset charset
+     * @throws IOException on network issue
      */
     public MultipartProcessor(java.net.HttpURLConnection conn, String boundary, String charset)
             throws IOException {
@@ -43,8 +43,8 @@ public class MultipartProcessor {
     /**
      * Add for data into request.
      *
-     * @param name
-     * @param value
+     * @param name field name
+     * @param value field value
      */
     public void addFormField(String name, String value) {
         writer.append("--" + boundary).append(LINE_BREAK);
@@ -58,9 +58,9 @@ public class MultipartProcessor {
     /**
      * Add file to be uploading into request.
      *
-     * @param name
-     * @param file
-     * @throws IOException
+     * @param name field name
+     * @param file file object
+     * @throws IOException on network issue
      */
     public void addFileField(String name, File file) throws IOException {
         String fileName = file.getName();
@@ -92,7 +92,7 @@ public class MultipartProcessor {
 
     /**
      * Flush streams and cleanup.
-     * @throws IOException
+     * @throws IOException on network issue
      */
     public void finish() throws IOException {
         writer.append("--" + boundary + "--").append(LINE_BREAK);

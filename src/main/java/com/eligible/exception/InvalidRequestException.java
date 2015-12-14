@@ -10,9 +10,7 @@ public class InvalidRequestException extends EligibleException {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Get param name.
-     *
-     * @return param name
+     * Param name.
      */
     @Getter
     private final String param;

@@ -6,7 +6,7 @@ ext {
     limits = [
         'instruction': 60,
         'branch'     : 54,
-        'line'       : 64,
+        'line'       : 62,
         'complexity' : 59,
         'method'     : 72,
         'class'      : 89, //TODO - 100%
