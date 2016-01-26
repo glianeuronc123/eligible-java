@@ -2,6 +2,7 @@ package com.eligible.model;
 
 import com.eligible.BaseEligibleTest;
 import com.eligible.exception.APIErrorResponseException;
+import com.eligible.json.deserializer.EligibleObjectTypeAdapterFactory;
 import com.eligible.model.coverage.Dates;
 import com.eligible.net.APIResource;
 import com.google.gson.FieldNamingPolicy;
@@ -32,6 +33,21 @@ public class DeserializerTest extends BaseEligibleTest {
     @Test(expected = IllegalArgumentException.class)
     public void testDeserializeDatesException() throws Exception {
         apiGson.fromJson("{}", Dates.class);                       // should throw error
+    }
+
+    @Test
+    public void testDeserializeError() throws Exception {
+        Gson gson = EligibleObjectTypeAdapterFactory.GSON;
+        APIErrorResponse response = gson.fromJson(resource("api_error_response.json"), APIErrorResponse.class);     // should not throw error
+        Assert.assertNotNull(response.getError());
+        Assert.assertNotNull(response.getError().getFollowUpActionCode());
+        Assert.assertNotNull(response.getError().getFollowUpActionDescription());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeserializeErrorException() throws Exception {
+        Gson gson = EligibleObjectTypeAdapterFactory.GSON;
+        gson.fromJson("{\"error\":[]}", APIErrorResponse.class);                       // should throw error
     }
 
     @Test

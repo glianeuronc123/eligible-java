@@ -115,6 +115,7 @@ public class Claim extends APIResource {
         List<Acknowledgement> acknowledgements;
         String payerControlNumber;
         String referenceId;
+        String status;
         Integer page;
         Integer perPage;
         Integer numOfPages;

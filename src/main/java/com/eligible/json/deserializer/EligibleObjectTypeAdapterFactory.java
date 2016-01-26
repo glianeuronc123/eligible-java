@@ -3,6 +3,7 @@ package com.eligible.json.deserializer;
 import com.eligible.exception.APIErrorResponseException;
 import com.eligible.model.APIErrorResponse;
 import com.eligible.model.EligibleObject;
+import com.eligible.model.Error;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,8 +25,12 @@ import java.util.Map;
  */
 public class EligibleObjectTypeAdapterFactory implements TypeAdapterFactory {
 
-    private static final Gson GSON = new GsonBuilder()
+    /**
+     * {@link Gson} deserializer for {@link APIErrorResponse}.
+     */
+    public static final Gson GSON = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .registerTypeAdapter(Error.class, new ErrorDeserializer())
             .create();
 
     private static final List<String> API_ERROR_RES_KEYS = Arrays.asList("created_at", "eligible_id", "error");
@@ -33,7 +38,7 @@ public class EligibleObjectTypeAdapterFactory implements TypeAdapterFactory {
                                                         "response_code", "response_description",
                                                         "agency_qualifier_code", "agency_qualifier_description",
                                                         "reject_reason_code", "reject_reason_description",
-                                                        "follow_up_action_code", "follow_up_action_description",
+// "follow_up_action_code", "follow_up_action_description", // could be follow-up_action_code as well
                                                         "details");
 
     /** {@inheritDoc} */

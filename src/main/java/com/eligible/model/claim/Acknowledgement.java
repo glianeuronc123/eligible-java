@@ -13,4 +13,6 @@ public class Acknowledgement extends EligibleObject {
     String status;
     String message;
     List<com.eligible.model.claim.Error> errors;
+    String payerControlNumber;
+    String referenceId;
 }
