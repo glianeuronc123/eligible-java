@@ -7,6 +7,7 @@ import com.eligible.exception.APIException;
 import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.InvalidRequestException;
 import com.eligible.model.EligibleObject;
+import com.eligible.util.StringUtil;
 import com.google.gson.JsonElement;
 import com.google.gson.stream.JsonReader;
 import lombok.EqualsAndHashCode;
@@ -532,7 +533,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             if (rBodyJson.isJsonObject()) {
                 Error error = APIResource.GSON.fromJson(rBody, Error.class);
                 message = error.getError();
-            } else /*if (rBodyJson.isJsonPrimitive())*/ {
+            }
+
+            if (StringUtil.isBlank(message)) {
                 message = rBody;
             }
 
