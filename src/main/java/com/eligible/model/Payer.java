@@ -14,6 +14,7 @@ import lombok.Getter;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @EqualsAndHashCode(callSuper=false)
@@ -33,7 +34,13 @@ public class Payer extends APIResource {
     public static List<Payer> all()
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
-        return all(null);
+        return all(null, null);
+    }
+
+    public static List<Payer> all(Map<String, Object> params)
+            throws AuthenticationException, InvalidRequestException,
+            APIConnectionException, APIException {
+        return all(params, null);
     }
 
     public static List<SearchOptions> searchOptions()
@@ -59,6 +66,13 @@ public class Payer extends APIResource {
             APIConnectionException, APIException {
         Type listType = new TypeToken<List<Payer>>(){}.getType();
         return request(RequestMethod.GET, classURL(Payer.class), null, listType, options);
+    }
+
+    public static List<Payer> all(Map<String, Object> params, RequestOptions options)
+            throws AuthenticationException, InvalidRequestException,
+            APIConnectionException, APIException {
+        Type listType = new TypeToken<List<Payer>>(){}.getType();
+        return request(RequestMethod.GET, classURL(Payer.class), params, listType, options);
     }
 
     public static List<SearchOptions> searchOptions(RequestOptions options)

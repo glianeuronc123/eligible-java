@@ -47,7 +47,7 @@ public abstract class EligibleObject {
                 this.getClass().getName(),
                 System.identityHashCode(this),
                 this.getIdString(),
-                PRETTY_DUMP_GSON.toJson(this));
+                PRETTY_DUMP_GSON.toJson(rawValues));
     }
 
     @Override
