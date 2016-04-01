@@ -2,6 +2,7 @@ package com.eligible.net;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -44,10 +45,7 @@ public final class PubKeyManager implements X509TrustManager {
                     "checkServerTrusted: X509Certificate is empty");
         }
 
-        // alternate: String certFingerprint = ((X509CertImpl) chain[0]).getFingerprint("SHA-1");
-
-        final byte[] digest = md.digest(chain[0].getEncoded());
-        String certFingerprint = byte2hex(digest);
+        String certFingerprint = getFingerprint(chain[0]);
 
         for (String fingerprint : FINGERPRINTS) {
             if (fingerprint.equalsIgnoreCase(certFingerprint)) {
@@ -57,6 +55,12 @@ public final class PubKeyManager implements X509TrustManager {
 
         throw new CertificateException("checkServerTrusted: Expected public key: " + Arrays.toString(FINGERPRINTS.toArray())
                 + ", got public key:" + certFingerprint);
+    }
+
+    public String getFingerprint(X509Certificate cert) throws CertificateEncodingException {
+        // alternate: String certFingerprint = ((X509CertImpl) chain[0]).getFingerprint("SHA-1");
+        final byte[] digest = md.digest(cert.getEncoded());
+        return byte2hex(digest);
     }
 
     private static String byte2hex(byte bytes[]) {
