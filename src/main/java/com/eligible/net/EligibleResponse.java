@@ -1,8 +1,11 @@
 package com.eligible.net;
 
+import com.eligible.util.NetworkUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +17,7 @@ import java.util.Map;
 public class EligibleResponse {
 
     private final int responseCode;
+    private final byte[] responseByteArray;
     private final String responseBody;
     private final Map<String, List<String>> responseHeaders;
 
@@ -21,9 +25,18 @@ public class EligibleResponse {
      * Create an {@link EligibleResponseGetter} with response code and body.
      *
      * @param responseCode HTTP response code
-     * @param responseBody HTTP response body
+     * @param responseByteArray HTTP response body
      */
-    public EligibleResponse(int responseCode, String responseBody) {
-        this(responseCode, responseBody, null);
+    public EligibleResponse(int responseCode, byte[] responseByteArray) throws UnsupportedEncodingException {
+        this(responseCode, responseByteArray, new String(responseByteArray, NetworkUtil.CHARSET), null);
+    }
+    /**
+     * Create an {@link EligibleResponseGetter} with response code and body.
+     *
+     * @param responseCode HTTP response code
+     * @param responseByteArray HTTP response body
+     */
+    public EligibleResponse(int responseCode, byte[] responseByteArray, Map<String, List<String>> responseHeaders) throws UnsupportedEncodingException {
+        this(responseCode, responseByteArray, new String(responseByteArray, NetworkUtil.CHARSET), responseHeaders);
     }
 }

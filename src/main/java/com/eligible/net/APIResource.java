@@ -64,6 +64,12 @@ public abstract class APIResource extends EligibleObject {
                 return "payment_reports";
             case "paymentstatus":
                 return "payment/status";
+            case "enrollmentnpi":
+                return "enrollment_npi";
+            case "receivedpdf":
+                return "received_pdf";
+            case "originalsignaturepdf":
+                return "original_signature_pdf";
             default:
                 return className;
         }
@@ -127,5 +133,14 @@ public abstract class APIResource extends EligibleObject {
             InvalidRequestException, APIConnectionException,
             APIException {
         return request(method, url, params, (Type) typeOfT, options);
+    }
+
+    protected static EligibleResponse request(RequestMethod method,
+                                              String url, Map<String, Object> params,
+                                              RequestOptions options) throws AuthenticationException,
+            InvalidRequestException, APIConnectionException,
+            APIException {
+        return APIResource.eligibleResponseGetter.request(method, url, params,
+                RequestType.NORMAL, options);
     }
 }

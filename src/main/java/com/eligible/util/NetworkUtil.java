@@ -38,7 +38,7 @@ public abstract class NetworkUtil {
      */
     public static String getBoundary() {
         Random random = new Random();
-        Long positiveRandomLong = Math.abs(random.nextLong());
+        long positiveRandomLong = Math.abs(random.nextLong());
         return String.valueOf(positiveRandomLong);
     }
 }

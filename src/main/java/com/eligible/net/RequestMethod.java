@@ -10,6 +10,9 @@ public enum RequestMethod {
     /** HTTP POST. */
     POST,
 
+    /** HTTP PUT. */
+    PUT,
+
     /** HTTP DELETE. */
     DELETE,
 }
