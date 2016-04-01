@@ -87,7 +87,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         String apiVersion = options.getApiVersion();
         headers.put("Accept-Charset", CHARSET);
         headers.put("Accept", "application/json");
-        headers.put("User-Agent", format("Eligible/%s JavaBindings/%s", apiVersion, Eligible.VERSION));
+        headers.put("User-Agent", format("eligible-java/%s", Eligible.VERSION));
 
         // debug headers
         String[] propertyNames = {"os.name", "os.version", "os.arch",
