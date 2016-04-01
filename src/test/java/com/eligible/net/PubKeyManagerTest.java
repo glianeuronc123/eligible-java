@@ -28,10 +28,18 @@ public class PubKeyManagerTest {
         // addFingerprint shouldn't throw exception
     }
 
-    @Test()
+    @Test
     public void testCheckServerTrustedMatch() throws Exception {
         X509Certificate cert = generateCert();
         addFingerprint(cert);
+
+        X509Certificate[] chain = {cert};
+        pubKeyManager.checkServerTrusted(chain, "ECDHE_RSA");
+    }
+
+    @Test(expected = java.security.cert.CertificateException.class)
+    public void testCheckServerTrustedNotMatch() throws Exception {
+        X509Certificate cert = generateCert();
 
         X509Certificate[] chain = {cert};
         pubKeyManager.checkServerTrusted(chain, "ECDHE_RSA");
@@ -50,7 +58,6 @@ public class PubKeyManagerTest {
     @Test
     public void testGetAcceptedIssuers() throws Exception {
         assertNull(pubKeyManager.getAcceptedIssuers());
-        // addFingerprint shouldn't throw exception
     }
 
     private void addFingerprint(X509Certificate cert) throws CertificateEncodingException {
