@@ -3,6 +3,7 @@ package com.eligible;
 import org.junit.After;
 import org.junit.Before;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -19,12 +20,12 @@ import static org.mockito.Mockito.when;
 /** Eligible Test base for mocking {@link HttpURLConnection}. */
 public class BaseMockedNetwokStreamEligibleTest extends BaseEligibleTest {
 
-    public static HttpURLConnection urlConnectionMock;
+    public static HttpsURLConnection urlConnectionMock;
 
     /** Setup mock for HTTPURLConnection. */
     @Before
     public void setUpMock() {
-        urlConnectionMock = mock(HttpURLConnection.class);
+        urlConnectionMock = mock(HttpsURLConnection.class);
         System.setProperty(CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME, MockURLStreamHandler.class.getName());
     }
 

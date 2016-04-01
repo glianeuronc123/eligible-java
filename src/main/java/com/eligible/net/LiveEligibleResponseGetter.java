@@ -13,6 +13,7 @@ import com.google.gson.stream.JsonReader;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import javax.net.ssl.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,12 +29,12 @@ import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.net.URLStreamHandler;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.util.*;
 
 import static com.eligible.util.NetworkUtil.CHARSET;
 import static com.eligible.util.NetworkUtil.getBoundary;
@@ -106,7 +107,22 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         return headers;
     }
 
-    private static HttpURLConnection createEligibleConnection(
+    private static SSLSocketFactory getSocketFactory() throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException {
+        // Perform customary SSL/TLS checks
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
+        tmf.init((KeyStore) null);
+        TrustManager[] tm = tmf.getTrustManagers(); // Customary SSL/TLS checks
+
+        List<TrustManager> tmList = new ArrayList<>(Arrays.asList(tm));
+        tmList.add(new PubKeyManager());
+        tm = tmList.toArray(tm);
+
+        SSLContext context = SSLContext.getInstance("TLS");
+        context.init(null, tm, null);
+        return context.getSocketFactory();
+    }
+
+    private static HttpsURLConnection createEligibleConnection(
             String url, RequestOptions options) throws IOException {
         URL eligibleURL;
         String customURLStreamHandlerClassName = System.getProperty(CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME, null);
@@ -124,9 +140,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         } else {
             eligibleURL = new URL(url);
         }
-        HttpURLConnection conn;
+        HttpsURLConnection conn;
         if (Eligible.getConnectionProxy() != null) {
-            conn = (HttpURLConnection) eligibleURL.openConnection(Eligible.getConnectionProxy());
+            conn = (HttpsURLConnection) eligibleURL.openConnection(Eligible.getConnectionProxy());
             Authenticator.setDefault(new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -134,7 +150,12 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                 }
             });
         } else {
-            conn = (HttpURLConnection) eligibleURL.openConnection();
+            conn = (HttpsURLConnection) eligibleURL.openConnection();
+        }
+        try {
+            conn.setSSLSocketFactory(getSocketFactory());
+        } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
+            throw new IOException(e);
         }
         conn.setConnectTimeout(CONNECTION_TIMEOUT_MILLIS);
         conn.setReadTimeout(READ_TIMEOUT_MILLIS);
