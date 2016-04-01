@@ -1,5 +1,6 @@
 package com.eligible;
 
+import com.eligible.net.PubKeyManager;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -78,5 +79,15 @@ public abstract class Eligible {
      */
     public static void overrideApiBase(final String overriddenApiBase) {
         apiBase = overriddenApiBase;
+    }
+
+    /**
+     * Add fingerprint of new Eligible Certificate (to be used in Certificate
+     * pinning).
+     *
+     * @param fingerprint SHA-1 digest of certificate
+     */
+    public static void addFingerprint(String fingerprint) {
+        PubKeyManager.addFingerprint(fingerprint);
     }
 }

@@ -10,6 +10,8 @@ import com.eligible.model.Payer;
 import com.eligible.model.PaymentStatus;
 import com.eligible.net.APIResource;
 import com.eligible.net.RequestOptions;
+import com.eligible.util.ObjectUtils;
+import com.eligible.util.StringUtil;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -50,7 +52,12 @@ public class EligibleTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Eligible.apiKey = "n5Cddnj2KST6YV9J2l2ztQQ2VrdPfzA4JPbn"; // eligible public test key
+        String apiKey = System.getenv("API_KEY");
+        if (StringUtil.isBlank(apiKey)) {
+            throw new IllegalStateException("ApiKey not present. Set in API_KEY environment variable.");
+        }
+
+        Eligible.apiKey = apiKey; // eligible public test key
         Eligible.isTest = true;
 
         defaultCoverageParams.put("payer_id", "00001");
