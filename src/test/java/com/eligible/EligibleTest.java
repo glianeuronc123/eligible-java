@@ -37,10 +37,10 @@ public class EligibleTest {
     static Map<String, Object> defaultCoverageMedicareParams = new HashMap<String, Object>();
     static Map<String, Object> defaultCoverageCostEstimateParams = new HashMap<String, Object>();
     static Map<String, Object> defaultClaimParams = new HashMap<String, Object>();
-    static String defaultClaimAckReferenceId = "12121212";
+    static String defaultClaimAckReferenceId = "8IZ9JZI2FUEDCS";
     static Map<String, Object> defaultClaimAckParams = new HashMap<String, Object>();
-    static String defaultClaimPaymentReportClaimReferenceId = "BDA85HY09IJ";
-    static String defaultClaimPaymentReportId = "ABX45DGER44";
+    static String defaultClaimPaymentReportClaimReferenceId = "8IZ9JZI2FUEDCS";
+    static String defaultClaimPaymentReportId = "UP4OCS4PUY455";
     static Map<String, Object> defaultPaymentReportsParams = new HashMap<String, Object>();
     static Map<String, Object> defaultPaymentStatusParams = new HashMap<String, Object>();
 
@@ -68,7 +68,7 @@ public class EligibleTest {
         defaultCoverageMedicareParams.put("provider_last_name", "Doe");
         defaultCoverageMedicareParams.put("provider_first_name", "John");
         defaultCoverageMedicareParams.put("provider_npi", "0123456789");
-        defaultCoverageMedicareParams.put("member_id", "ZZZ445554301");
+        defaultCoverageMedicareParams.put("member_id", "111111111A");
         defaultCoverageMedicareParams.put("member_first_name", "IDA");
         defaultCoverageMedicareParams.put("member_last_name", "FRANKLIN");
         defaultCoverageMedicareParams.put("member_dob", "1701-12-12");
@@ -85,14 +85,10 @@ public class EligibleTest {
         defaultCoverageCostEstimateParams.put("member_last_name", "FRANKLIN");
         defaultCoverageCostEstimateParams.put("member_dob", "1701-12-12");
 
-        defaultClaimAckParams.put("internal_id", "12345");
         defaultClaimAckParams.put("submission_status", "accepted");
-        defaultClaimAckParams.put("internal_id", "12345");
-        defaultClaimAckParams.put("claim_submitted_date", "2014-02-15");
 
-        defaultPaymentReportsParams.put("internal_id", "12345");
         defaultPaymentReportsParams.put("start_date", "2014-02-15");
-        defaultPaymentReportsParams.put("end_date", "2014-02-16");
+        defaultPaymentReportsParams.put("end_date", "2020-02-16");
 
         defaultPaymentStatusParams.put("payer_id", "00001");
         defaultPaymentStatusParams.put("provider_npi", "0123456789");
@@ -298,8 +294,6 @@ public class EligibleTest {
         assertNotNull(medicareCoverage.getLastName());
         assertNotNull(medicareCoverage.getFirstName());
         assertNotNull(medicareCoverage.getMemberId());
-        assertNotNull(medicareCoverage.getGroupId());
-        assertNotNull(medicareCoverage.getGroupName());
         assertNotNull(medicareCoverage.getGender());
         assertNotNull(medicareCoverage.getPayerName());
         assertNotNull(medicareCoverage.getPlanNumber());
@@ -379,7 +373,6 @@ public class EligibleTest {
         assertNotNull(report.getPatient());
         assertNotNull(report.getCorrectedPatient());
         assertNotNull(report.getOtherPatient());
-        assertNotNull(report.getServiceProvider());
         assertNotNull(report.getClaim());
     }
 
@@ -396,7 +389,6 @@ public class EligibleTest {
         assertNotNull(report.getPatient());
         assertNotNull(report.getCorrectedPatient());
         assertNotNull(report.getOtherPatient());
-        assertNotNull(report.getServiceProvider());
         assertNotNull(report.getClaim());
     }
 
