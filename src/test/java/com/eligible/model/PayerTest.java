@@ -6,7 +6,9 @@ import com.eligible.exception.EligibleException;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -29,6 +31,15 @@ public class PayerTest extends BaseMockedNetwokEligibleTest {
         Payer.all();
 
         verifyGet(new TypeToken<List<Payer>>() { }.getType(), "https://gds.eligibleapi.com/v1.5/payers");
+        verifyNoMoreInteractions(networkMock);
+    }
+
+    @Test
+    public void testAllWithParams() throws EligibleException {
+        Map<String, Object> params = Collections.emptyMap();
+        Payer.all(params);
+
+        verifyGet(new TypeToken<List<Payer>>() { }.getType(), "https://gds.eligibleapi.com/v1.5/payers", params);
         verifyNoMoreInteractions(networkMock);
     }
 
