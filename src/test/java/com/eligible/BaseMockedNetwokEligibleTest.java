@@ -1,12 +1,7 @@
 package com.eligible;
 
 import com.eligible.exception.EligibleException;
-import com.eligible.net.APIResource;
-import com.eligible.net.EligibleResponseGetter;
-import com.eligible.net.LiveEligibleResponseGetter;
-import com.eligible.net.RequestMethod;
-import com.eligible.net.RequestOptions;
-import com.eligible.net.RequestType;
+import com.eligible.net.*;
 import com.eligible.util.ObjectUtils;
 import lombok.AllArgsConstructor;
 import org.junit.After;
@@ -121,6 +116,20 @@ public class BaseMockedNetwokEligibleTest extends BaseEligibleTest {
                 argThat(new RequestOptionsMatcher(options)));
     }
 
+    protected static <T> void verifyRequest(
+            RequestMethod method,
+            String url,
+            Map<String, Object> params,
+            RequestType requestType,
+            RequestOptions options) throws EligibleException {
+        verify(networkMock).request(
+                eq(method),
+                eq(url),
+                argThat(new ParamMapMatcher(params)),
+                eq(requestType),
+                argThat(new RequestOptionsMatcher(options)));
+    }
+
     protected static <T> void stubNetwork(Type typeOfT, String response) throws EligibleException {
         when(networkMock.request(
                 Mockito.any(RequestMethod.class),
@@ -129,6 +138,15 @@ public class BaseMockedNetwokEligibleTest extends BaseEligibleTest {
                 Mockito.<Class<T>>any(),
                 Mockito.any(RequestType.class),
                 Mockito.any(RequestOptions.class))).thenReturn(APIResource.GSON.fromJson(response, typeOfT));
+    }
+
+    protected static <T> void stubNetwork(EligibleResponse response) throws EligibleException {
+        when(networkMock.request(
+                Mockito.any(RequestMethod.class),
+                Mockito.anyString(),
+                Mockito.<Map<String, Object>>any(),
+                Mockito.any(RequestType.class),
+                Mockito.any(RequestOptions.class))).thenReturn(response);
     }
 
     @AllArgsConstructor

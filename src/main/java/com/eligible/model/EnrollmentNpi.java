@@ -42,7 +42,7 @@ public class EnrollmentNpi extends APIResource {
     com.eligible.model.enrollmentnpi.Payer payer;
     List<String> rejectReasons;
 
-    public static EnrollmentNpi create(Map<String, Object> params)
+    public static EnrollmentNpiResponse create(Map<String, Object> params)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
         return create(params, null);
@@ -60,7 +60,7 @@ public class EnrollmentNpi extends APIResource {
         return update(enrollmentNpiId, params, null);
     }
 
-    public static EnrollmentNpi query(Map<String, Object> params)
+    public static EnrollmentNpiQueryResponse query(Map<String, Object> params)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
         return query(params, null);
@@ -132,11 +132,11 @@ public class EnrollmentNpi extends APIResource {
         return deleteOriginalSignaturePdf(enrollmentNpiId, null);
     }
 
-    public static EnrollmentNpi create(Map<String, Object> params, RequestOptions options)
+    public static EnrollmentNpiResponse create(Map<String, Object> params, RequestOptions options)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
         String url = classURL(EnrollmentNpi.class);
-        return request(RequestMethod.POST, url, params, EnrollmentNpi.class, options);
+        return request(RequestMethod.POST, url, params, EnrollmentNpiResponse.class, options);
     }
 
     public static EnrollmentNpiResponse retrieve(String enrollmentNpiId, RequestOptions options)
@@ -153,11 +153,11 @@ public class EnrollmentNpi extends APIResource {
         return request(RequestMethod.PUT, url, params, EnrollmentNpiResponse.class, options);
     }
 
-    public static EnrollmentNpi query(Map<String, Object> params, RequestOptions options)
+    public static EnrollmentNpiQueryResponse query(Map<String, Object> params, RequestOptions options)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
         String url = classURL(EnrollmentNpi.class);
-        return request(RequestMethod.GET, url, params, EnrollmentNpi.class, options);
+        return request(RequestMethod.GET, url, params, EnrollmentNpiQueryResponse.class, options);
     }
 
     public static ReceivedPdfResponse getReceivedPdf(String enrollmentNpiId, RequestOptions options)

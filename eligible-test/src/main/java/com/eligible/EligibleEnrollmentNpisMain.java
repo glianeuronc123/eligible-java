@@ -72,7 +72,7 @@ public class EligibleEnrollmentNpisMain extends EligibleMainBase {
     }
 
     static void testCreateEnrollment() throws Exception {
-        EnrollmentNpi enrollment = EnrollmentNpi.create(createEnrollmentParams());
+        EnrollmentNpiResponse enrollment = EnrollmentNpi.create(createEnrollmentParams());
         System.out.println(enrollment);
     }
 
