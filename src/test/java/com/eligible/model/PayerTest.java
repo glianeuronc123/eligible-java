@@ -36,10 +36,9 @@ public class PayerTest extends BaseMockedNetwokEligibleTest {
 
     @Test
     public void testAllWithParams() throws EligibleException {
-        Map<String, Object> params = Collections.emptyMap();
-        Payer.all(params);
+        Payer.all(DUMMY_PARAMS);
 
-        verifyGet(new TypeToken<List<Payer>>() { }.getType(), "https://gds.eligibleapi.com/v1.5/payers", params);
+        verifyGet(new TypeToken<List<Payer>>() { }.getType(), "https://gds.eligibleapi.com/v1.5/payers", DUMMY_PARAMS);
         verifyNoMoreInteractions(networkMock);
     }
 
