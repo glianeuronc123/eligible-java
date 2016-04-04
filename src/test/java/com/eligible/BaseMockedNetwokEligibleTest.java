@@ -155,18 +155,7 @@ public class BaseMockedNetwokEligibleTest extends BaseEligibleTest {
 
         /* Treat null references as equal to empty maps */
         public boolean matches(Object obj) {
-            if (obj == null) {
-                return this.other == null || this.other.isEmpty();
-            } else if (obj instanceof Map) {
-                Map<String, Object> paramMap = (Map<String, Object>) obj;
-                if (this.other == null) {
-                    return paramMap.isEmpty();
-                } else {
-                    return this.other.equals(paramMap);
-                }
-            } else {
-                return false;
-            }
+            return ObjectUtils.equals(this.other, obj);
         }
     }
 
