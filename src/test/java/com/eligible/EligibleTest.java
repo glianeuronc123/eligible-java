@@ -35,7 +35,7 @@ import static org.junit.Assert.fail;
 public class EligibleTest {
     static Map<String, Object> defaultCoverageParams = new HashMap<String, Object>();
     static Map<String, Object> invalidCoverageParams = new HashMap<String, Object>();
-    static Map<String, Object> emptyCoverageParams = Collections.emptyMap();
+    static Map<String, Object> emptyCoverageParams = new HashMap<>();
     static Map<String, Object> defaultCoverageMedicareParams = new HashMap<String, Object>();
     static Map<String, Object> defaultCoverageCostEstimateParams = new HashMap<String, Object>();
     static Map<String, Object> defaultClaimParams = new HashMap<String, Object>();
@@ -257,6 +257,7 @@ public class EligibleTest {
         assertTrue("Cause is not an instance of APIErrorResponseException", cause instanceof APIErrorResponseException);
         APIErrorResponseException exception = (APIErrorResponseException) cause;
 
+        assertNotNull(exception.getMessage());
         assertNotNull(exception.getApiResponse());
         assertNotNull(exception.getApiResponse().getEligibleId());
         assertNotNull(exception.getApiResponse().getId());

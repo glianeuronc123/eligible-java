@@ -2,6 +2,7 @@ package com.eligible.model;
 
 import com.eligible.BaseMockedNetwokEligibleTest;
 import com.eligible.BaseMockedNetwokStreamEligibleTest;
+import com.eligible.exception.APIErrorResponseException;
 import com.eligible.exception.APIException;
 import com.eligible.exception.EligibleException;
 import org.junit.Test;
@@ -31,9 +32,8 @@ public class PaymentStatusTest extends BaseMockedNetwokEligibleTest {
             try {
                 PaymentStatus paymentStatus = PaymentStatus.retrieve(DUMMY_PARAMS);
                 fail("Error Json Returned Success to user" + paymentStatus);
-            } catch (APIException e) {
-                assertNotNull(e.getMessage());
-                assertAPIErrorResponseException(e.getCause());
+            } catch (APIErrorResponseException e) {
+                assertAPIErrorResponseException(e);
             }
         }
     }
