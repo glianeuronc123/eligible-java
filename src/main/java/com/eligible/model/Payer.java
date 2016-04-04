@@ -64,8 +64,7 @@ public class Payer extends APIResource {
     public static List<Payer> all(RequestOptions options)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
-        Type listType = new TypeToken<List<Payer>>(){}.getType();
-        return request(RequestMethod.GET, classURL(Payer.class), null, listType, options);
+        return all(null, options);
     }
 
     public static List<Payer> all(Map<String, Object> params, RequestOptions options)
