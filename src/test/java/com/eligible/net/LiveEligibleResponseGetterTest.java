@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.eligible.net.LiveEligibleResponseGetter.createHtmlQuery;
+import static com.eligible.net.LiveEligibleResponseGetter.fillParams;
 import static org.junit.Assert.assertEquals;
 
 public class LiveEligibleResponseGetterTest extends BaseEligibleTest {
@@ -32,7 +33,17 @@ public class LiveEligibleResponseGetterTest extends BaseEligibleTest {
     public void testCreateQuery() throws EligibleException, UnsupportedEncodingException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("a", "b");
-        assertEquals("a=b&api_key=foobar&test=true", createHtmlQuery(params, RequestOptions.getDefault()));
+        assertEquals("a=b", createHtmlQuery(params));
+    }
+
+    @Test
+    public void testFillParams() throws EligibleException, UnsupportedEncodingException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("a", "b");
+        params = fillParams(params, RequestOptions.getDefault());
+        assertEquals("b", params.get("a"));
+        assertEquals("foobar", params.get("api_key"));
+        assertEquals("true", params.get("test"));
     }
 
     @Test
@@ -45,7 +56,7 @@ public class LiveEligibleResponseGetterTest extends BaseEligibleTest {
         params.put("nested", nested);
         params.put("c", "d");
         params.put("e", "f");
-        assertEquals(encode("nested[A]=B&nested[C]=D&c=d&e=f&api_key=foobar&test=true"), createHtmlQuery(params, RequestOptions.getDefault()));
+        assertEquals(encode("nested[A]=B&nested[C]=D&c=d&e=f"), createHtmlQuery(params));
     }
 
     @Test
@@ -59,7 +70,7 @@ public class LiveEligibleResponseGetterTest extends BaseEligibleTest {
         params.put("nested", nested);
         params.put("a", "b");
         params.put("c", "d");
-        assertEquals(encode("nested[0]=A&nested[1]=B&nested[2]=C&a=b&c=d&api_key=foobar&test=true"), createHtmlQuery(params, RequestOptions.getDefault()));
+        assertEquals(encode("nested[0]=A&nested[1]=B&nested[2]=C&a=b&c=d"), createHtmlQuery(params));
     }
 }
 

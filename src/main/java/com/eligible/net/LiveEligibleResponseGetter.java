@@ -14,12 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import javax.net.ssl.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -33,7 +28,6 @@ import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 import java.util.*;
 
 import static com.eligible.util.NetworkUtil.CHARSET;
@@ -74,7 +68,19 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             RequestType type,
             RequestOptions options)
             throws AuthenticationException, InvalidRequestException, APIConnectionException, APIException {
-        return requestInternal(method, url, params, typeOfT, type, options);
+        EligibleResponse response = requestInternal(method, url, params, type, options);
+        return APIResource.GSON.fromJson(response.getResponseBody(), typeOfT);
+    }
+
+    @Override
+    public EligibleResponse request(
+            RequestMethod method,
+            String url,
+            Map<String, Object> params,
+            RequestType type,
+            RequestOptions options)
+            throws AuthenticationException, InvalidRequestException, APIConnectionException, APIException {
+        return requestInternal(method, url, params, type, options);
     }
 
     private static String urlEncodePair(String k, String v)
@@ -122,7 +128,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         return context.getSocketFactory();
     }
 
-    private static HttpsURLConnection createEligibleConnection(
+    private static HttpURLConnection createEligibleConnection(
             String url, RequestOptions options) throws IOException {
         URL eligibleURL;
         String customURLStreamHandlerClassName = System.getProperty(CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME, null);
@@ -187,41 +193,42 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
     }
 
     private static HttpURLConnection createPostConnection(
-            String url, String query, RequestOptions options) throws IOException {
+            String url, String query, RequestMethod requestMethod,
+            RequestOptions options) throws IOException {
         HttpURLConnection conn = createEligibleConnection(url, options);
 
         conn.setDoOutput(true);
-        conn.setRequestMethod("POST");
+        conn.setRequestMethod(requestMethod.name());
         conn.setRequestProperty("Content-Type", format("application/json;charset=%s", CHARSET));
 
-        OutputStream output = null;
-        try {
-            output = conn.getOutputStream();
+        try(OutputStream output = conn.getOutputStream()) {
             output.write(query.getBytes(CHARSET));
-        } finally {
-            if (output != null) {
-                output.close();
-            }
         }
+
         return conn;
     }
 
     private static HttpURLConnection createDeleteConnection(
             String url, String query, RequestOptions options) throws IOException {
         String deleteUrl = formatURL(url, query);
-        HttpURLConnection conn = createEligibleConnection(
-                deleteUrl, options);
+        HttpURLConnection conn = createEligibleConnection(deleteUrl, options);
         conn.setRequestMethod("DELETE");
 
         return conn;
     }
 
-    static String createHtmlQuery(Map<String, Object> params, RequestOptions options)
+    static Map<String, Object> fillParams(Map<String, Object> params, RequestOptions options) {
+        if (params == null) {
+            params = new HashMap<String, Object>();
+        }
+        params.put("api_key", options.getApiKey());
+        params.put("test", valueOf(options.isTest()));
+        return params;
+    }
+
+    static String createHtmlQuery(Map<String, Object> params)
             throws UnsupportedEncodingException, InvalidRequestException {
         Map<String, String> flatParams = flattenParams(params);
-        flatParams.put("api_key", options.getApiKey());
-        flatParams.put("test", valueOf(options.isTest()));
-
         StringBuilder queryStringBuffer = new StringBuilder();
 
         for (Map.Entry<String, String> entry : flatParams.entrySet()) {
@@ -234,23 +241,14 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         return queryStringBuffer.toString();
     }
 
-    static String createJsonPayload(Map<String, Object> params, RequestOptions options)
+    static String createJsonPayload(Map<String, Object> params)
             throws InvalidRequestException {
-        if (params == null) {
-            params = new HashMap<String, Object>();
-        }
-        params.put("api_key", options.getApiKey());
-        params.put("test", valueOf(options.isTest()));
-
         return APIResource.GSON.toJson(params);
     }
 
 
     private static Map<String, String> flattenParams(Map<String, Object> params)
             throws InvalidRequestException {
-        if (params == null) {
-            return new HashMap<String, String>();
-        }
         Map<String, String> flatParams = new LinkedHashMap<String, String>();
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             String key = entry.getKey();
@@ -291,15 +289,19 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         private String error;
     }
 
-    private static String getResponseBody(InputStream responseStream)
+    private static byte[] getResponseBody(InputStream responseStream)
             throws IOException {
-        //\A is the beginning of the stream boundary
-        String rBody = new Scanner(responseStream, CHARSET)
-                .useDelimiter("\\A")
-                .next();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        responseStream = new BufferedInputStream(responseStream);
+
+        byte[] input = new byte[1024];
+        int readCount = 0;
+        while((readCount = responseStream.read(input)) != -1) {
+            baos.write(input, 0, readCount);
+        }
 
         responseStream.close();
-        return rBody;
+        return baos.toByteArray();
     }
 
     private static EligibleResponse makeURLConnectionRequest(
@@ -308,7 +310,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
         String query;
         try {
-            query = createHtmlQuery(params, options);
+            query = createHtmlQuery(params);
         } catch (UnsupportedEncodingException e) {
             throw new InvalidRequestException("Unable to encode parameters to "
                     + CHARSET
@@ -323,8 +325,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                     conn = createGetConnection(url, query, options);
                     break;
                 case POST:
-                    String payload = createJsonPayload(params, options);
-                    conn = createPostConnection(url, payload, options);
+                case PUT:
+                    String payload = createJsonPayload(params);
+                    conn = createPostConnection(url, payload, method, options);
                     break;
                 case DELETE:
                     conn = createDeleteConnection(url, query, options);
@@ -336,7 +339,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             }
             // trigger the request
             int rCode = conn.getResponseCode();
-            String rBody;
+            byte[] rBody;
             Map<String, List<String>> headers;
 
             if (rCode >= HTTP_OK && rCode < HTTP_MULT_CHOICE) {
@@ -361,14 +364,16 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         }
     }
 
-    private static <T> T requestInternal(RequestMethod method,
-                                         String url, Map<String, Object> params, Type typeOfT,
-                                         RequestType type, RequestOptions options)
+    private static EligibleResponse requestInternal(RequestMethod method,
+                                                    String url, Map<String, Object> params,
+                                                    RequestType type, RequestOptions options)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, APIException {
         if (options == null) {
             options = RequestOptions.getDefault();
         }
+        params = fillParams(params, options);
+
         String originalDNSCacheTTL = null;
         Boolean allowedToSetTTL = true;
 
@@ -411,7 +416,8 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             if (rCode < HTTP_OK || rCode >= HTTP_MULT_CHOICE) {
                 handleAPIError(rBody, rCode);
             }
-            return APIResource.GSON.fromJson(rBody, typeOfT);
+
+            return response;
 
         } catch (APIErrorResponseException e) {
             String message = e.getApiResponse().getError().getDetails();
@@ -459,9 +465,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
             throws InvalidRequestException, APIConnectionException,
             APIException {
 
-        if (method != RequestMethod.POST) {
+        if (method != RequestMethod.POST && method != RequestMethod.PUT) {
             throw new InvalidRequestException(
-                    "Multipart requests for HTTP methods other than POST "
+                    "Multipart requests for HTTP methods other than POST/PUT "
                             + "are currently not supported.");
         }
 
@@ -471,7 +477,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
             String boundary = getBoundary();
             conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod(method.name());
             conn.setRequestProperty("Content-Type", format("multipart/form-data; boundary=%s", boundary));
 
             MultipartProcessor multipartProcessor = null;
@@ -513,7 +519,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
             // trigger the request
             int rCode = conn.getResponseCode();
-            String rBody;
+            byte[] rBody;
             Map<String, List<String>> headers;
 
             if (rCode >= HTTP_OK && rCode < HTTP_MULT_CHOICE) {
@@ -595,7 +601,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
         String query;
         try {
-            query = createHtmlQuery(params, options);
+            query = createHtmlQuery(params);
         } catch (UnsupportedEncodingException e) {
             throw new InvalidRequestException("Unable to encode parameters to "
                     + CHARSET
@@ -643,9 +649,9 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                     requestMethodClass, fetchOptionsClass).newInstance(
                     fetchURL, httpMethod, fetchOptions);
 
-            if (method == RequestMethod.POST) {
+            if (method == RequestMethod.POST || method == RequestMethod.PUT) {
                 requestClass.getDeclaredMethod("setPayload", byte[].class)
-                        .invoke(request, createJsonPayload(params, options).getBytes());
+                        .invoke(request, createJsonPayload(params).getBytes());
             }
 
             for (Map.Entry<String, String> header : getHeaders(options)
@@ -671,8 +677,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
             int responseCode = (Integer) response.getClass()
                     .getDeclaredMethod("getResponseCode").invoke(response);
-            String body = new String((byte[]) response.getClass()
-                    .getDeclaredMethod("getContent").invoke(response), CHARSET);
+            byte[] body = (byte[]) response.getClass().getDeclaredMethod("getContent").invoke(response);
             return new EligibleResponse(responseCode, body);
         } catch (ReflectiveOperationException | MalformedURLException | SecurityException
                 | IllegalArgumentException | UnsupportedEncodingException e) {

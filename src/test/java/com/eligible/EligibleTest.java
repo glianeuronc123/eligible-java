@@ -4,10 +4,9 @@ import com.eligible.exception.APIErrorResponseException;
 import com.eligible.exception.AuthenticationException;
 import com.eligible.exception.EligibleException;
 import com.eligible.exception.InvalidRequestException;
-import com.eligible.model.Claim;
-import com.eligible.model.Coverage;
+import com.eligible.model.*;
 import com.eligible.model.Payer;
-import com.eligible.model.PaymentStatus;
+import com.eligible.model.enrollmentnpi.*;
 import com.eligible.net.APIResource;
 import com.eligible.net.RequestOptions;
 import com.eligible.util.ObjectUtils;
@@ -16,11 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 import static com.eligible.util.TestUtil.resource;
 import static org.junit.Assert.assertEquals;
@@ -35,7 +30,7 @@ import static org.junit.Assert.fail;
 public class EligibleTest {
     static Map<String, Object> defaultCoverageParams = new HashMap<String, Object>();
     static Map<String, Object> invalidCoverageParams = new HashMap<String, Object>();
-    static Map<String, Object> emptyCoverageParams = Collections.emptyMap();
+    static Map<String, Object> emptyCoverageParams = new HashMap<>();
     static Map<String, Object> defaultCoverageMedicareParams = new HashMap<String, Object>();
     static Map<String, Object> defaultCoverageCostEstimateParams = new HashMap<String, Object>();
     static Map<String, Object> defaultClaimParams = new HashMap<String, Object>();
@@ -44,7 +39,8 @@ public class EligibleTest {
     static String defaultClaimPaymentReportClaimReferenceId = "8IZ9JZI2FUEDCS";
     static String defaultClaimPaymentReportId = "UP4OCS4PUY455";
     static Map<String, Object> defaultPaymentReportsParams = new HashMap<String, Object>();
-    static Map<String, Object> defaultPaymentStatusParams = new HashMap<String, Object>();
+    static Map<String, Object> defaultPaymentStatusParams = new HashMap<>();
+    static Map<String, Object> enrollmentNpisQueryParams = new HashMap<>();
 
     @Before
     public void before() {
@@ -114,6 +110,8 @@ public class EligibleTest {
         String claimReqJson = new Scanner(resource("claim_request.json", EligibleTest.class))
                 .useDelimiter("\\A").next();
         defaultClaimParams = APIResource.GSON.fromJson(claimReqJson, Map.class);
+
+        enrollmentNpisQueryParams.put("status", "accepted");
 
     }
 
@@ -257,6 +255,7 @@ public class EligibleTest {
         assertTrue("Cause is not an instance of APIErrorResponseException", cause instanceof APIErrorResponseException);
         APIErrorResponseException exception = (APIErrorResponseException) cause;
 
+        assertNotNull(exception.getMessage());
         assertNotNull(exception.getApiResponse());
         assertNotNull(exception.getApiResponse().getEligibleId());
         assertNotNull(exception.getApiResponse().getId());
@@ -431,6 +430,196 @@ public class EligibleTest {
         assertNotNull(status.getClaims());
         assertFalse(status.getClaims().isEmpty());
         assertNotNull(status.getClaims().get(0));
+    }
+
+    public static Map<String, Object> createEnrollmentParams() throws Exception {
+        Map<String, Object> coordinateParams = new HashMap<>();
+        coordinateParams.put("lx", 47);
+        coordinateParams.put("ly", 9);
+        coordinateParams.put("mx", 47);
+        coordinateParams.put("my", 9);
+
+        List<Map> coordinates = new ArrayList<>();
+        coordinates.add(coordinateParams);
+
+        Map<String, Object> signatureParams = new HashMap<>();
+        signatureParams.put("coordinates", coordinates);
+
+        Map<String, Object> authorizedSignerParams = new HashMap<>();
+        authorizedSignerParams.put("title", "title");
+        authorizedSignerParams.put("first_name", "Lorem");
+        authorizedSignerParams.put("last_name", "Ipsum");
+        authorizedSignerParams.put("contact_number", "1478963250");
+        authorizedSignerParams.put("email", "provider@eligibleapi.com");
+        authorizedSignerParams.put("signature", signatureParams);
+
+        Map<String, Object> enrollmentNpiParams = new HashMap<>();
+        enrollmentNpiParams.put("payer_id", "ELIG_SNDBX");
+        enrollmentNpiParams.put("payer_id", "0007");
+        enrollmentNpiParams.put("endpoint", "coverage");
+        enrollmentNpiParams.put("effective_date", "2012-12-24");
+        enrollmentNpiParams.put("facility_name", "Quality");
+        enrollmentNpiParams.put("provider_name", "Jane Austen");
+        enrollmentNpiParams.put("tax_id", "12345678");
+        enrollmentNpiParams.put("address", "125 Snow Shoe Road");
+        enrollmentNpiParams.put("city", "Sacramento");
+        enrollmentNpiParams.put("state", "CA");
+        enrollmentNpiParams.put("zip", "94107");
+        enrollmentNpiParams.put("ptan", "54321");
+        enrollmentNpiParams.put("medicaid_id", "22222");
+        enrollmentNpiParams.put("npi", String.valueOf(System.currentTimeMillis() / 1000));
+        enrollmentNpiParams.put("authorized_signer", authorizedSignerParams);
+
+        Map<String, Object> enrollmentParams = new HashMap<>();
+        enrollmentParams.put("enrollment_npi", enrollmentNpiParams);
+
+        return enrollmentParams;
+    }
+
+    public static void assertEnrollmentNpiResponse(EnrollmentNpiResponse enrollmentNpiResponse) {
+        assertNotNull(enrollmentNpiResponse);
+        EnrollmentNpi enrollmentNpi = enrollmentNpiResponse.getEnrollmentNpi();
+        assertNotNull(enrollmentNpi);
+        assertNotNull(enrollmentNpi.getId());
+        assertNotNull(enrollmentNpi.getAddress());
+        assertNotNull(enrollmentNpi.getCity());
+        assertNotNull(enrollmentNpi.getZip());
+        assertNotNull(enrollmentNpi.getEffectiveDate());
+        assertNotNull(enrollmentNpi.getFacilityName());
+        assertNotNull(enrollmentNpi.getMedicaidId());
+        assertNotNull(enrollmentNpi.getNpi());
+        assertNotNull(enrollmentNpi.getProviderName());
+        assertNotNull(enrollmentNpi.getPtan());
+        assertNotNull(enrollmentNpi.getState());
+        assertNotNull(enrollmentNpi.getStatus());
+        assertNotNull(enrollmentNpi.getTaxId());
+        assertNotNull(enrollmentNpi.getCreatedAt());
+        assertNotNull(enrollmentNpi.getUpdatedAt());
+
+        AuthorizedSigner authorizedSigner = enrollmentNpi.getAuthorizedSigner();
+        assertNotNull(authorizedSigner);
+        assertNotNull(authorizedSigner.getContactNumber());
+        assertNotNull(authorizedSigner.getEmail());
+        assertNotNull(authorizedSigner.getFirstName());
+        assertNotNull(authorizedSigner.getLastName());
+        assertNotNull(authorizedSigner.getTitle());
+
+        AuthorizedSigner.Signature signature = authorizedSigner.getSignature();
+        assertNotNull(signature);
+        assertNotNull(signature.getCoordinates());
+
+        for (AuthorizedSigner.Coordinate coordinate : signature.getCoordinates()) {
+            assertNotNull(coordinate);
+            assertNotNull(coordinate.getLx());
+            assertNotNull(coordinate.getLy());
+            assertNotNull(coordinate.getMx());
+            assertNotNull(coordinate.getMy());
+        }
+
+        com.eligible.model.enrollmentnpi.Payer payer = enrollmentNpi.getPayer();
+        assertNotNull(payer);
+        assertNotNull(payer.getId());
+        assertNotNull(payer.getEndpoints());
+        assertNotNull(payer.getNames());
+    }
+
+    public static void assertReceivedPdf(EnrollmentNpi.ReceivedPdf receivedPdf) {
+        assertPdfResource(receivedPdf);
+        assertNotNull(receivedPdf.getNotificationMessage());
+    }
+
+    public static void assertPdfResource(EnrollmentNpi.PdfResource pdfResource) {
+        assertNotNull(pdfResource);
+        assertNotNull(pdfResource.getName());
+        assertNotNull(pdfResource.getCreatedAt());
+        assertNotNull(pdfResource.getUpdatedAt());
+        assertNotNull(pdfResource.getDownloadUrl());
+    }
+
+    @Test
+    public void testCreateEnrollment() throws Exception {
+        EnrollmentNpiResponse enrollment = EnrollmentNpi.create(createEnrollmentParams());
+        assertEnrollmentNpiResponse(enrollment);
+    }
+
+    @Test
+    public void testRetrieveEnrollmentNpi() throws Exception {
+        EnrollmentNpiResponse enrollment = EnrollmentNpi.retrieve("557604291");
+        assertEnrollmentNpiResponse(enrollment);
+        assertPdfResource(enrollment.getEnrollmentNpi().getOriginalSignaturePdf());
+        assertReceivedPdf(enrollment.getEnrollmentNpi().getReceivedPdf());
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void testUpdateEnrollmentNpi() throws Exception {
+        EnrollmentNpi.update("557604291", createEnrollmentParams());
+        // throw error
+    }
+
+    @Test
+    public void testQueryEnrollmentNpi() throws Exception {
+        EnrollmentNpiQueryResponse enrollmentNpisQueryResponse = EnrollmentNpi.query(enrollmentNpisQueryParams);
+        assertNotNull(enrollmentNpisQueryResponse);
+        assertNotNull(enrollmentNpisQueryResponse.getPage());
+        assertNotNull(enrollmentNpisQueryResponse.getPerPage());
+        assertNotNull(enrollmentNpisQueryResponse.getNumOfPages());
+        assertNotNull(enrollmentNpisQueryResponse.getTotal());
+        assertNotNull(enrollmentNpisQueryResponse.getEnrollmentNpis());
+
+        for (EnrollmentNpiResponse enrollmentNpi : enrollmentNpisQueryResponse.getEnrollmentNpis()) {
+            assertEnrollmentNpiResponse(enrollmentNpi);
+            assertPdfResource(enrollmentNpi.getEnrollmentNpi().getOriginalSignaturePdf());
+            assertReceivedPdf(enrollmentNpi.getEnrollmentNpi().getReceivedPdf());
+        }
+    }
+
+    @Test
+    public void testRetrieveReceivedPdf() throws Exception {
+        ReceivedPdfResponse receivedPdf = EnrollmentNpi.getReceivedPdf("557604291");
+        assertNotNull(receivedPdf);
+        assertReceivedPdf(receivedPdf.getReceivedPdf());
+    }
+
+    @Test
+    public void testDownloadReceivedPdf() throws Exception {
+        String receivedPdf = EnrollmentNpi.downloadReceivedPdf("557604291");
+        assertEquals("PDF file stored at /tmp/received_pdf.pdf", receivedPdf);
+    }
+
+    @Test
+    public void testCreateOriginalSignaturePdf() throws Exception {
+        String fileName = "./src/test/resources/com/eligible/EligibleSandboxEnrollmentPDF.pdf";
+        OriginalSignaturePdfResponse originalSignaturePdf = EnrollmentNpi.createOriginalSignaturePdf("557604291", fileName);
+        assertNotNull(originalSignaturePdf);
+        assertPdfResource(originalSignaturePdf.getOriginalSignaturePdf());
+    }
+
+    @Test
+    public void testRetrieveOriginalSignaturePdf() throws Exception {
+        OriginalSignaturePdfResponse originalSignaturePdf = EnrollmentNpi.getOriginalSignaturePdf("557604291");
+        assertNotNull(originalSignaturePdf);
+        assertPdfResource(originalSignaturePdf.getOriginalSignaturePdf());
+    }
+
+    @Test
+    public void testUpdateOriginalSignaturePdf() throws Exception {
+        String fileName = "./src/test/resources/com/eligible/EligibleSandboxEnrollmentPDF.pdf";
+        OriginalSignaturePdfResponse originalSignaturePdf = EnrollmentNpi.updateOriginalSignaturePdf("557604291", fileName);
+        assertNotNull(originalSignaturePdf);
+        assertPdfResource(originalSignaturePdf.getOriginalSignaturePdf());
+    }
+
+    @Test
+    public void testDownloadOriginalSignaturePdf() throws Exception {
+        String originalSignaturePdf = EnrollmentNpi.downloadOriginalSignaturePdf("557604291");
+        assertEquals("PDF file stored at /tmp/original_signature_pdf.pdf", originalSignaturePdf);
+    }
+
+    @Test
+    public void testDeleteOriginalSignaturePdf() throws Exception {
+        OriginalSignaturePdfDeleteResponse originalSignaturePdf = EnrollmentNpi.deleteOriginalSignaturePdf("557604291");
+        assertNotNull(originalSignaturePdf);
+        assertEquals("Original Signature Pdf deleted", originalSignaturePdf.getMessage());
     }
 
 }

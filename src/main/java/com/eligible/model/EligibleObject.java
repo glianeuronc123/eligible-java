@@ -42,12 +42,7 @@ public abstract class EligibleObject {
     }
 
     public String dump() {
-        return String.format(
-                "<%s@%s id=%s> JSON: %s",
-                this.getClass().getName(),
-                System.identityHashCode(this),
-                this.getIdString(),
-                PRETTY_DUMP_GSON.toJson(rawValues));
+        return PRETTY_DUMP_GSON.toJson(rawValues);
     }
 
     @Override
