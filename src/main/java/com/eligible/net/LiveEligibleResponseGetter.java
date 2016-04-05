@@ -310,14 +310,13 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
     private static byte[] getResponseBody(InputStream responseStream)
             throws IOException {
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            responseStream = new BufferedInputStream(responseStream);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        responseStream = new BufferedInputStream(responseStream);
 
-            moveContent(responseStream, baos);
+        moveContent(responseStream, baos);
 
-            responseStream.close();
-            return baos.toByteArray();
-        }
+        responseStream.close();
+        return baos.toByteArray();
     }
 
     private static EligibleResponse makeURLConnectionRequest(
