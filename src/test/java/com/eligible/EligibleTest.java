@@ -465,7 +465,6 @@ public class EligibleTest {
         authorizedSignerParams.put("signature", signatureParams);
 
         Map<String, Object> enrollmentNpiParams = new HashMap<>();
-        enrollmentNpiParams.put("payer_id", "ELIG_SNDBX");
         enrollmentNpiParams.put("payer_id", "0007");
         enrollmentNpiParams.put("endpoint", "coverage");
         enrollmentNpiParams.put("effective_date", "2012-12-24");
