@@ -264,7 +264,7 @@ public class EnrollmentNpi extends APIResource {
 
 
     @Getter
-    @EqualsAndHashCode(callSuper = false)
+    @EqualsAndHashCode(callSuper = true)
     public static class ReceivedPdf extends PdfResource {
 
         String notificationMessage;
@@ -310,7 +310,7 @@ public class EnrollmentNpi extends APIResource {
 
 
     @Getter
-    @EqualsAndHashCode(callSuper = false)
+    @EqualsAndHashCode(callSuper = true)
     public static class OriginalSignaturePdf extends PdfResource {
 
         public static OriginalSignaturePdfResponse create(String enrollmentNpiId, String file)
