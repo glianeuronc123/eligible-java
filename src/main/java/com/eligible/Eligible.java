@@ -30,7 +30,7 @@ public abstract class Eligible {
     /**
      * Eligible Java Binding version.
      */
-    public static final String VERSION = "1.4.0";
+    public static final String VERSION = "1.5.0";
 
     /**
      * Eligible API key for authentication.
