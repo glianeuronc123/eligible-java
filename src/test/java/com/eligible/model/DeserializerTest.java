@@ -4,6 +4,7 @@ import com.eligible.BaseEligibleTest;
 import com.eligible.exception.APIErrorResponseException;
 import com.eligible.json.deserializer.EligibleObjectTypeAdapterFactory;
 import com.eligible.model.coverage.Dates;
+import com.eligible.model.enrollmentnpi.*;
 import com.eligible.net.APIResource;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -128,6 +129,31 @@ public class DeserializerTest extends BaseEligibleTest {
     @Test
     public void testDeserializePaymentStatus() throws Exception {
         testObjectDeserialize(apiGson, "payment_status.json", PaymentStatus.class);
+    }
+
+    @Test
+    public void testDeserializeEnrollmentNpi() throws Exception {
+        testObjectDeserialize(apiGson, "enrollment_npis.json", EnrollmentNpiResponse.class);
+    }
+
+    @Test
+    public void testDeserializeEnrollmentNpis() throws Exception {
+        testObjectDeserialize(apiGson, "enrollment_npis_list.json", EnrollmentNpiQueryResponse.class);
+    }
+
+    @Test
+    public void testDeserializeReceivedPdf() throws Exception {
+        testObjectDeserialize(apiGson, "received_pdf.json", ReceivedPdfResponse.class);
+    }
+
+    @Test
+    public void testDeserializeOriginalSignaturePdf() throws Exception {
+        testObjectDeserialize(apiGson, "original_signature_pdf.json", OriginalSignaturePdfResponse.class);
+    }
+
+    @Test
+    public void testDeserializeOriginalSignaturePdfDelete() throws Exception {
+        testObjectDeserialize(apiGson, "delete_original_signature_pdf.json", OriginalSignaturePdfDeleteResponse.class);
     }
 
     public <T> void testListDeserialize(Gson gson, String jsonResource, Type typeOfT) throws Exception {

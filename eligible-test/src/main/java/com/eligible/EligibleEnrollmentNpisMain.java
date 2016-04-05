@@ -88,7 +88,7 @@ public class EligibleEnrollmentNpisMain extends EligibleMainBase {
 
     static void testQueryEnrollmentNpi() throws Exception {
         EnrollmentNpiQueryResponse enrollmentNpisQueryResponse = readEnrollmentNpisListFile();
-//        EnrollmentNpi enrollmentNpisQuery = EnrollmentNpi.query(queryParams);
+//        EnrollmentNpiQueryResponse enrollmentNpisQueryResponse = EnrollmentNpi.query(queryParams);
         System.out.println(enrollmentNpisQueryResponse);
     }
 
