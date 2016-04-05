@@ -9,7 +9,7 @@ You can request an account at https://eligible.com/request-access
 
 ## Documentation
 
-Refer to https://docs.eligible.com/docs for full documentation on Eligible APIs, their request parameters
+Refer to https://docs.eligible.com/ for full documentation on Eligible APIs, their request parameters
 and expected response formats.
 
 
@@ -137,7 +137,7 @@ embed into your applications.
 
 ### Reference
 
-[https://reference.eligible.com/#introduction](https://reference.eligible.com/#introduction)
+[https://reference.eligible.com/docs#payers-introduction](https://reference.eligible.com/docs#payers-introduction)
 
 ### List all the payers
 
