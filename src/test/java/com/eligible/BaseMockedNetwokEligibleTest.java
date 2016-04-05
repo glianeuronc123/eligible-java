@@ -1,7 +1,13 @@
 package com.eligible;
 
 import com.eligible.exception.EligibleException;
-import com.eligible.net.*;
+import com.eligible.net.APIResource;
+import com.eligible.net.EligibleResponse;
+import com.eligible.net.EligibleResponseGetter;
+import com.eligible.net.LiveEligibleResponseGetter;
+import com.eligible.net.RequestMethod;
+import com.eligible.net.RequestOptions;
+import com.eligible.net.RequestType;
 import com.eligible.util.ObjectUtils;
 import lombok.AllArgsConstructor;
 import org.junit.After;

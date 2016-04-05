@@ -2,11 +2,14 @@ package com.eligible.model;
 
 import com.eligible.BaseMockedNetwokEligibleTest;
 import com.eligible.exception.EligibleException;
-import com.eligible.model.enrollmentnpi.*;
+import com.eligible.model.enrollmentnpi.EnrollmentNpiQueryResponse;
+import com.eligible.model.enrollmentnpi.EnrollmentNpiResponse;
+import com.eligible.model.enrollmentnpi.OriginalSignaturePdfDeleteResponse;
+import com.eligible.model.enrollmentnpi.OriginalSignaturePdfResponse;
+import com.eligible.model.enrollmentnpi.ReceivedPdfResponse;
 import com.eligible.net.EligibleResponse;
 import com.eligible.net.RequestMethod;
 import com.eligible.net.RequestType;
-import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
 import java.io.File;

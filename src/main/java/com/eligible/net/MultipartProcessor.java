@@ -1,7 +1,5 @@
 package com.eligible.net;
 
-import lombok.Cleanup;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,13 +8,14 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URLConnection;
 
+import static com.eligible.util.NetworkUtil.moveContent;
+
 /**
  * Implementation for making HTTP multipart requests.
  */
 public class MultipartProcessor {
     private final String boundary;
     private static final String LINE_BREAK = "\r\n";
-    private static final int OUTPUT_BUFFER_SIZE = 4096;
     private OutputStream outputStream;
     private PrintWriter writer;
     private String charset;
@@ -25,9 +24,9 @@ public class MultipartProcessor {
     /**
      * Create a HTTP Multipart Processor.
      *
-     * @param conn HTTP connection
+     * @param conn     HTTP connection
      * @param boundary boundary
-     * @param charset charset
+     * @param charset  charset
      * @throws IOException on network issue
      */
     public MultipartProcessor(java.net.HttpURLConnection conn, String boundary, String charset)
@@ -43,7 +42,7 @@ public class MultipartProcessor {
     /**
      * Add for data into request.
      *
-     * @param name field name
+     * @param name  field name
      * @param value field value
      */
     public void addFormField(String name, String value) {
@@ -78,13 +77,9 @@ public class MultipartProcessor {
         writer.append(LINE_BREAK);
         writer.flush();
 
-        @Cleanup FileInputStream inputStream = new FileInputStream(file);
-        byte[] buffer = new byte[OUTPUT_BUFFER_SIZE];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            outputStream.write(buffer, 0, bytesRead);
+        try (FileInputStream inputStream = new FileInputStream(file)) {
+            moveContent(inputStream, outputStream);
         }
-        outputStream.flush();
 
         writer.append(LINE_BREAK);
         writer.flush();
@@ -92,6 +87,7 @@ public class MultipartProcessor {
 
     /**
      * Flush streams and cleanup.
+     *
      * @throws IOException on network issue
      */
     public void finish() throws IOException {

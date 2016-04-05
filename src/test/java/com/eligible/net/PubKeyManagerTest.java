@@ -1,23 +1,28 @@
 package com.eligible.net;
 
-import com.eligible.Eligible;
 import org.junit.Before;
 import org.junit.Test;
-import sun.security.x509.CertAndKeyGen;
-import sun.security.x509.X500Name;
 
-import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 
-import static org.junit.Assert.*;
+import static com.eligible.Eligible.addFingerprint;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PubKeyManagerTest {
 
     private PubKeyManager pubKeyManager;
+    private X509Certificate successCert;
+    private X509Certificate failureCert;
 
     @Before
     public void setUp() throws Exception {
         pubKeyManager = new PubKeyManager();
+        successCert = mock(X509Certificate.class);
+        when(successCert.getEncoded()).thenReturn(new byte[]{0, 1, 2});
+        failureCert = mock(X509Certificate.class);
+        when(failureCert.getEncoded()).thenReturn(new byte[]{2, 1, 0});
     }
 
 
@@ -29,18 +34,15 @@ public class PubKeyManagerTest {
 
     @Test
     public void testCheckServerTrustedMatch() throws Exception {
-        X509Certificate cert = generateCert();
-        addFingerprint(cert);
+        addFingerprint("0c7a623fd2bbc05b06423be359e4021d36e721ad");
 
-        X509Certificate[] chain = {cert};
+        X509Certificate[] chain = {successCert};
         pubKeyManager.checkServerTrusted(chain, "ECDHE_RSA");
     }
 
     @Test(expected = java.security.cert.CertificateException.class)
     public void testCheckServerTrustedNotMatch() throws Exception {
-        X509Certificate cert = generateCert();
-
-        X509Certificate[] chain = {cert};
+        X509Certificate[] chain = {failureCert};
         pubKeyManager.checkServerTrusted(chain, "ECDHE_RSA");
     }
 
@@ -57,22 +59,6 @@ public class PubKeyManagerTest {
     @Test
     public void testGetAcceptedIssuers() throws Exception {
         assertNull(pubKeyManager.getAcceptedIssuers());
-    }
-
-    private void addFingerprint(X509Certificate cert) throws CertificateEncodingException {
-        Eligible.addFingerprint(pubKeyManager.getFingerprint(cert));
-    }
-
-    private X509Certificate generateCert() throws Exception {
-        // generate the certificate
-        CertAndKeyGen certGen = new CertAndKeyGen("RSA", "SHA256WithRSA", null);
-        certGen.generate(2048); // generate it with 2048 bits
-
-        long validSecs = (long) 365 * 24 * 60 * 60; // valid for one year
-        X509Certificate cert = certGen.getSelfCertificate(
-                new X500Name("CN=My Application,O=My Organisation,L=My City,C=DE"), // enter your details as per application
-                validSecs);
-        return cert;
     }
 
 }

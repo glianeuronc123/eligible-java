@@ -13,8 +13,19 @@ import com.google.gson.stream.JsonReader;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import javax.net.ssl.*;
-import java.io.*;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -28,10 +39,17 @@ import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.eligible.util.NetworkUtil.CHARSET;
 import static com.eligible.util.NetworkUtil.getBoundary;
+import static com.eligible.util.NetworkUtil.moveContent;
 import static com.eligible.util.NetworkUtil.urlEncode;
 import static com.eligible.util.StringUtil.isBlank;
 import static com.eligible.util.StringUtil.isEmpty;
@@ -113,7 +131,8 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         return headers;
     }
 
-    private static SSLSocketFactory getSocketFactory() throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException {
+    private static SSLSocketFactory getSocketFactory()
+            throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException {
         // Perform customary SSL/TLS checks
         TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
         tmf.init((KeyStore) null);
@@ -201,7 +220,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         conn.setRequestMethod(requestMethod.name());
         conn.setRequestProperty("Content-Type", format("application/json;charset=%s", CHARSET));
 
-        try(OutputStream output = conn.getOutputStream()) {
+        try (OutputStream output = conn.getOutputStream()) {
             output.write(query.getBytes(CHARSET));
         }
 
@@ -291,17 +310,14 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
 
     private static byte[] getResponseBody(InputStream responseStream)
             throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        responseStream = new BufferedInputStream(responseStream);
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            responseStream = new BufferedInputStream(responseStream);
 
-        byte[] input = new byte[1024];
-        int readCount = 0;
-        while((readCount = responseStream.read(input)) != -1) {
-            baos.write(input, 0, readCount);
+            moveContent(responseStream, baos);
+
+            responseStream.close();
+            return baos.toByteArray();
         }
-
-        responseStream.close();
-        return baos.toByteArray();
     }
 
     private static EligibleResponse makeURLConnectionRequest(

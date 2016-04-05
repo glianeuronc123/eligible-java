@@ -6,7 +6,6 @@ import org.junit.Before;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
@@ -17,7 +16,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/** Eligible Test base for mocking {@link HttpURLConnection}. */
+/** Eligible Test base for mocking {@link java.net.HttpURLConnection}. */
 public class BaseMockedNetwokStreamEligibleTest extends BaseEligibleTest {
 
     public static HttpsURLConnection urlConnectionMock;

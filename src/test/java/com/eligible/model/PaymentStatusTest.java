@@ -3,12 +3,10 @@ package com.eligible.model;
 import com.eligible.BaseMockedNetwokEligibleTest;
 import com.eligible.BaseMockedNetwokStreamEligibleTest;
 import com.eligible.exception.APIErrorResponseException;
-import com.eligible.exception.APIException;
 import com.eligible.exception.EligibleException;
 import org.junit.Test;
 
 import static com.eligible.EligibleTest.assertAPIErrorResponseException;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 

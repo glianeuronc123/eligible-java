@@ -4,12 +4,12 @@ apply plugin: 'jacoco'
 
 ext {
     limits = [
-        'instruction': 60,
-        'branch'     : 54,
-        'line'       : 62,
-        'complexity' : 59,
-        'method'     : 72,
-        'class'      : 89, //TODO - 100%
+        'instruction': 75,
+        'branch'     : 64,
+        'line'       : 81,
+        'complexity' : 66,
+        'method'     : 80,
+        'class'      : 90, //TODO - 100%
     ]
 }
 
@@ -36,8 +36,9 @@ jacocoTestReport {
                                     ,'com/eligible/model/coverage'
                                     ,'com/eligible/model/coverage/costestimates'
                                     ,'com/eligible/model/coverage/medicare'
-                                    ,'com/eligible/model/paymentstatus'
-                                    ,'com/eligible/model/payer',]
+                                    ,'com/eligible/model/enrollmentnpi'
+                                    ,'com/eligible/model/payer'
+                                    ,'com/eligible/model/paymentstatus']
         def filtered_packages = results.package.findAll { !filter_packages_list.contains(it.'@name') }
 
 

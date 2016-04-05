@@ -6,9 +6,7 @@ import com.eligible.exception.EligibleException;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Test;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
