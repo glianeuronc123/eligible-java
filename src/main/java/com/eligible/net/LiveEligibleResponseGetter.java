@@ -610,7 +610,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
         }
 
         try {
-            if (method == RequestMethod.GET || method == RequestMethod.DELETE || method == RequestMethod.PUT) {
+            if (method == RequestMethod.GET || method == RequestMethod.DELETE) {
                 url = format("%s?%s", url, query);
             }
             URL fetchURL = new URL(url);
@@ -649,7 +649,7 @@ public class LiveEligibleResponseGetter implements EligibleResponseGetter {
                     requestMethodClass, fetchOptionsClass).newInstance(
                     fetchURL, httpMethod, fetchOptions);
 
-            if (method == RequestMethod.POST) {
+            if (method == RequestMethod.POST || method == RequestMethod.PUT) {
                 requestClass.getDeclaredMethod("setPayload", byte[].class)
                         .invoke(request, createJsonPayload(params).getBytes());
             }
