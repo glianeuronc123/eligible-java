@@ -496,9 +496,6 @@ public class EligibleTest {
         assertNotNull(enrollmentNpi.getCreatedAt());
         assertNotNull(enrollmentNpi.getUpdatedAt());
 
-        assertPdfResource(enrollmentNpi.getOriginalSignaturePdf());
-        assertReceivedPdf(enrollmentNpi.getReceivedPdf());
-
         AuthorizedSigner authorizedSigner = enrollmentNpi.getAuthorizedSigner();
         assertNotNull(authorizedSigner);
         assertNotNull(authorizedSigner.getContactNumber());
@@ -549,6 +546,8 @@ public class EligibleTest {
     public void testRetrieveEnrollmentNpi() throws Exception {
         EnrollmentNpiResponse enrollment = EnrollmentNpi.retrieve("557604291");
         assertEnrollmentNpiResponse(enrollment);
+        assertPdfResource(enrollment.getEnrollmentNpi().getOriginalSignaturePdf());
+        assertReceivedPdf(enrollment.getEnrollmentNpi().getReceivedPdf());
     }
 
     @Test(expected = InvalidRequestException.class)
@@ -569,6 +568,8 @@ public class EligibleTest {
 
         for (EnrollmentNpiResponse enrollmentNpi : enrollmentNpisQueryResponse.getEnrollmentNpis()) {
             assertEnrollmentNpiResponse(enrollmentNpi);
+            assertPdfResource(enrollmentNpi.getEnrollmentNpi().getOriginalSignaturePdf());
+            assertReceivedPdf(enrollmentNpi.getEnrollmentNpi().getReceivedPdf());
         }
     }
 
