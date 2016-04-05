@@ -185,7 +185,7 @@ params.put("member_dob", "1701-12-12");
 params.put("service_type", "30");
 params.put("network", "OUT");
 
-Coverage coverage = Coverage.all(params) # returns all coverage info for the request
+Coverage coverage = Coverage.all(params) // returns all coverage info for the request
 ```
 
 ## Medicare
@@ -232,7 +232,7 @@ params.put("member_first_name", "IDA");
 params.put("member_last_name", "FRANKLIN");
 params.put("member_dob", "1701-12-12");
 
-# returns all coverage info for the request
+// returns all coverage info for the request
 Coverage.CostEstimates costEstimates = Coverage.costEstimate(params);
 ```
 
@@ -346,8 +346,7 @@ OriginalSignaturePdfDeleteResponse originalSignaturePdf = EnrollmentNpi.deleteOr
 
 ```java
 
-Map<String, Object> createAddress(String line1, String line2,
-                                         String city, String state, String zip) {
+Map<String, Object> createAddress(String line1, String line2, String city, String state, String zip) {
     Map<String, Object> address = new HashMap<>();
     address.put("street_line_1", line1);
     address.put("street_line_2", line2);
