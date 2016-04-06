@@ -69,7 +69,7 @@ Eligible.test = true
 
 ### Parameters overwrite
 
-On each api call, you can overwrite the api key or the test parameter:
+On each API call, you can overwrite the API key or the test parameter:
 
 ```java
 RequestOptions requestOptions = new RequestOptionsBuilder()
@@ -83,9 +83,9 @@ Payer.all(requestOption)
 
 ## Payer List for Eligibility
 
-the parameter `payer_id`, required for most of the api calls, is
-provided by Eligible from its website, in xml and json format, which
-you can embed into your applications.
+Payer IDs, required for most api calls, are provided on the Eligible
+website in XML and JSON formats, and may be embedded into your
+application.
 
 [https://eligible.com/resources/payers/eligibility.xml](https://eligible.com/resources/payers/eligibility.xml)
 
@@ -93,9 +93,7 @@ you can embed into your applications.
 
 ## Payer List for Claims
 
-the parameter `payer_id`, required for claims, is provided by Eligible
-from its website, in xml and json format, which you can embed into
-your applications.
+Payer ID lists are also provided for payers supporting claims services.
 
 ## Medical
 
@@ -117,7 +115,7 @@ your applications.
 
 ## Service Type Codes
 
-the parameter `service_type`, required on the api calls, is provided
+the parameter `service_type`, required on the API calls, is provided
 by Eligible from its website, in xml and json format, which you can
 embed into your applications.
 
@@ -139,7 +137,7 @@ embed into your applications.
 
 [https://reference.eligible.com/docs#payers-introduction](https://reference.eligible.com/docs#payers-introduction)
 
-### List all the payers
+### List all payers
 
 ```java
 List<Payer> payers = Payer.all()
@@ -194,7 +192,7 @@ Coverage coverage = Coverage.all(params) // returns all coverage info for the re
 
 [https://reference.eligible.com/#medicare](https://reference.eligible.com/#medicare)
 
-### Retrieve eligibility and benefit information from CMS Medicare for a patient.
+### Retrieve eligibility and benefit information from CMS Medicare for a patient
 
 ```java
 Map<String, Object> params = new HashMap<>();
@@ -206,7 +204,7 @@ params.put("member_first_name", "IDA");
 params.put("member_last_name", "FRANKLIN");
 params.put("member_dob", "1701-12-12");
 
-# returns all coverage info for the request
+// returns all coverage info for the request
 Coverage.Medicare medicareCoverage = Coverage.medicare(params);
 ```
 
@@ -216,7 +214,7 @@ Coverage.Medicare medicareCoverage = Coverage.medicare(params);
 
 [https://reference.eligible.com/#cost-estimates](https://reference.eligible.com/#cost-estimates)
 
-### Retrieve eligibility and benefit information from CMS Medicare for a patient.
+### Retrieve eligibility and benefit information from CMS Medicare for a patient
 
 ```java
 Map<String, Object> params = new HashMap<>();
@@ -281,55 +279,55 @@ params.put("status", "accepted");
 EnrollmentNpiQueryResponse queryResponse = EnrollmentNpi.query(params);
 ```
 
-## Received Pdf
+## Received PDF
 
 ### Reference
 
 [https://reference.eligible.com/#view-received-pdf](https://reference.eligible.com/#view-received-pdf)
 
-### Get received pdf
+### Get Received PDF
 
 ```java
 ReceivedPdfResponse receivedPdf = EnrollmentNpi.getReceivedPdf("557604291");
 ```
 
-### Download received pdf
+### Download Received PDF
 By default, it downloads to /tmp/received_pdf.pdf
 ```java
 String receivedPdf = EnrollmentNpi.downloadReceivedPdf("557604291", "file_path_where_to_download");
 ```
 
-## Original Signature Pdf
+## Original Signature PDF
 
 ### Reference
 
 [https://reference.eligible.com/#create-original-signature-pdf](https://reference.eligible.com/#create-original-signature-pdf)
 
-### Get original signature pdf
+### Get Original Signature PDF
 
 ```java
 OriginalSignaturePdfResponse originalSignaturePdf = EnrollmentNpi.getOriginalSignaturePdf("557604291");
 ```
 
-### Create original signature pdf
+### Create Original Signature PDF
 
 ```java
 OriginalSignaturePdfResponse originalSignaturePdf = EnrollmentNpi.createOriginalSignaturePdf("557604291", "path_to_file");
 ```
 
-### Update original signature pdf
+### Update Original Signature PDF
 
 ```java
 OriginalSignaturePdfResponse originalSignaturePdf = EnrollmentNpi.updateOriginalSignaturePdf("557604291", "path_to_file");
 ```
 
-### Download original signature pdf
+### Download Original Signature PDF
 By default, it downloads to /tmp/original_signature_pdf.pdf
 ```java
 String originalSignaturePdf = EnrollmentNpi.downloadOriginalSignaturePdf("557604291", "file_path_where_to_download");
 ```
 
-### Delete original signature pdf
+### Delete Original Signature PDF
 
 ```java
 OriginalSignaturePdfDeleteResponse originalSignaturePdf = EnrollmentNpi.deleteOriginalSignaturePdf("557604291");
