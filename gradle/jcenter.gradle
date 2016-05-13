@@ -55,10 +55,10 @@ bintray {
         licenses = ['MIT']
 
         version {
-            name = '1.5.0'
+            name = '1.6.0'
             desc = 'Eligible Java Bindings'
             released = new Date()
-            vcsTag = '1.5.0'
+            vcsTag = '1.6.0'
             attributes = ['eligible-java': 'com.eligible:eligible-java']
 
             //Optional configuration for Maven Central sync of the version

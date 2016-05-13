@@ -29,7 +29,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.eligible</groupId>
   <artifactId>eligible-java</artifactId>
-  <version>1.5.0</version>
+  <version>1.6.0</version>
 </dependency>
 ```
 
@@ -38,7 +38,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.eligible:eligible-java:1.5.0"
+compile "com.eligible:eligible-java:1.6.0"
 ```
 
 ### Others
