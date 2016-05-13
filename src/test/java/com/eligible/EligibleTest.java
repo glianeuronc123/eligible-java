@@ -123,6 +123,7 @@ public class EligibleTest {
         defaultClaimParams = APIResource.GSON.fromJson(claimReqJson, Map.class);
 
         enrollmentNpisQueryParams.put("status", "accepted");
+        enrollmentNpisQueryParams.put("created_before", "2016-04-01");
 
     }
 
