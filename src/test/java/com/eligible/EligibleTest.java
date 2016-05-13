@@ -82,7 +82,7 @@ public class EligibleTest {
         defaultCoverageMedicareParams.put("provider_last_name", "Doe");
         defaultCoverageMedicareParams.put("provider_first_name", "John");
         defaultCoverageMedicareParams.put("provider_npi", "0123456789");
-        defaultCoverageMedicareParams.put("member_id", "111111111A");
+        defaultCoverageMedicareParams.put("member_id", "77777777A");
         defaultCoverageMedicareParams.put("member_first_name", "IDA");
         defaultCoverageMedicareParams.put("member_last_name", "FRANKLIN");
         defaultCoverageMedicareParams.put("member_dob", "1701-12-12");

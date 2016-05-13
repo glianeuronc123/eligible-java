@@ -137,7 +137,7 @@ public class EligibleClaimMain extends EligibleMainBase {
         return claimParams;
     }
 
-    void testCreateClaim() throws Exception {
+    static void testCreateClaim() throws Exception {
         String fileName = "./src/test/resources/com/eligible/claim_request.json";
         Map claimParams = parseResource(fileName, Map.class);
 
