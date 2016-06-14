@@ -176,7 +176,7 @@ params.put("payer_id", "00001");
 params.put("provider_last_name", "Doe");
 params.put("provider_first_name", "John");
 params.put("provider_npi", "0123456789");
-params.put("member_id", "ZZZ445554301");
+params.put("member_id", "AEXCEL00DEP_APCPOSII");
 params.put("member_first_name", "IDA");
 params.put("member_last_name", "FRANKLIN");
 params.put("member_dob", "1701-12-12");
@@ -219,13 +219,13 @@ Coverage.Medicare medicareCoverage = Coverage.medicare(params);
 ```java
 Map<String, Object> params = new HashMap<>();
 params.put("provider_price", "1500.50");
-params.put("service_type", "1");
+params.put("service_type", "48");
 params.put("network", "IN");
 params.put("payer_id", "00001");
 params.put("provider_last_name", "Doe");
 params.put("provider_first_name", "John");
 params.put("provider_npi", "0123456789");
-params.put("member_id", "ZZZ445554301");
+params.put("member_id", "COST_ESTIMATES_002");
 params.put("member_first_name", "IDA");
 params.put("member_last_name", "FRANKLIN");
 params.put("member_dob", "1701-12-12");
@@ -381,7 +381,7 @@ Map<String, Object> createPayer() {
 
 Map<String, Object> createSubsciber() {
     Map<String, Object> subscriber = new HashMap<>();
-    subscriber.put("id", "1234567890");
+    subscriber.put("id", "89898989");
     subscriber.put("first_name", "Benjamin");
     subscriber.put("last_name", "Franklin");
     subscriber.put("middle_name", null);
@@ -510,7 +510,7 @@ Map<String, Object> params = new HashMap<>();
 params.put("payer_id", "00001");
 params.put("provider_npi", "0123456789");
 params.put("provider_tax_id", "111223333");
-params.put("member_id", "ZZZ445554301");
+params.put("member_id", "12312312");
 params.put("member_first_name", "IDA");
 params.put("member_last_name", "FRANKLIN");
 params.put("member_dob", "1701-12-12");
@@ -550,7 +550,7 @@ public class EligibleExample {
         allParams.put("provider_last_name", "Doe");
         allParams.put("provider_first_name", "John");
         allParams.put("provider_npi", "0123456789");
-        allParams.put("member_id", "ZZZ445554301");
+        allParams.put("member_id", "AEXCEL00DEP_APCPOSII");
         allParams.put("member_first_name", "IDA");
         allParams.put("member_last_name", "FRANKLIN");
         allParams.put("member_dob", "1701-12-12");
