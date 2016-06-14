@@ -1,4 +1,3 @@
-
 // exclude generated sources
 def excludePattern = 'com/eligible/model/'
 def excludePatternAntStyle = '**/' + excludePattern + '**/*'
@@ -15,9 +14,7 @@ checkstyleMain.exclude excludePatternAntStyle
 
 // FindBugs
 apply plugin: 'findbugs'
-findbugs {
-    ignoreFailures = true
-}
+findbugs.ignoreFailures = true
 
 tasks.withType(FindBugs) {
     classes = classes.filter {
