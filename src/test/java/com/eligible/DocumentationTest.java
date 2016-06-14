@@ -76,35 +76,4 @@ public class DocumentationTest {
         Assert.assertSame(message, expectedMentionsOfVersion, mentioningLines.size());
     }
 
-    @Test
-    public void testGradleBuildContainsVersionThatMatches() throws IOException {
-        // we want to ensure that the gradle build's version matches the static version.
-        File readmeFile = new File("build.gradle").getAbsoluteFile();
-        Assert.assertTrue(format("Expected build.gradle file to exist, but it doesn't. (path is %s).", readmeFile.getAbsolutePath()), readmeFile.exists());
-        Assert.assertTrue(format("Expected build.gradle to be a file, but it isn't. (path is %s).", readmeFile.getAbsolutePath()), readmeFile.isFile());
-        BufferedReader reader = new BufferedReader(new FileReader(readmeFile));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            if (line.contains(Eligible.VERSION)) {
-                return;
-            }
-        }
-        Assert.fail(format("Expected the Eligible.VERSION (%s) to match up with the one listed in the build.gradle file. It wasn't found.", Eligible.VERSION));
-    }
-
-    @Test
-    public void testJcenterGradleContainsVersionThatMatches() throws IOException {
-        BufferedReader reader = getBufferedReader("gradle/jcenter.gradle");
-        int expectedMentionsOfVersion = 2;
-        // Currently two places mention the Eligible version.
-        String line;
-        List<String> mentioningLines = new LinkedList<String>();
-        while ((line = reader.readLine()) != null) {
-            if (line.contains(Eligible.VERSION)) {
-                mentioningLines.add(line);
-            }
-        }
-        String message = format("Expected %d mentions of the eligible-java version in the jcenter.gradle, but found %d:%n%s", expectedMentionsOfVersion, mentioningLines.size(), Joiner.on(", ").join(mentioningLines));
-        Assert.assertSame(message, expectedMentionsOfVersion, mentioningLines.size());
-    }
 }
