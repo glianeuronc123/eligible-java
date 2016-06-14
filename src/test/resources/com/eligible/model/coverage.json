@@ -72,7 +72,14 @@
     "exclusions": {
       "noncovered": [],
       "pre_existing_condition": {
-        "waiting_period": []
+        "waiting_period": [
+          {
+            "completion": {
+              "date": "2009-09-30",
+              "comments": [ ]
+            }
+          }
+        ]
       }
     },
     "financials": {
