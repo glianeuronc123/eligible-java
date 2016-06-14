@@ -17,7 +17,7 @@ repositories {
 
 group = 'com.eligible'
 archivesBaseName = 'eligible-java'
-version = '1.7.0'
+version = new File('VERSION').text.trim()
 
 apply from: 'gradle/jacoco.coverage.gradle'
 apply from: 'gradle/jcenter.gradle'
