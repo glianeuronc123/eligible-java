@@ -103,7 +103,7 @@ public class Coverage extends APIResource {
         DateRange eligibiltyDates;
         DateRange inactivityDates;
         Map<String, String> planTypes;
-        Map<String, Object> planDetails;
+        Map<String, ?> planDetails;
         List<RequestedServiceType> requestedServiceTypes;
         List<RequestedProcedureCode> requestedProcedureCodes;
         HistoricDetails history;

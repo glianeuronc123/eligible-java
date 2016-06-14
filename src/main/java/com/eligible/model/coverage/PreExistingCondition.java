@@ -10,5 +10,5 @@ import java.util.Map;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 public class PreExistingCondition extends EligibleObject {
-    List<Map<String, String>> waitingPeriod;
+    List<Map<String, ?>> waitingPeriod;
 }

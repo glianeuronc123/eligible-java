@@ -14,7 +14,7 @@ public class Service extends EligibleObject {
     String typeLabel;
     String coverageStatus;
     String coverageStatusLabel;
-    List<Map<String, Object>> coverageBasis;
+    List<Map<String, ?>> coverageBasis;
     FinancialFlowsList facility;
     List<NonCovered> noncovered;
     BenefitDetails benefitDetails;

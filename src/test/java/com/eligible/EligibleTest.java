@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static com.eligible.util.TestUtil.resource;
+import static java.lang.Boolean.parseBoolean;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -39,6 +40,7 @@ import static org.junit.Assert.fail;
  * Main API Tests for running real Sandbox API calls.
  */
 public class EligibleTest {
+    static boolean extensiveTesting;
     static Map<String, Object> defaultCoverageParams = new HashMap<String, Object>();
     static Map<String, Object> invalidCoverageParams = new HashMap<String, Object>();
     static Map<String, Object> emptyCoverageParams = new HashMap<>();
@@ -60,6 +62,7 @@ public class EligibleTest {
     @BeforeClass
     public static void setUp() throws Exception {
         String apiKey = System.getenv("API_KEY");
+        extensiveTesting = parseBoolean(System.getenv("API_KEY"));
         if (StringUtil.isBlank(apiKey)) {
             throw new IllegalStateException("ApiKey not present. Set in API_KEY environment variable.");
         }
@@ -71,7 +74,7 @@ public class EligibleTest {
         defaultCoverageParams.put("provider_last_name", "Doe");
         defaultCoverageParams.put("provider_first_name", "John");
         defaultCoverageParams.put("provider_npi", "0123456789");
-        defaultCoverageParams.put("member_id", "ZZZ445554301");
+        defaultCoverageParams.put("member_id", "AETNA00DEP_ACPOSII");
         defaultCoverageParams.put("member_first_name", "IDA");
         defaultCoverageParams.put("member_last_name", "FRANKLIN");
         defaultCoverageParams.put("member_dob", "1701-12-12");
@@ -88,13 +91,13 @@ public class EligibleTest {
         defaultCoverageMedicareParams.put("member_dob", "1701-12-12");
 
         defaultCoverageCostEstimateParams.put("provider_price", "1500.50");
-        defaultCoverageCostEstimateParams.put("service_type", "1");
+        defaultCoverageCostEstimateParams.put("service_type", "98");
         defaultCoverageCostEstimateParams.put("network", "IN");
         defaultCoverageCostEstimateParams.put("payer_id", "00001");
         defaultCoverageCostEstimateParams.put("provider_last_name", "Doe");
         defaultCoverageCostEstimateParams.put("provider_first_name", "John");
         defaultCoverageCostEstimateParams.put("provider_npi", "0123456789");
-        defaultCoverageCostEstimateParams.put("member_id", "ZZZ445554301");
+        defaultCoverageCostEstimateParams.put("member_id", "COST_ESTIMATES_002");
         defaultCoverageCostEstimateParams.put("member_first_name", "IDA");
         defaultCoverageCostEstimateParams.put("member_last_name", "FRANKLIN");
         defaultCoverageCostEstimateParams.put("member_dob", "1701-12-12");
@@ -107,7 +110,7 @@ public class EligibleTest {
         defaultPaymentStatusParams.put("payer_id", "00001");
         defaultPaymentStatusParams.put("provider_npi", "0123456789");
         defaultPaymentStatusParams.put("provider_tax_id", "111223333");
-        defaultPaymentStatusParams.put("member_id", "ZZZ445554301");
+        defaultPaymentStatusParams.put("member_id", "12312312");
         defaultPaymentStatusParams.put("member_first_name", "IDA");
         defaultPaymentStatusParams.put("member_last_name", "FRANKLIN");
         defaultPaymentStatusParams.put("member_dob", "1701-12-12");
@@ -234,16 +237,26 @@ public class EligibleTest {
 
     @Test
     public void testCoverageAll() throws EligibleException {
-        Coverage coverage = Coverage.all(defaultCoverageParams);
-        assertNotNull(coverage);
-        assertNotNull(coverage.getEligibleId());
-        assertNotNull(coverage.getId());
-        assertNotNull(coverage.getDemographics());
-        assertNotNull(coverage.getInsurance());
-        assertNotNull(coverage.getPlan());
-        assertNotNull(coverage.getServices());
-        assertFalse(coverage.getServices().isEmpty());
-        assertNotNull(coverage.getServices().get(0));
+        for (String memberId : new String[]{
+                "AETNA00DEP_ACPOSII", "AETNA00OAMC", "AETNA00AMPPPO", "AETNA00OAAS", "AETNA00HMO", "AETNA00HSAACPII",
+                "AEXCEL00DEP_APCPOSII"
+        }) {
+            defaultCoverageParams.put("member_id", memberId);
+            Coverage coverage = Coverage.all(defaultCoverageParams);
+            assertNotNull(coverage);
+            assertNotNull(coverage.getEligibleId());
+            assertNotNull(coverage.getId());
+            assertNotNull(coverage.getDemographics());
+            assertNotNull(coverage.getInsurance());
+            assertNotNull(coverage.getPlan());
+            assertNotNull(coverage.getServices());
+            assertFalse(coverage.getServices().isEmpty());
+            assertNotNull(coverage.getServices().get(0));
+
+            if (!extensiveTesting) {
+                break;
+            }
+        }
     }
 
     @Test(expected = InvalidRequestException.class)
@@ -305,38 +318,57 @@ public class EligibleTest {
 
     @Test
     public void testCoverageMedicare() throws EligibleException {
-        Coverage.Medicare medicareCoverage = Coverage.medicare(defaultCoverageMedicareParams);
-        assertNotNull(medicareCoverage);
-        assertNotNull(medicareCoverage.getEligibleId());
-        assertNotNull(medicareCoverage.getId());
-        assertNotNull(medicareCoverage.getLastName());
-        assertNotNull(medicareCoverage.getFirstName());
-        assertNotNull(medicareCoverage.getMemberId());
-        assertNotNull(medicareCoverage.getGender());
-        assertNotNull(medicareCoverage.getPayerName());
-        assertNotNull(medicareCoverage.getPlanNumber());
-        assertNotNull(medicareCoverage.getEligibiltyDates());
-        assertNotNull(medicareCoverage.getPlanTypes());
-        assertFalse(medicareCoverage.getPlanTypes().isEmpty());
-        assertNotNull(medicareCoverage.getPlanDetails());
-        assertFalse(medicareCoverage.getPlanDetails().isEmpty());
+        for (String memberId : new String[]{
+                "77777777A", "111111111A", "121111211A", "333333333A", "4444444444A", "4747474747A", "9999999999A",
+        }) {
+            defaultCoverageMedicareParams.put("member_id", memberId);
+            Coverage.Medicare medicareCoverage = Coverage.medicare(defaultCoverageMedicareParams);
+            assertNotNull(medicareCoverage);
+            assertNotNull(medicareCoverage.getEligibleId());
+            assertNotNull(medicareCoverage.getId());
+            assertNotNull(medicareCoverage.getLastName());
+            assertNotNull(medicareCoverage.getFirstName());
+            assertNotNull(medicareCoverage.getMemberId());
+            assertNotNull(medicareCoverage.getGender());
+            assertNotNull(medicareCoverage.getPayerName());
+            assertNotNull(medicareCoverage.getPlanNumber());
+            assertNotNull(medicareCoverage.getEligibiltyDates());
+            assertNotNull(medicareCoverage.getPlanTypes());
+            assertFalse(medicareCoverage.getPlanTypes().isEmpty());
+            assertNotNull(medicareCoverage.getPlanDetails());
+            assertFalse(medicareCoverage.getPlanDetails().isEmpty());
+
+            if (!extensiveTesting) {
+                break;
+            }
+        }
     }
 
     @Test
     public void testCoverageCostEstimate() throws EligibleException {
-        Coverage.CostEstimates costEstimates = Coverage.costEstimate(defaultCoverageCostEstimateParams);
-        assertNotNull(costEstimates);
-        assertNotNull(costEstimates.getEligibleId());
-        assertNotNull(costEstimates.getId());
-        assertNotNull(costEstimates.getDemographics());
-        assertNotNull(costEstimates.getInsurance());
-        assertNotNull(costEstimates.getPlan());
-        assertNotNull(costEstimates.getServices());
-        assertFalse(costEstimates.getServices().isEmpty());
-        assertNotNull(costEstimates.getServices().get(0));
-        assertNotNull(costEstimates.getCostEstimates());
-        assertFalse(costEstimates.getCostEstimates().isEmpty());
-        assertNotNull(costEstimates.getCostEstimates().get(0));
+        for (String memberId : new String[]{
+                "COST_ESTIMATES_002", "COST_ESTIMATES_001", "COST_ESTIMATES_003", "COST_ESTIMATES_004",
+                "COST_ESTIMATES_005",
+        }) {
+            defaultCoverageCostEstimateParams.put("member_id", memberId);
+            Coverage.CostEstimates costEstimates = Coverage.costEstimate(defaultCoverageCostEstimateParams);
+            assertNotNull(costEstimates);
+            assertNotNull(costEstimates.getEligibleId());
+            assertNotNull(costEstimates.getId());
+            assertNotNull(costEstimates.getDemographics());
+            assertNotNull(costEstimates.getInsurance());
+            assertNotNull(costEstimates.getPlan());
+            assertNotNull(costEstimates.getServices());
+            assertFalse(costEstimates.getServices().isEmpty());
+            assertNotNull(costEstimates.getServices().get(0));
+            assertNotNull(costEstimates.getCostEstimates());
+            assertFalse(costEstimates.getCostEstimates().isEmpty());
+            assertNotNull(costEstimates.getCostEstimates().get(0));
+
+            if (!extensiveTesting) {
+                break;
+            }
+        }
     }
 
     @Test
@@ -427,21 +459,30 @@ public class EligibleTest {
 
     @Test
     public void testPaymentStatus() throws EligibleException {
-        PaymentStatus status = PaymentStatus.retrieve(defaultPaymentStatusParams);
-        assertNotNull(status);
-        assertNotNull(status.getEligibleId());
-        assertNotNull(status.getId());
-        assertNotNull(status.getCreatedAt());
-        assertNotNull(status.getPayer());
-        assertNotNull(status.getServiceProvider());
-        assertFalse(status.getServiceProvider().isEmpty());
-        assertNotNull(status.getServiceProvider().get(0));
-        assertNotNull(status.getPatients());
-        assertFalse(status.getPatients().isEmpty());
-        assertNotNull(status.getPatients().get(0));
-        assertNotNull(status.getClaims());
-        assertFalse(status.getClaims().isEmpty());
-        assertNotNull(status.getClaims().get(0));
+        for (String memberId : new String[]{
+                "12312312", "10101010", "34343434", "45454545"
+        }) {
+            defaultPaymentStatusParams.put("member_id", memberId);
+            PaymentStatus status = PaymentStatus.retrieve(defaultPaymentStatusParams);
+            assertNotNull(status);
+            assertNotNull(status.getEligibleId());
+            assertNotNull(status.getId());
+            assertNotNull(status.getCreatedAt());
+            assertNotNull(status.getPayer());
+            assertNotNull(status.getServiceProvider());
+            assertFalse(status.getServiceProvider().isEmpty());
+            assertNotNull(status.getServiceProvider().get(0));
+            assertNotNull(status.getPatients());
+            assertFalse(status.getPatients().isEmpty());
+            assertNotNull(status.getPatients().get(0));
+            assertNotNull(status.getClaims());
+            assertFalse(status.getClaims().isEmpty());
+            assertNotNull(status.getClaims().get(0));
+
+            if (!extensiveTesting) {
+                break;
+            }
+        }
     }
 
     public static Map<String, Object> createEnrollmentParams() throws Exception {

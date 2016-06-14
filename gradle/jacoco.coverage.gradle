@@ -2,16 +2,14 @@
 
 apply plugin: 'jacoco'
 
-ext {
-    limits = [
+def limits = [
         'instruction': 75,
         'branch'     : 64,
         'line'       : 81,
         'complexity' : 66,
         'method'     : 80,
         'class'      : 90, //TODO - 100%
-    ]
-}
+]
 
 jacocoTestReport {
     reports {

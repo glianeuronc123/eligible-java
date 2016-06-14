@@ -39,9 +39,8 @@ dependencies {
 }
 
 test {
-    testLogging {
-        events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-    }
+    testLogging.events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+    maxParallelForks = Math.min(4, Runtime.runtime.availableProcessors() * 2)
 }
 
 task javadocJar(type: Jar) {
@@ -55,6 +54,4 @@ task sourcesJar(type: Jar) {
 }
 
 // hook them up into the artifacts collection together with the project jar itself
-artifacts {
-    archives javadocJar, sourcesJar
-}
+artifacts.archives javadocJar, sourcesJar
