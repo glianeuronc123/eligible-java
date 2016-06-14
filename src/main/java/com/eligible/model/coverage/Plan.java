@@ -13,7 +13,7 @@ public class Plan extends EligibleObject {
     String type;
     String coverageStatus;
     String coverageStatusLabel;
-    List<Map<String, Object>> coverageBasis;
+    List<Map<String, ?>> coverageBasis;
     String planNumber;
     String planName;
     String planType;
