@@ -9,4 +9,5 @@ import lombok.Getter;
 public class Date extends EligibleObject {
     String dateType;
     String dateValue;
+    String dateSource;
 }
