@@ -43,6 +43,20 @@ test {
     maxParallelForks = Math.min(4, Runtime.runtime.availableProcessors() * 2)
 }
 
+jar.manifest {
+    attributes('Implementation-Title': name,
+            'Implementation-Version': version,
+            'Built-By': System.getProperty('user.name'),
+            'Built-JDK': System.getProperty('java.version'),
+            'Source-Compatibility': sourceCompatibility,
+            'Target-Compatibility': targetCompatibility)
+}
+
+javadoc.options {
+    encoding = 'UTF-8'
+    links 'https://docs.oracle.com/javase/8/docs/api/'
+}
+
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
@@ -54,4 +68,6 @@ task sourcesJar(type: Jar) {
 }
 
 // hook them up into the artifacts collection together with the project jar itself
-artifacts.archives javadocJar, sourcesJar
+artifacts {
+    archives javadocJar, sourcesJar
+}
