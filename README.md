@@ -59,7 +59,7 @@ If you're planning on using ProGuard, make sure that you exclude the Eligible bi
 
 ### Setup
 ```java
-Eligible.api_key = 'YOUR_KEY';
+Eligible.apiKey = 'YOUR_KEY';
 ```
 
 ### Test

@@ -28,7 +28,7 @@ public class PubKeyManagerTest {
 
     @Test
     public void testAddFingerprint() throws Exception {
-        PubKeyManager.addFingerprint("testing");
+        addFingerprint("testing");
         // addFingerprint shouldn't throw exception
     }
 
