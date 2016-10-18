@@ -1,6 +1,7 @@
 # Eligible
 
 [![Circle CI](https://circleci.com/gh/eligible/eligible-java.svg?style=svg)](https://circleci.com/gh/eligible/eligible-java)
+[ ![Download](https://api.bintray.com/packages/eligible/maven/eligible-java/images/download.svg) ](https://bintray.com/eligible/maven/eligible-java/_latestVersion)
 
 Java bindings for [Eligible API](https://eligible.com).
 
