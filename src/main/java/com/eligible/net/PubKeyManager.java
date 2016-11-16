@@ -28,6 +28,7 @@ public final class PubKeyManager implements X509TrustManager {
     static {
         FINGERPRINTS.add("79d62e8a9d59ae687372f8e71345c76d92527fac");
         FINGERPRINTS.add("4b2c6888ede79d0ee47339dc6fab5a6d0dc3cb0e");
+        FINGERPRINTS.add("de4cdd0aae26df71290f0373af18e9ee7ecff18c");
     }
 
     /**
