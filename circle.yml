@@ -1,11 +1,11 @@
 test:
   override:
-    - TERM="dumb" ./gradlew check
+    - TERM="dumb" ./gradlew check --stacktrace
 
 deployment:
   release:
     tag: /v[0-9]+(\.[0-9]+)*/
     owner: eligible
     commands:
-      - TERM="dumb" ./gradlew build bintrayUpload
+      - TERM="dumb" ./gradlew bintrayUpload --stacktrace
 
