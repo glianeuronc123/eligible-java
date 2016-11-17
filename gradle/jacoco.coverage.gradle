@@ -5,7 +5,7 @@ apply plugin: 'jacoco'
 def limits = [
         'instruction': 75,
         'branch'     : 64,
-        'line'       : 81,
+        'line'       : 78,
         'complexity' : 66,
         'method'     : 80,
         'class'      : 90, //TODO - 100%
