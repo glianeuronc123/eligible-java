@@ -10,6 +10,7 @@ import com.eligible.model.coverage.Plan;
 import com.eligible.model.coverage.Service;
 import com.eligible.model.coverage.costestimates.CostEstimate;
 import com.eligible.model.coverage.costestimates.SearchOptions;
+import com.eligible.model.coverage.costestimates.Warning;
 import com.eligible.model.coverage.medicare.DateRange;
 import com.eligible.model.coverage.medicare.HistoricDetails;
 import com.eligible.model.coverage.medicare.RequestedProcedureCode;
@@ -101,6 +102,7 @@ public class Coverage extends APIResource {
         String payerId;
         String planNumber;
         DateRange eligibiltyDates;
+        DateRange eligibilityDates;
         DateRange inactivityDates;
         Map<String, String> planTypes;
         Map<String, ?> planDetails;
@@ -140,6 +142,8 @@ public class Coverage extends APIResource {
         List<Service> services;
         SearchOptions searchOptions;
         List<CostEstimate> costEstimates;
+        List<Warning> warnings;
+        Boolean success;
 
         public static CostEstimates all(Map<String, Object> params)
                 throws AuthenticationException, InvalidRequestException,

@@ -62,8 +62,8 @@
       "message": null,
       "enrollment_mandatory_fields": [],
       "status": "available",
-      "status_details": null,
-      "status_updated_at": "2014-07-03T03:49:52Z",
+      "status_details": "Payer is working fine.",
+      "status_updated_at": "2016-07-11T23:56:44Z",
       "original_signature_pdf": null
     },
     {
@@ -114,5 +114,6 @@
       "status_updated_at": "2015-09-22T07:00:34Z",
       "original_signature_pdf": null
     }
-  ]
+  ],
+  "eligible_id": "V9P7EF7HQISWJ"
 }

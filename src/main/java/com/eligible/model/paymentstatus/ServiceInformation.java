@@ -1,6 +1,7 @@
 package com.eligible.model.paymentstatus;
 
 import com.eligible.model.EligibleObject;
+import com.eligible.model.StatusCode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

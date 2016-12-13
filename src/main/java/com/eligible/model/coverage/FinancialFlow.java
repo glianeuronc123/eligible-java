@@ -27,4 +27,8 @@ public class FinancialFlow extends EligibleObject {
     List<ContactDetail> contactDetails;
     Dates dates;
     List<String> comments;
+    Boolean copayment;
+    Boolean coinsurance;
+    Boolean deductible;
+    String serviceType;
 }

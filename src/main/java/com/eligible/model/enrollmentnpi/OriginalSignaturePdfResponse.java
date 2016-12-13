@@ -10,5 +10,6 @@ import lombok.Getter;
 public class OriginalSignaturePdfResponse extends EligibleObject {
 
     EnrollmentNpi.OriginalSignaturePdf originalSignaturePdf;
+    String eligibleId;
 
 }

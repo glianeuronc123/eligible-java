@@ -25,9 +25,10 @@ import static java.lang.String.valueOf;
 @Getter
 @EqualsAndHashCode(callSuper=false)
 public class Claim extends APIResource {
-    String success;
+    Boolean success;
     String createdAt;
     String referenceId;
+    String eligibleId;
 
 
     public static Claim create(Map<String, Object> params)
@@ -112,6 +113,7 @@ public class Claim extends APIResource {
     @Getter
     @EqualsAndHashCode(callSuper=false)
     public static class Acknowledgements extends APIResource {
+        String eligibleId;
         List<Acknowledgement> acknowledgements;
         String payerControlNumber;
         String referenceId;
@@ -157,7 +159,9 @@ public class Claim extends APIResource {
     @Getter
     @EqualsAndHashCode(callSuper=false)
     public static class PaymentReport extends APIResource {
+        String id;
         String referenceId;
+        String eligibleId;
         String effectiveDate;
         com.eligible.model.claim.Payer payer;
         Financials financials;
@@ -204,6 +208,7 @@ public class Claim extends APIResource {
     @Getter
     @EqualsAndHashCode(callSuper=false)
     public static class PaymentReports extends APIResource {
+        String eligibleId;
         List<PaymentReport> reports;
         Integer page;
         Integer perPage;

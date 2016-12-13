@@ -1,6 +1,10 @@
 package com.eligible.model;
 
-import com.google.gson.*;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class EligibleObject {
-
     @Getter @Setter
     Map<String, Object> rawValues = new HashMap<String, Object>();
 

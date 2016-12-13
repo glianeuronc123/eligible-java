@@ -24,6 +24,7 @@ public class Payer extends APIResource {
     String createdAt;
     String updatedAt;
     List<Endpoint> supportedEndpoints;
+    String eligibleId;
 
     public static Payer retrieve(String id)
             throws AuthenticationException, InvalidRequestException,
@@ -97,6 +98,7 @@ public class Payer extends APIResource {
     public static class SearchOptions extends APIResource {
         String payerId;
         List<List<String>> searchOptions;
+        String eligibleId;
 
         public static List<SearchOptions> all()
                 throws AuthenticationException, InvalidRequestException,

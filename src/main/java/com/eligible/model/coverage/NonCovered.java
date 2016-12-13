@@ -11,7 +11,7 @@ import java.util.List;
 // TODO check similarity with {@link FinancialFlow}
 public class NonCovered extends EligibleObject {
     String type;
-    String label;
+    String typeLabel;
     String timePeriod;
     String timePeriodLabel;
     String level;

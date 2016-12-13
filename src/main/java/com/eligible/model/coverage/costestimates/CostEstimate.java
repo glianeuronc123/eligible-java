@@ -11,4 +11,5 @@ public class CostEstimate extends EligibleObject {
     CostEstimateEquation costEstimateEquation;
     CostEstimateEquation costEstimateAlternatives;
     Double costEstimate;
+    String network;
 }

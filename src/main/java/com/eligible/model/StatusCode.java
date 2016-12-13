@@ -1,4 +1,4 @@
-package com.eligible.model.paymentstatus;
+package com.eligible.model;
 
 import com.eligible.model.EligibleObject;
 import lombok.EqualsAndHashCode;

@@ -10,5 +10,6 @@ import lombok.Getter;
 public class ReceivedPdfResponse extends EligibleObject {
 
     EnrollmentNpi.ReceivedPdf receivedPdf;
+    String eligibleId;
 
 }
