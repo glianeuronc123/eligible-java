@@ -172,6 +172,12 @@ public class EligibleTest {
     }
 
     @Test
+    public void testPayerDeserialize() throws EligibleException {
+        Payer payer = Payer.retrieve("FLBLS");
+        assertStructure(payer);
+    }
+
+    @Test
     public void testPayerRetrieveRawValues() throws EligibleException {
         Payer payer = Payer.retrieve("FLBLS");
 
@@ -206,6 +212,12 @@ public class EligibleTest {
         assertEquals("WYMCR", searchOptions.getPayerId());
         assertNotNull(searchOptions.getSearchOptions());
         assertFalse(searchOptions.getSearchOptions().isEmpty());
+    }
+
+    @Test
+    public void testPayerSearchOptionsDeserialize() throws EligibleException {
+        Payer.SearchOptions searchOptions = Payer.searchOptions("WYMCR");
+        assertStructure(searchOptions);
     }
 
     @Test
@@ -262,8 +274,24 @@ public class EligibleTest {
         }
     }
 
+    @Test
+    public void testCoverageAllDeserialize() throws EligibleException {
+        for (String memberId : new String[]{
+                "AETNA00DEP_ACPOSII", "AETNA00OAMC", "AETNA00AMPPPO", "AETNA00OAAS", "AETNA00HMO", "AETNA00HSAACPII",
+                "AEXCEL00DEP_APCPOSII"
+        }) {
+            defaultCoverageParams.put("member_id", memberId);
+            Coverage coverage = Coverage.all(defaultCoverageParams);
+            assertStructure(coverage);
+
+            if (!extensiveTesting) {
+                break;
+            }
+        }
+    }
+
     @Test(expected = InvalidRequestException.class)
-    public void testFlatternParamsCheck() throws EligibleException {
+    public void testCoverageAllEmptyProviderId() throws EligibleException {
         Coverage.all(invalidCoverageParams);
     }
 
@@ -348,6 +376,21 @@ public class EligibleTest {
     }
 
     @Test
+    public void testCoverageMedicareDeserialize() throws EligibleException {
+        for (String memberId : new String[]{
+                "77777777A", "111111111A", "121111211A", "333333333A", "4444444444A", "4747474747A", "9999999999A",
+        }) {
+            defaultCoverageMedicareParams.put("member_id", memberId);
+            Coverage.Medicare medicareCoverage = Coverage.medicare(defaultCoverageMedicareParams);
+            assertStructure(medicareCoverage);
+
+            if (!extensiveTesting) {
+                break;
+            }
+        }
+    }
+
+    @Test
     public void testCoverageCostEstimate() throws EligibleException {
         for (String memberId : new String[]{
                 "COST_ESTIMATES_002", "COST_ESTIMATES_001", "COST_ESTIMATES_003", "COST_ESTIMATES_004",
@@ -375,6 +418,22 @@ public class EligibleTest {
     }
 
     @Test
+    public void testCoverageCostEstimateDeserialize() throws EligibleException {
+        for (String memberId : new String[]{
+                "COST_ESTIMATES_002", "COST_ESTIMATES_001", "COST_ESTIMATES_003", "COST_ESTIMATES_004",
+                "COST_ESTIMATES_005",
+        }) {
+            defaultCoverageCostEstimateParams.put("member_id", memberId);
+            Coverage.CostEstimates costEstimates = Coverage.costEstimate(defaultCoverageCostEstimateParams);
+            assertStructure(costEstimates);
+
+            if (!extensiveTesting) {
+                break;
+            }
+        }
+    }
+
+    @Test
     public void testClaim() throws EligibleException {
         Claim claim = Claim.create(defaultClaimParams);
         assertNotNull(claim);
@@ -382,6 +441,12 @@ public class EligibleTest {
         assertNotNull(claim.getId());
         assertNotNull(claim.getSuccess());
         assertNotNull(claim.getCreatedAt());
+    }
+
+    @Test
+    public void testClaimDeserialize() throws EligibleException {
+        Claim claim = Claim.create(defaultClaimParams);
+        assertStructure(claim);
     }
 
     @Test
@@ -402,6 +467,12 @@ public class EligibleTest {
     }
 
     @Test
+    public void testAcknowledgementsDeserialize() throws EligibleException {
+        Claim.Acknowledgements acknowledgements = Claim.getAcknowledgements(defaultClaimAckReferenceId);
+        assertStructure(acknowledgements);
+    }
+
+    @Test
     public void testQueryAcknowledgements() throws EligibleException {
         Claim.Acknowledgements acknowledgements = Claim.queryAcknowledgements(defaultClaimAckParams);
         assertNotNull(acknowledgements);
@@ -411,6 +482,12 @@ public class EligibleTest {
         assertNotNull(acknowledgements.getTotal());
         assertNotNull(acknowledgements.getAcknowledgements());
         assertFalse(acknowledgements.getAcknowledgements().isEmpty());
+    }
+
+    @Test
+    public void testQueryAcknowledgementsDeserialize() throws EligibleException {
+        Claim.Acknowledgements acknowledgements = Claim.queryAcknowledgements(defaultClaimAckParams);
+        assertStructure(acknowledgements);
     }
 
     @Test
@@ -427,6 +504,12 @@ public class EligibleTest {
         assertNotNull(report.getCorrectedPatient());
         assertNotNull(report.getOtherPatient());
         assertNotNull(report.getClaim());
+    }
+
+    @Test
+    public void testPaymentReportDeserialize() throws EligibleException {
+        Claim.PaymentReport report = Claim.getPaymentReport(defaultClaimPaymentReportClaimReferenceId);
+        assertStructure(report);
     }
 
     @Test
@@ -461,6 +544,12 @@ public class EligibleTest {
     }
 
     @Test
+    public void testPaymentReportsDeserialize() throws EligibleException {
+        Claim.PaymentReports reports = Claim.queryPaymentReports(defaultPaymentReportsParams);
+        assertStructure(reports);
+    }
+
+    @Test
     public void testPaymentStatus() throws EligibleException {
         for (String memberId : new String[]{
                 "12312312", "10101010", "34343434", "45454545"
@@ -481,6 +570,21 @@ public class EligibleTest {
             assertNotNull(status.getClaims());
             assertFalse(status.getClaims().isEmpty());
             assertNotNull(status.getClaims().get(0));
+
+            if (!extensiveTesting) {
+                break;
+            }
+        }
+    }
+
+    @Test
+    public void testPaymentStatusDeserialize() throws EligibleException {
+        for (String memberId : new String[]{
+                "12312312", "10101010", "34343434", "45454545"
+        }) {
+            defaultPaymentStatusParams.put("member_id", memberId);
+            PaymentStatus status = PaymentStatus.retrieve(defaultPaymentStatusParams);
+            assertStructure(status);
 
             if (!extensiveTesting) {
                 break;
@@ -605,6 +709,12 @@ public class EligibleTest {
         assertReceivedPdf(enrollment.getEnrollmentNpi().getReceivedPdf());
     }
 
+    @Test
+    public void testEnrollmentNpiDeserialize() throws EligibleException {
+        EnrollmentNpiResponse enrollment = EnrollmentNpi.retrieve("557604291");
+        assertStructure(enrollment);
+    }
+
     @Test(expected = InvalidRequestException.class)
     public void testUpdateEnrollmentNpi() throws Exception {
         EnrollmentNpi.update("557604291", createEnrollmentParams());
@@ -629,10 +739,22 @@ public class EligibleTest {
     }
 
     @Test
+    public void testEnrollmentNpiQueryResponseDeserialize() throws EligibleException {
+        EnrollmentNpiQueryResponse enrollmentNpisQueryResponse = EnrollmentNpi.query(enrollmentNpisQueryParams);
+        assertStructure(enrollmentNpisQueryResponse);
+    }
+
+    @Test
     public void testRetrieveReceivedPdf() throws Exception {
         ReceivedPdfResponse receivedPdf = EnrollmentNpi.getReceivedPdf("557604291");
         assertNotNull(receivedPdf);
         assertReceivedPdf(receivedPdf.getReceivedPdf());
+    }
+
+    @Test
+    public void testReceivedPdfDeserialize() throws EligibleException {
+        ReceivedPdfResponse receivedPdf = EnrollmentNpi.getReceivedPdf("557604291");
+        assertStructure(receivedPdf);
     }
 
     @Test
@@ -657,6 +779,12 @@ public class EligibleTest {
     }
 
     @Test
+    public void testOriginalSignaturePdfDeserialize() throws EligibleException {
+        OriginalSignaturePdfResponse originalSignaturePdf = EnrollmentNpi.getOriginalSignaturePdf("557604291");
+        assertStructure(originalSignaturePdf);
+    }
+
+    @Test
     public void testUpdateOriginalSignaturePdf() throws Exception {
         String fileName = "./src/test/resources/com/eligible/EligibleSandboxEnrollmentPDF.pdf";
         OriginalSignaturePdfResponse originalSignaturePdf = EnrollmentNpi.updateOriginalSignaturePdf("557604291", fileName);
@@ -675,6 +803,12 @@ public class EligibleTest {
         OriginalSignaturePdfDeleteResponse originalSignaturePdf = EnrollmentNpi.deleteOriginalSignaturePdf("557604291");
         assertNotNull(originalSignaturePdf);
         assertEquals("Original Signature Pdf deleted", originalSignaturePdf.getMessage());
+    }
+
+    @Test
+    public void testOriginalSignaturePdfDeleteDeserialize() throws EligibleException {
+        OriginalSignaturePdfDeleteResponse originalSignaturePdf = EnrollmentNpi.deleteOriginalSignaturePdf("557604291");
+        assertStructure(originalSignaturePdf);
     }
 
 }

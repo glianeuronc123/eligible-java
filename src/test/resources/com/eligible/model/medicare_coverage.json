@@ -1,136 +1,129 @@
 {
-  "created_at": "2013-07-17T18:11:01Z",
-  "eligible_id": "3223423423-341234-2341234-3413",
-  "last_name": "LNAME",
-  "first_name": "FNAME",
-  "member_id": "123456789A",
-  "group_id": "070607801700001",
-  "group_name": "SOME GROUP COMPANIES",
-  "dob": "1940-04-01",
+  "created_at": "2016-12-14T16:31:25Z",
+  "eligible_id": "34KPDEW7MQI9V",
+  "known_issues": [],
+  "date_of_death": null,
+  "last_name": "FRANKLIN",
+  "first_name": "BENJAMIN",
+  "middle_name": "J",
+  "member_id": "77777777A",
+  "group_id": null,
+  "group_name": null,
+  "dob": "1967-09-09",
   "gender": "F",
   "address": {
-    "street_line_1": "ADDRESSLINE1",
-    "street_line_2": "ADDRESSLINE2",
-    "city": "CITY",
-    "state": "ST",
-    "zip": "920543314"
+    "street_line_1": "1842 Union Street",
+    "street_line_2": null,
+    "city": "San Francisco",
+    "state": "FL",
+    "zip": "94123"
   },
   "payer_name": "CMS",
-  "payer_id": null,
-  "plan_number": "0706078",
+  "payer_id": "00431",
+  "plan_number": "",
   "eligibilty_dates": {
-    "start": "2012-02-01",
-    "end": "2013-03-31"
+    "start": "2016-02-28",
+    "end": null
+  },
+  "eligibility_dates": {
+    "start": "2016-02-28",
+    "end": null
   },
   "inactivity_dates": {
-    "start": "2012-03-01",
-    "end": "2012-05-03"
+    "start": null,
+    "end": null
   },
   "plan_types": {
     "MA": "Medicare Part A (Hospital)",
     "MB": "Medicare Part B (Professional Services)",
     "MC": "Medicare Part C (Advantage)",
     "MD": "Medicare Part D (Prescription drugs)",
-    "PR": "Primary insurance (Medicare Secondary, Other Insurance is Primary)"
+    "PR": "Primary insurance (Medicare Secondary, This Insurance is Primary)"
   },
   "plan_details": {
     "MA": {
       "active": true,
-      "start_date": "2005-04-01",
+      "start_date": "2004-07-01",
       "end_date": null,
-      "deductible": 1184.0,
-      "deductible_remaining": 1184.0,
+      "deductible": 1288.0,
+      "deductible_remaining": 1288.0,
       "coinsurance_percent": null,
       "copayment": null,
-      "info_valid_till": "2013-12-31"
+      "info_valid_until": "2016-12-31",
+      "info_valid_till": "2016-12-31"
     },
     "MB": {
       "active": true,
-      "start_date": "2005-04-01",
+      "start_date": "2004-07-01",
       "end_date": null,
-      "deductible": 147.0,
+      "deductible": 166.0,
       "deductible_remaining": 0.0,
       "coinsurance_percent": 20,
       "copayment": null,
-      "info_valid_till": "2013-12-31"
+      "info_valid_until": "2016-12-31",
+      "info_valid_till": "2016-12-31"
     },
     "MC": {
-      "active": true,
-      "payer_name": "ORGNAME",
-      "insurance_type": "IN",
-      "insurance_type_label": "Indemnity",
-      "mco_bill_option_code": "C",
-      "mco_bill_option_label": "MCO should process all claims",
-      "locked": true,
-      "policy_number": "H0000 999",
-      "effective_date": "2009-01-01",
+      "active": false,
+      "payer_name": null,
+      "insurance_type": null,
+      "insurance_type_label": null,
+      "mco_bill_option_code": null,
+      "mco_bill_option_label": null,
+      "locked": null,
+      "policy_number": null,
+      "effective_date": null,
       "termination_date": null,
-      "contacts": [
-        {
-          "contact_type": "telephone",
-          "contact_value": "AAABBBCCCC"
-        },
-        {
-          "contact_type": "url",
-          "contact_value": "www.website.com"
-        }
-      ],
+      "contacts": null,
       "address": {
-        "street_line_1": "ADDRESSLINE1",
-        "street_line_2": "ADDRESSLINE2",
-        "city": "CITY",
-        "state": "ST",
-        "zip": "ZIPCODE"
+        "street_line_1": null,
+        "street_line_2": null,
+        "city": null,
+        "state": null,
+        "zip": null
       }
     },
     "MD": {
       "active": true,
-      "payer_name": "ORGNAME",
-      "policy_number": "S0000 999",
-      "effective_date": "2012-01-01",
+      "payer_name": "FRANKLIN",
+      "policy_number": "123123123",
+      "effective_date": "2014-01-01",
       "termination_date": null,
       "contacts": [
         {
           "contact_type": "telephone",
-          "contact_value": "AAABBBCCCC"
+          "contact_value": "8888889355"
         },
         {
           "contact_type": "url",
-          "contact_value": "www.website.com"
+          "contact_value": "www.wellcarepdp.com"
         }
       ],
       "address": {
-        "street_line_1": "ADDRESSLINE1",
-        "street_line_2": "ADDRESSLINE2",
-        "city": "CITY",
-        "state": "ST",
-        "zip": "123456"
+        "street_line_1": "1842 Union Street",
+        "street_line_2": null,
+        "city": "San Francisco",
+        "state": "FL",
+        "zip": "94123"
       }
     },
-    "PR": {
-      "active": true,
-      "payer_name": "ORGNAME",
-      "policy_number": "POLICYNUMBER",
-      "effective_date": "2011-06-01",
-      "termination_date": "2012-06-01",
-      "contacts": [
-        {
-          "contact_type": "telephone",
-          "contact_value": "AAABBBCCCC"
-        },
-        {
-          "contact_type": "url",
-          "contact_value": "www.website.com"
+    "PR": [
+      {
+        "active": true,
+        "payer_name": "FRANKLIN",
+        "policy_number": "123123123",
+        "effective_date": "2012-08-17",
+        "termination_date": null,
+        "contacts": [],
+        "address": {
+          "street_line_1": "1842 Union Street",
+          "street_line_2": null,
+          "city": "San Francisco",
+          "state": "CA",
+          "zip": "94123"
         }
-      ],
-      "address": {
-        "street_line_1": "ADDRESSLINE1",
-        "street_line_2": "ADDRESSLINE2",
-        "city": "CITY",
-        "state": "ST",
-        "zip": "ZIPCODE"
       }
-    }
+    ]
   },
   "requested_service_types": [
     {
@@ -138,69 +131,53 @@
       "type_label": "Health Benefit Plan Coverage",
       "plan_type": "MA",
       "active": true,
-      "start_date": "2005-04-01",
+      "start_date": "2004-07-01",
       "end_date": null,
-      "deductible": 1184.0,
-      "deductible_remaining": 1184.0,
+      "deductible": 1288.0,
+      "deductible_remaining": 1288.0,
       "coinsurance_percent": null,
       "copayment": null,
-      "info_valid_till": "2013-12-31"
+      "info_valid_until": "2016-12-31",
+      "info_valid_till": "2016-12-31"
     },
     {
       "type": "30",
       "type_label": "Health Benefit Plan Coverage",
       "plan_type": "MB",
       "active": true,
-      "start_date": "2005-04-01",
+      "start_date": "2004-07-01",
       "end_date": null,
-      "deductible": 147.0,
+      "deductible": 166.0,
       "deductible_remaining": 0.0,
       "coinsurance_percent": 20,
       "copayment": null,
-      "info_valid_till": "2013-12-31"
-    },
-    {
-      "type": "30",
-      "type_label": "Health Benefit Plan Coverage",
-      "plan_type": "MC",
-      "active": true,
-      "start_date": "2009-01-01",
-      "end_date": null,
-      "deductible": null,
-      "deductible_remaining": null,
-      "coinsurance_percent": null,
-      "copayment": null,
-      "info_valid_till": "2013-12-31"
+      "info_valid_until": "2016-12-31",
+      "info_valid_till": "2016-12-31"
     },
     {
       "type": "30",
       "type_label": "Health Benefit Plan Coverage",
       "plan_type": "PR",
       "active": true,
-      "start_date": "2011-06-01",
-      "end_date": "2012-06-01",
+      "start_date": "2012-08-17",
+      "end_date": null,
       "deductible": null,
       "deductible_remaining": null,
       "coinsurance_percent": null,
       "copayment": null,
-      "info_valid_till": "2013-12-31"
+      "info_valid_until": "2016-12-31",
+      "info_valid_till": "2016-12-31"
     }
   ],
-  "requested_procedure_codes": [
-    {
-      "procedure_code": "G0106",
-      "procedure_label": "Colorectal Cancer Screening (COLO)",
-      "plan_type": "MB",
-      "active": true,
-      "deductible": 0.0,
-      "deductible_remaining": null,
-      "coinsurance_percent": 20,
-      "copayment": null,
-      "info_valid_till": "2013-12-31",
-      "next_eligible_date": {
-        "professional": "2012-07-01",
-        "technical": "2012-06-01"
-      }
-    }
-  ]
+  "requested_procedure_codes": [],
+  "history": {
+    "plan_details": {
+      "MA": [],
+      "MB": [],
+      "MC": [],
+      "MD": [],
+      "PR": []
+    },
+    "requested_service_types": []
+  }
 }

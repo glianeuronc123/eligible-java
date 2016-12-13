@@ -1,338 +1,459 @@
 {
   "acknowledgements": [
     {
-      "reference_id": "1370736718903497718506",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-09",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "137063507731099414647",
-      "submission_status": "received",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A1",
-        "category_label": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
-        "status_code": "16",
-        "status_label": "Claim/encounter has been forwarded to entity. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "1370913622582183129970",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-11",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "1370923630346335424590",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-11",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "137092572826527076288",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-11",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "137096200392386878893",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-11",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "137091353843600379607",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-12",
-      "codes": {
-        "category_code": "A3",
-        "category_label": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
-        "status_code": "54",
-        "status_label": "Duplicate of a previously processed claim/line."
-      }
-    },
-    {
-      "reference_id": "13709256227987454422",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-11",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "54",
-        "status_label": "Duplicate of a previously processed claim/line."
-      }
-    },
-    {
-      "reference_id": "137104147758040527629",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-12",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "137104161968009452375",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-12",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "1371063430104014211082",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-12",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "137106349350011315375",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-12",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "1370632648557880928967",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "153",
-        "status_label": "Entity's id number. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "137063321891576842023",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "153",
-        "status_label": "Entity's id number. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "137063265867135722909",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "153",
-        "status_label": "Entity's id number. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "1370632807587174221453",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "153",
-        "status_label": "Entity's id number. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "1370632732037401720026",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "153",
-        "status_label": "Entity's id number. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "1370632737275369223199",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "153",
-        "status_label": "Entity's id number. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "1370632860100167313163",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "153",
-        "status_label": "Entity's id number. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "1370635181372203629036",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "54",
-        "status_label": "Duplicate of a previously processed claim/line."
-      }
-    },
-    {
-      "reference_id": "1370635181372203629123",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "54",
-        "status_label": "Duplicate of a previously processed claim/line."
-      }
-    },
-    {
-      "reference_id": "1370524554491144427835",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-06",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "137052494409987326389",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-06",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "1370524410661348326988",
-      "submission_status": "received",
-      "effective_date": "2013-06-06",
-      "codes": {
-        "category_code": "A1",
-        "category_label": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
-        "status_code": "19",
-        "status_label": "Entity acknowledges receipt of claim/encounter. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "1370524410661348326988",
-      "submission_status": "received",
-      "effective_date": "2013-06-06",
-      "codes": {
-        "category_code": "A1",
-        "category_label": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
-        "status_code": "19",
-        "status_label": "Entity acknowledges receipt of claim/encounter. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "1370524526501895419088",
-      "submission_status": "rejected",
-      "effective_date": "2013-06-06",
-      "codes": {
-        "category_code": "A7",
-        "category_label": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
-        "status_code": "153",
-        "status_label": "Entity's id number. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "reference_id": "13706036017771164623",
-      "submission_status": "accepted",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A2",
-        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-        "status_code": "20",
-        "status_label": "Accepted for processing."
-      }
-    },
-    {
-      "reference_id": "137060356422934822050",
-      "submission_status": "received",
-      "effective_date": "2013-06-07",
-      "codes": {
-        "category_code": "A1",
-        "category_label": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
-        "status_code": "19",
-        "status_label": "Entity acknowledges receipt of claim/encounter. Note: This code requires use of an Entity Code."
-      }
-    },
-    {
-      "submission_status": "created",
-      "effective_date": "2013-06-22",
-      "codes": {
-        "category_code": "",
-        "category_label": "",
-        "status_code": "",
-        "status_label": ""
-      },
-      "reference_id": "137187284971512427560"
-    },
-    {
-      "submission_status": "accepted",
-      "effective_date": "2013-06-22",
+      "effective_date": "2016-12-13",
+      "received_at": "2016-12-13 22:24:17.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
       "codes": {
         "category_code": "A2",
         "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
         "status_code": "20",
         "status_label": "Accepted for processing."
       },
-      "reference_id": "137187284971512427560"
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "V9P9DLK8BJSKP"
+    },
+    {
+      "effective_date": "2016-12-13",
+      "received_at": "2016-12-13 22:22:30.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8OP0KVO9SJFPVY"
+    },
+    {
+      "effective_date": "2016-12-13",
+      "received_at": "2016-12-13 21:35:15.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8OOZTGQ83ERUS5"
+    },
+    {
+      "effective_date": "2016-12-13",
+      "received_at": "2016-12-13 21:34:42.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "V9P6GFW96JJZQ"
+    },
+    {
+      "effective_date": "2016-11-17",
+      "received_at": "2016-11-17 17:04:59.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O7SYNI4CID7TP"
+    },
+    {
+      "effective_date": "2016-11-17",
+      "received_at": "2016-11-17 16:57:08.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "V7Z9QDD1RNGO4"
+    },
+    {
+      "effective_date": "2016-11-17",
+      "received_at": "2016-11-17 16:40:27.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "V7Z969C2AGMZF"
+    },
+    {
+      "effective_date": "2016-11-17",
+      "received_at": "2016-11-17 16:23:31.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "34EBMBA6LTC7P"
+    },
+    {
+      "effective_date": "2016-11-17",
+      "received_at": "2016-11-17 16:02:59.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O7RXZHM0NO77V"
+    },
+    {
+      "effective_date": "2016-11-17",
+      "received_at": "2016-11-17 15:08:52.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "V7Z3RQBTLT9RR"
+    },
+    {
+      "effective_date": "2016-11-17",
+      "received_at": "2016-11-17 11:30:00.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O7NGTDKBJ2AO2"
+    },
+    {
+      "effective_date": "2016-11-16",
+      "received_at": "2016-11-16 19:16:25.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O77HOVC5SVA55"
+    },
+    {
+      "effective_date": "2016-11-16",
+      "received_at": "2016-11-16 19:09:24.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O77DC9B5XDA36"
+    },
+    {
+      "effective_date": "2016-11-16",
+      "received_at": "2016-11-16 19:03:56.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O77A89BAFML5I"
+    },
+    {
+      "effective_date": "2016-11-16",
+      "received_at": "2016-11-16 19:01:16.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O778TEQ7WWT9B"
+    },
+    {
+      "effective_date": "2016-11-16",
+      "received_at": "2016-11-16 18:16:45.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "V7X1UJNXFZS97"
+    },
+    {
+      "effective_date": "2016-11-16",
+      "received_at": "2016-11-16 18:01:08.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O766PI4N0Y2KN"
+    },
+    {
+      "effective_date": "2016-11-16",
+      "received_at": "2016-11-16 17:56:56.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "34E3NX6A6K54I"
+    },
+    {
+      "effective_date": "2016-11-16",
+      "received_at": "2016-11-16 17:33:54.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O75SIJUILC3XO"
+    },
+    {
+      "effective_date": "2016-11-16",
+      "received_at": "2016-11-16 15:38:38.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123,26160262372500710",
+      "reference_id": "8O73WUNJUV87Q4"
+    },
+    {
+      "effective_date": "2016-10-18",
+      "received_at": "2016-10-18 16:20:44.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "8NO3AH2QC9RCC3"
+    },
+    {
+      "effective_date": "2016-10-18",
+      "received_at": "2016-10-18 15:52:05.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "V60A53OH50BU4"
+    },
+    {
+      "effective_date": "2016-10-18",
+      "received_at": "2016-10-18 15:47:05.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "V609U3UP5QHJW"
+    },
+    {
+      "effective_date": "2016-10-18",
+      "received_at": "2016-10-18 15:42:19.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "8NO2NTCY2QVMO2"
+    },
+    {
+      "effective_date": "2016-10-18",
+      "received_at": "2016-10-18 13:25:55.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "8NO0F2R94V4HMT"
+    },
+    {
+      "effective_date": "2016-10-18",
+      "received_at": "2016-10-18 13:23:20.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "8NO0DOY2TKBG1X"
+    },
+    {
+      "effective_date": "2016-10-18",
+      "received_at": "2016-10-18 03:31:06.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "3473U29FU3UDL"
+    },
+    {
+      "effective_date": "2016-10-17",
+      "received_at": "2016-10-17 20:14:20.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "347198VI089BZ"
+    },
+    {
+      "effective_date": "2016-10-13",
+      "received_at": "2016-10-13 19:38:24.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "8NKWE464UI8GRW"
+    },
+    {
+      "effective_date": "2016-10-11",
+      "received_at": "2016-10-11 15:02:54.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      },
+      "payer_control_number": "123123123",
+      "reference_id": "8NJGLLUU2X7B9L"
     }
   ],
   "page": 1,
   "per_page": 30,
-  "num_of_pages": 2,
-  "total": 35
+  "num_of_pages": 4,
+  "total": 119,
+  "eligible_id": "8OPIDJOK9WADZH"
 }

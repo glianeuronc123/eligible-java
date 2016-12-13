@@ -16,6 +16,8 @@ hs_err_pid*
 # Vim files
 *.sw[a-z]
 
+.DS_Store
+
 # Eclipse files
 .classpath
 .project

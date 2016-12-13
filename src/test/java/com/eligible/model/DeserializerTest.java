@@ -106,6 +106,11 @@ public class DeserializerTest extends BaseEligibleTest {
     }
 
     @Test
+    public void testDeserializeCoverageCostEstimate() throws Exception {
+        testObjectDeserialize(apiGson, "cost_estimate.json", Coverage.CostEstimates.class);
+    }
+
+    @Test
     public void testDeserializeMedicareCoverage() throws Exception {
         testObjectDeserialize(apiGson, "medicare_coverage.json", Coverage.Medicare.class);
     }
@@ -116,8 +121,13 @@ public class DeserializerTest extends BaseEligibleTest {
     }
 
     @Test
-    public void testDeserializeClaimAcknowledgements() throws Exception {
+    public void testDeserializeClaimAcknowledgement() throws Exception {
         testObjectDeserialize(apiGson, "acknowledgement.json", Claim.Acknowledgements.class);
+    }
+
+    @Test
+    public void testDeserializeClaimAcknowledgements() throws Exception {
+        testObjectDeserialize(apiGson, "acknowledgements.json", Claim.Acknowledgements.class);
     }
 
     @Test
@@ -160,13 +170,12 @@ public class DeserializerTest extends BaseEligibleTest {
         testObjectDeserialize(apiGson, "delete_original_signature_pdf.json", OriginalSignaturePdfDeleteResponse.class);
     }
 
-    public <T> void testListDeserialize(Gson gson, String jsonResource, Type typeOfT) throws Exception {
+    public void testListDeserialize(Gson gson, String jsonResource, Type typeOfT) throws Exception {
         String json = resource(jsonResource);
         List source = gson.fromJson(json, List.class);
 
         Object sourceObj = gson.fromJson(json, typeOfT);
-        String destinationJson = EligibleObject.PRETTY_PRINT_GSON.toJson(sourceObj);
-        List destination = gson.fromJson(destinationJson, List.class);
+        List destination = constructRepresentationThroughGson(gson, sourceObj, List.class);
 
         assertEquals(source, destination, newLinkedList(newArrayList(typeOfT.toString())));
     }
@@ -176,13 +185,27 @@ public class DeserializerTest extends BaseEligibleTest {
         Map source = gson.fromJson(json, Map.class);
 
         T sourceObj = gson.fromJson(json, typeOfT);
-        String destinationJson = EligibleObject.PRETTY_PRINT_GSON.toJson(sourceObj);
-        Map destination = gson.fromJson(destinationJson, Map.class);
+        Map destination = constructRepresentationThroughGson(gson, sourceObj, Map.class);
 
         assertEquals(source, destination, newLinkedList(newArrayList(typeOfT.toString())));
         assertEquals(sourceObj.getRawValues(), destination, newLinkedList(newArrayList(typeOfT.toString())));
 
         return sourceObj;
+    }
+
+    public static <T extends EligibleObject> void assertStructure(T sourceObj) {
+        assertStructure(apiGson, sourceObj);
+    }
+
+    public static <T extends EligibleObject> void assertStructure(Gson gson, T sourceObj) {
+        Map destination = constructRepresentationThroughGson(gson, sourceObj, Map.class);
+        assertEquals(sourceObj.getRawValues(), destination, newLinkedList(newArrayList(sourceObj.getClass().toString())));
+    }
+
+    private static <T> T constructRepresentationThroughGson(Gson gson, Object sourceObj, Class<T> genericType) {
+        String destinationJson = EligibleObject.PRETTY_PRINT_GSON.toJson(sourceObj);
+        T destination = gson.fromJson(destinationJson, genericType);
+        return destination;
     }
 
 
