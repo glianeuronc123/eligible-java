@@ -17,6 +17,7 @@ import com.eligible.model.enrollmentnpi.OriginalSignaturePdfResponse;
 import com.eligible.model.enrollmentnpi.ReceivedPdfResponse;
 import com.eligible.net.APIResource;
 import com.eligible.net.RequestOptions;
+import com.eligible.util.ObjectUtils;
 import com.eligible.util.StringUtil;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -28,8 +29,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import static com.eligible.model.DeserializerTest.assertStructure;
+import static com.eligible.util.StringUtil.isBlank;
+import static com.eligible.util.StringUtil.isNotBlank;
 import static com.eligible.util.TestUtil.resource;
-import static java.lang.Boolean.parseBoolean;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -62,8 +65,8 @@ public class EligibleTest {
     @BeforeClass
     public static void setUp() throws Exception {
         String apiKey = System.getenv("API_KEY");
-        extensiveTesting = parseBoolean(System.getenv("API_KEY"));
-        if (StringUtil.isBlank(apiKey)) {
+        extensiveTesting = isNotBlank(System.getenv("CIRCLE_BUILD_NUM"));
+        if (isBlank(apiKey)) {
             throw new IllegalStateException("ApiKey not present. Set in API_KEY environment variable.");
         }
 

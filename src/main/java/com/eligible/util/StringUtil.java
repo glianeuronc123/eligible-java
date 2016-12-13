@@ -36,11 +36,29 @@ public abstract class StringUtil {
     }
 
     /**
+     * Check if the string is not empty or null.
+     * @param param input
+     * @return true if not empty.
+     */
+    public static boolean isNotEmpty(String param) {
+        return !isNotEmpty(param);
+    }
+
+    /**
      * Check if the string is null, empty or only spaces.
      * @param param input
      * @return true if blank.
      */
     public static boolean isBlank(String param) {
         return param == null || param.trim().isEmpty();
+    }
+
+    /**
+     * Check if the string is not null, empty or only spaces.
+     * @param param input
+     * @return true if not blank.
+     */
+    public static boolean isNotBlank(String param) {
+        return !isBlank(param);
     }
 }
