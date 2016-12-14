@@ -29,8 +29,8 @@ import java.util.Scanner;
 
 import static com.eligible.model.DeserializerTest.assertStructure;
 import static com.eligible.util.StringUtil.isBlank;
-import static com.eligible.util.StringUtil.isNotBlank;
 import static com.eligible.util.TestUtil.resource;
+import static java.lang.Boolean.parseBoolean;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -63,7 +63,7 @@ public class EligibleTest {
     @BeforeClass
     public static void setUp() throws Exception {
         String apiKey = System.getenv("API_KEY");
-        extensiveTesting = isNotBlank(System.getenv("CIRCLE_BUILD_NUM"));
+        extensiveTesting = parseBoolean(System.getenv("EXTENSIVE_TESTING"));
         System.out.println("Running extensive testing:" + extensiveTesting);
         if (isBlank(apiKey)) {
             throw new IllegalStateException("ApiKey not present. Set in API_KEY environment variable.");
