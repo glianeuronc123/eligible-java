@@ -45,7 +45,7 @@ public final class PubKeyManager implements X509TrustManager {
     /**
      * Create {@link PubKeyManager}.
      *
-     * @throws NoSuchAlgorithmException
+     * @throws NoSuchAlgorithmException if SHA-1 is not supported
      */
     public PubKeyManager() throws NoSuchAlgorithmException {
         md = MessageDigest.getInstance("SHA-1");
@@ -80,7 +80,7 @@ public final class PubKeyManager implements X509TrustManager {
      *
      * @param cert Certificate
      * @return fingerprint using SHA-1
-     * @throws CertificateEncodingException
+     * @throws CertificateEncodingException if an encoding error occurs
      */
     public String getFingerprint(X509Certificate cert) throws CertificateEncodingException {
         // alternate: String certFingerprint = ((X509CertImpl) chain[0]).getFingerprint("SHA-1");

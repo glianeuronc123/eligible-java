@@ -25,6 +25,7 @@ public class EligibleResponse {
      *
      * @param responseCode      HTTP response code
      * @param responseByteArray HTTP response body
+     * @throws UnsupportedEncodingException when charset not supported
      */
     public EligibleResponse(int responseCode, byte[] responseByteArray) throws UnsupportedEncodingException {
         this(responseCode, responseByteArray, new String(responseByteArray, NetworkUtil.CHARSET), null);
@@ -36,6 +37,7 @@ public class EligibleResponse {
      * @param responseCode      HTTP response code
      * @param responseByteArray HTTP response body
      * @param responseHeaders   HTTP response headers
+     * @throws UnsupportedEncodingException when charset not supported
      */
     public EligibleResponse(int responseCode, byte[] responseByteArray, Map<String, List<String>> responseHeaders)
             throws UnsupportedEncodingException {
