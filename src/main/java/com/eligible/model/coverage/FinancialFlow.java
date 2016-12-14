@@ -30,5 +30,6 @@ public class FinancialFlow extends EligibleObject {
     Boolean copayment;
     Boolean coinsurance;
     Boolean deductible;
+    ServiceDelivery serviceDelivery;
     String serviceType;
 }
