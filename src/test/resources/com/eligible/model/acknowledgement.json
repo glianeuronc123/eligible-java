@@ -1,28 +1,64 @@
 {
   "acknowledgements": [
     {
-      "effective_date": "2014-11-17",
-      "status": "accepted",
-      "message": "",
-      "errors": []
-    },
-    {
-      "effective_date": "2014-11-17",
+      "effective_date": "2016-01-26",
+      "received_at": "2016-02-04 13:00:08.000",
       "status": "received",
       "message": "Accepted for processing.",
-      "errors": []
+      "errors": [],
+      "codes": {
+        "category_code": "A1",
+        "category_label": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      }
     },
     {
-      "effective_date": "2014-11-18",
+      "effective_date": "2016-01-28",
+      "received_at": "2016-02-04 13:00:08.000",
+      "status": "accepted",
+      "message": "Accepted for processing.",
+      "errors": [],
+      "codes": {
+        "category_code": "A2",
+        "category_label": "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
+        "status_code": "20",
+        "status_label": "Accepted for processing."
+      }
+    },
+    {
+      "effective_date": "2016-02-04",
+      "received_at": "2016-02-04 11:51:57.000",
+      "status": "submitted",
+      "message": "Submitted to Payer for processing",
+      "errors": [],
+      "codes": {
+        "category_code": "",
+        "category_label": "",
+        "status_code": "",
+        "status_label": "Claim has been submitted to payer"
+      }
+    },
+    {
+      "effective_date": "2016-02-04",
+      "received_at": "2016-02-04 11:46:25.000",
       "status": "created",
-      "message": null,
-      "errors": []
+      "message": "Created in Eligible's system",
+      "errors": [],
+      "codes": {
+        "category_code": "",
+        "category_label": "",
+        "status_code": "",
+        "status_label": "Claim has been created in Eligible's system"
+      }
     }
   ],
-  "payer_control_number": "6514322781123",
-  "reference_id": "12121212",
+  "payer_control_number": "123123123",
+  "reference_id": "8IZ9JZI2FUEDCS",
+  "status": "paid",
   "page": 1,
   "per_page": 30,
   "num_of_pages": 1,
-  "total": 3
+  "total": 4,
+  "eligible_id": "8OPIA8C9IDP0QW"
 }

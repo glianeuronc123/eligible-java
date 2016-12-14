@@ -7,7 +7,7 @@ def limits = [
         'branch'     : 64,
         'line'       : 78,
         'complexity' : 66,
-        'method'     : 80,
+        'method'     : 79,
         'class'      : 90, //TODO - 100%
 ]
 

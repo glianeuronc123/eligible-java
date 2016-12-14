@@ -49,9 +49,9 @@ public abstract class NetworkUtil {
     /**
      * Move content from {@link InputStream} to {@link OutputStream}.
      *
-     * @param inputStream
-     * @param outputStream
-     * @throws IOException
+     * @param inputStream move content from
+     * @param outputStream move content to
+     * @throws IOException if an I/O error occurs
      */
     public static void moveContent(InputStream inputStream, OutputStream outputStream) throws IOException {
         byte[] buffer = new byte[OUTPUT_BUFFER_SIZE];

@@ -10,5 +10,6 @@ import lombok.Getter;
 public class EnrollmentNpiResponse extends EligibleObject {
 
     EnrollmentNpi enrollmentNpi;
+    String eligibleId;
 
 }

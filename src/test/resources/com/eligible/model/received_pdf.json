@@ -5,5 +5,6 @@
     "updated_at": "2016-03-29T18:03:58Z",
     "download_url": "https://gds.eligibleapi.com/v1.5/enrollment_npis/557604291/received_pdf/download?api_key=YOUR_API_KEY",
     "notification_message": "Please print, read, review, sign, scan and upload this PDF back to us ASAP to avoid any delay in processing."
-  }
+  },
+  "eligible_id": "8OPJZB6SXQ137A"
 }

@@ -14,4 +14,5 @@ public class CostEstimateEquation extends EligibleObject {
     List<FinancialFlow> coinsurance;
     List<FinancialFlow> copayment;
     List<FinancialFlow> stopLoss;
+    AppliedAmounts appliedAmounts;
 }

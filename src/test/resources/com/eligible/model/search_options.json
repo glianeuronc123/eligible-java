@@ -21,27 +21,7 @@
       "member_id",
       "member_first_name",
       "member_last_name"
-    ],
-    [
-      "member_first_name",
-      "member_last_name",
-      "member_dob",
-      "chop_member_id"
-    ],
-    [
-      "member_last_name",
-      "member_dob",
-      "chop_member_id"
-    ],
-    [
-      "member_first_name",
-      "member_dob",
-      "chop_member_id"
-    ],
-    [
-      "member_first_name",
-      "member_last_name",
-      "chop_member_id"
     ]
-  ]
+  ],
+  "eligible_id": "8OP0Q1ZCVXTIJL"
 }

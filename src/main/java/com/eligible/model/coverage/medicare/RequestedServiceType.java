@@ -20,6 +20,7 @@ public class RequestedServiceType extends EligibleObject {
     Integer coinsurancePercent;
     Integer copayment;
     String infoValidTill;
+    String infoValidUntil;
 
     /* Hospital Snf Data */
     Boolean spellInProgress;

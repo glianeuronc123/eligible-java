@@ -10,6 +10,6 @@ import java.util.Map;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 public class HistoricDetails extends EligibleObject {
-    Map<String, Map> planDetails;
+    Map<String, List> planDetails;
     List<RequestedServiceType> requestedServiceTypes;
 }

@@ -1,4 +1,4 @@
-package com.eligible.model.enrollmentnpi;
+package com.eligible.model.coverage.costestimates;
 
 import com.eligible.model.EligibleObject;
 import lombok.EqualsAndHashCode;
@@ -8,7 +8,10 @@ import java.util.List;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class OriginalSignaturePdfDeleteResponse extends EligibleObject {
+public class Warning extends EligibleObject {
+    String code;
     String message;
-    String eligibleId;
+    String param;
+    String expectedValue;
+    List<String> path;
 }

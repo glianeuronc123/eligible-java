@@ -1,28 +1,48 @@
 {
-  "created_at": "2013-11-13T18:41:12-05:00",
-  "eligible_id": "1384386069946030110675",
+  "created_at": "2016-12-14T11:15:47-05:00",
+  "eligible_id": "8OPI80VE42WM3K",
+  "known_issues": [],
   "demographics": {
     "subscriber": {
       "last_name": "FRANKLIN",
-      "first_name": "BEN",
-      "member_id": "AETNA1234",
-      "group_id": "047653201500945",
-      "group_name": "FREEDOM GROUP  INC.",
-      "dob": "1757-05-23",
-      "gender": "M",
+      "first_name": "BENJAMIN",
+      "middle_name": "J",
+      "member_id": "AETNA00DEP_ACPOSII",
+      "group_id": "123123123",
+      "group_name": "BLACKBOARD INC.",
+      "dob": null,
+      "gender": null,
       "address": {
-        "street_line_1": "323 REASON ROAD",
+        "street_line_1": null,
         "street_line_2": null,
-        "city": "HILLSBORO",
-        "state": "TX",
-        "zip": "76645"
+        "city": null,
+        "state": null,
+        "zip": null
       }
     },
-    "dependent": {}
+    "dependent": {
+      "last_name": "FRANKLIN",
+      "first_name": "BENJAMIN",
+      "middle_name": null,
+      "member_id": null,
+      "group_id": null,
+      "group_name": null,
+      "dob": "1967-09-09",
+      "gender": "F",
+      "relationship": "Spouse",
+      "relationship_code": "01",
+      "address": {
+        "street_line_1": "1842 Union Street",
+        "street_line_2": null,
+        "city": "San Francisco",
+        "state": "UT",
+        "zip": "94123"
+      }
+    }
   },
   "insurance": {
-    "name": "AETNA INC",
-    "id": "00002",
+    "name": "Cigna HealthCare",
+    "id": "00001",
     "payer_type": "PR",
     "payer_type_label": "Payer",
     "contacts": [],
@@ -34,12 +54,40 @@
           "insurance_type": "PS",
           "insurance_type_label": "Point of Service (POS)",
           "primary_care": true,
-          "restricted": null,
+          "restricted": false,
           "contact_details": [],
           "dates": [],
           "comments": [
             "PCP SELECTION NOT REQUIRED"
           ]
+        },
+        {
+          "eligibility_code": "W",
+          "eligibility_code_label": "Other Source of Data",
+          "insurance_type": null,
+          "insurance_type_label": null,
+          "primary_care": false,
+          "restricted": false,
+          "contact_details": [
+            {
+              "entity_code": "PR",
+              "entity_code_label": "Payer",
+              "last_name": "FRANKLIN",
+              "first_name": null,
+              "identification_type": null,
+              "identification_code": null,
+              "contacts": [],
+              "address": {
+                "street_line_1": "1842 Union Street",
+                "street_line_2": null,
+                "city": "Lexington",
+                "state": "KY",
+                "zip": "40512"
+              }
+            }
+          ],
+          "dates": [],
+          "comments": []
         }
       ]
     }
@@ -49,40 +97,98 @@
     "coverage_status": "1",
     "coverage_status_label": "Active Coverage",
     "coverage_basis": [],
-    "plan_number": "0476532",
-    "plan_name": "HSA Aetna Choice POS II",
+    "plan_number": "123123123",
+    "plan_name": "Aetna Choice POS II",
     "plan_type": "PS",
     "plan_type_label": "Point of Service (POS)",
-    "group_name": "TRIUMPH GROUP  INC.",
+    "group_name": "BLACKBOARD INC.",
     "dates": [
       {
         "date_type": "plan_begin",
-        "date_value": "2011-07-01",
+        "date_value": "2015-01-01",
         "date_source": "dependent"
       },
       {
         "date_type": "service",
-        "date_value": "2013-11-13",
+        "date_value": "2015-07-25",
         "date_source": "dependent"
       },
       {
         "date_type": "eligibility_begin",
-        "date_value": "2011-07-01",
+        "date_value": "2015-01-01",
         "date_source": "dependent"
       }
     ],
     "comments": [],
     "exclusions": {
-      "noncovered": [],
+      "noncovered": [
+        {
+          "type": "86",
+          "type_label": "Emergency Services",
+          "time_period": null,
+          "time_period_label": null,
+          "level": "FAMILY",
+          "network": "IN",
+          "pos": null,
+          "pos_label": null,
+          "authorization_required": null,
+          "contact_details": [],
+          "dates": [],
+          "comments": [
+            "Non Urgent Services at an Urgent Care Facility/EXCLUSION"
+          ]
+        },
+        {
+          "type": "UC",
+          "type_label": "Urgent Care",
+          "time_period": null,
+          "time_period_label": null,
+          "level": "FAMILY",
+          "network": "IN",
+          "pos": null,
+          "pos_label": null,
+          "authorization_required": null,
+          "contact_details": [],
+          "dates": [],
+          "comments": [
+            "Non Urgent Services at an Urgent Care Facility/EXCLUSION"
+          ]
+        },
+        {
+          "type": "86",
+          "type_label": "Emergency Services",
+          "time_period": null,
+          "time_period_label": null,
+          "level": "FAMILY",
+          "network": "IN",
+          "pos": null,
+          "pos_label": null,
+          "authorization_required": null,
+          "contact_details": [],
+          "dates": [],
+          "comments": [
+            "Non Urgent Services at an Urgent Care Facility/EXCLUSION"
+          ]
+        },
+        {
+          "type": "UC",
+          "type_label": "Urgent Care",
+          "time_period": null,
+          "time_period_label": null,
+          "level": "FAMILY",
+          "network": "IN",
+          "pos": null,
+          "pos_label": null,
+          "authorization_required": null,
+          "contact_details": [],
+          "dates": [],
+          "comments": [
+            "Non Urgent Services at an Urgent Care Facility/EXCLUSION"
+          ]
+        }
+      ],
       "pre_existing_condition": {
-        "waiting_period": [
-          {
-            "completion": {
-              "date": "2009-09-30",
-              "comments": [ ]
-            }
-          }
-        ]
+        "waiting_period": []
       }
     },
     "financials": {
@@ -90,7 +196,7 @@
         "remainings": {
           "in_network": [
             {
-              "amount": "4238.35",
+              "amount": "157.19",
               "level": "FAMILY",
               "insurance_type": null,
               "insurance_type_label": null,
@@ -98,14 +204,112 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
               "dates": [],
               "comments": [
-                "INT MED AND RX"
-              ]
+                "Med Dent"
+              ],
+              "service_delivery": null
+            },
+            {
+              "amount": "0",
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [],
+              "service_delivery": null
             }
           ],
-          "out_network": []
+          "out_network": [
+            {
+              "amount": "1157.19",
+              "level": "FAMILY",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "Med Dent"
+              ],
+              "service_delivery": null
+            },
+            {
+              "amount": "1157.19",
+              "level": "FAMILY",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "Med Dent"
+              ],
+              "service_delivery": null
+            },
+            {
+              "amount": "500",
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "Med Dent"
+              ],
+              "service_delivery": null
+            },
+            {
+              "amount": "500",
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "Med Dent"
+              ],
+              "service_delivery": null
+            }
+          ]
         },
         "spent": {
           "in_network": [],
@@ -114,9 +318,9 @@
         "totals": {
           "in_network": [
             {
-              "amount": "4350",
-              "time_period": "25",
-              "time_period_label": "contract",
+              "amount": "500",
+              "time_period": "23",
+              "time_period_label": "calendar_year",
               "level": "FAMILY",
               "insurance_type": null,
               "insurance_type_label": null,
@@ -124,28 +328,151 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
-              "dates": [
-                {
-                  "date_type": "eligibilty",
-                  "date_value": "2013-07-01"
-                }
-              ],
+              "dates": [],
               "comments": [
-                "INT MED AND RX,DED INCLUDED IN OOP,Visit or Evaluation by Chiropractor,Manipulation by Chiropractor,Emergency use of Emergency Room,Outpatient Surgery Facility,Outpatient Medical Ancillary,Ambulatory Medical Ancillary,Medical Ancillary,Inpatient Xray and Lab",
-                "Room and Board,Intensive Care Room and Board,Non Emergency use of Emergency Room,Emergency Room Physician,Urgent Care,Non Urgent Services at an Urgent Care Facility,GYN Visit,Specialist Visit or Evaluation,Primary Care Visit or Evaluation,Physician Xray and Lab",
-                "Xray and Lab,Outpatient Xray and Lab"
-              ]
+                "Med Dent,In-Network Providers,DED INCLUDED IN OOP,Chiropractor Visit or Evaluation,Lab Performed by Chiropractor,Xray by Chiropractor,Outpatient Medical Ancillary,Ambulatory Medical Ancillary,Medical Ancillary,Semi Private Room and Board",
+                "Intensive Care Room and Board,Outpatient Surgery Facility,Non Emergency use of Emergency Room,GYN Visit,Specialist Visit or Evaluation,Primary Care Visit or Evaluation"
+              ],
+              "service_delivery": null
+            },
+            {
+              "amount": "250",
+              "time_period": "23",
+              "time_period_label": "calendar_year",
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "Med Dent,In-Network Providers,DED INCLUDED IN OOP,Chiropractor Visit or Evaluation,Lab Performed by Chiropractor,Xray by Chiropractor,Outpatient Medical Ancillary,Ambulatory Medical Ancillary,Medical Ancillary,Semi Private Room and Board",
+                "Intensive Care Room and Board,Outpatient Surgery Facility,Non Emergency use of Emergency Room,GYN Visit,Specialist Visit or Evaluation,Primary Care Visit or Evaluation"
+              ],
+              "service_delivery": null
             }
           ],
-          "out_network": []
+          "out_network": [
+            {
+              "amount": "1500",
+              "time_period": "23",
+              "time_period_label": "calendar_year",
+              "level": "FAMILY",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "Med Dent,DED INCLUDED IN OOP,Chiropractor Visit or Evaluation,Lab Performed by Chiropractor,Xray by Chiropractor,Manipulation by Chiropractor,Occupational Therapy by Chiropractor,Physical Therapy by Chiropractor,Medical Ancillary,Semi Private Room and Board",
+                "Intensive Care Room and Board,Outpatient Surgery Facility,Non Emergency use of Emergency Room,Urgent Care,GYN Visit,Specialist Visit or Evaluation,Primary Care Visit or Evaluation"
+              ],
+              "service_delivery": null
+            },
+            {
+              "amount": "1500",
+              "time_period": "23",
+              "time_period_label": "calendar_year",
+              "level": "FAMILY",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "Med Dent,DED INCLUDED IN OOP,Urgent Care"
+              ],
+              "service_delivery": null
+            },
+            {
+              "amount": "750",
+              "time_period": "23",
+              "time_period_label": "calendar_year",
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "Med Dent,DED INCLUDED IN OOP,Chiropractor Visit or Evaluation,Lab Performed by Chiropractor,Xray by Chiropractor,Manipulation by Chiropractor,Occupational Therapy by Chiropractor,Physical Therapy by Chiropractor,Medical Ancillary,Semi Private Room and Board",
+                "Intensive Care Room and Board,Outpatient Surgery Facility,Non Emergency use of Emergency Room,Urgent Care,GYN Visit,Specialist Visit or Evaluation,Primary Care Visit or Evaluation"
+              ],
+              "service_delivery": null
+            },
+            {
+              "amount": "750",
+              "time_period": "23",
+              "time_period_label": "calendar_year",
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "Med Dent,DED INCLUDED IN OOP,Urgent Care"
+              ],
+              "service_delivery": null
+            }
+          ]
         }
       },
       "stop_loss": {
         "remainings": {
           "in_network": [
             {
-              "amount": "4862.15",
+              "amount": "987.48",
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": []
+            },
+            {
+              "amount": "2795.02",
               "level": "FAMILY",
               "insurance_type": null,
               "insurance_type_label": null,
@@ -153,6 +480,9 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
               "dates": [],
               "comments": []
@@ -160,7 +490,23 @@
           ],
           "out_network": [
             {
-              "amount": "9237.15",
+              "amount": "2987.48",
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": []
+            },
+            {
+              "amount": "6795.02",
               "level": "FAMILY",
               "insurance_type": null,
               "insurance_type_label": null,
@@ -168,6 +514,9 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
               "dates": [],
               "comments": []
@@ -181,7 +530,27 @@
         "totals": {
           "in_network": [
             {
-              "amount": "4975",
+              "amount": "2000",
+              "time_period": null,
+              "time_period_label": null,
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "In-Network Providers"
+              ]
+            },
+            {
+              "amount": "4000",
               "time_period": null,
               "time_period_label": null,
               "level": "FAMILY",
@@ -191,6 +560,9 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
               "dates": [],
               "comments": [
@@ -200,7 +572,25 @@
           ],
           "out_network": [
             {
-              "amount": "9350",
+              "amount": "4000",
+              "time_period": null,
+              "time_period_label": null,
+              "level": "INDIVIDUAL",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": []
+            },
+            {
+              "amount": "8000",
               "time_period": null,
               "time_period_label": null,
               "level": "FAMILY",
@@ -210,6 +600,9 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
               "dates": [],
               "comments": []
@@ -257,13 +650,19 @@
           "out_network": []
         }
       },
+      "reserve": {
+        "remainings": {
+          "in_network": [],
+          "out_network": []
+        }
+      },
       "limitations": {
         "amounts": [
           {
             "amount": null,
             "time_period": null,
             "time_period_label": null,
-            "level": "Employee and Spouse",
+            "level": "FAMILY",
             "network": "IN",
             "insurance_type": null,
             "insurance_type_label": null,
@@ -271,6 +670,9 @@
             "pos_label": null,
             "authorization_required": null,
             "description": null,
+            "quantity_code": null,
+            "quantity_label": null,
+            "quantity": null,
             "contact_details": [],
             "dates": [],
             "comments": [
@@ -281,7 +683,7 @@
             "amount": null,
             "time_period": null,
             "time_period_label": null,
-            "level": "Employee and Spouse",
+            "level": "FAMILY",
             "network": "IN",
             "insurance_type": null,
             "insurance_type_label": null,
@@ -289,6 +691,9 @@
             "pos_label": null,
             "authorization_required": null,
             "description": null,
+            "quantity_code": null,
+            "quantity_label": null,
+            "quantity": null,
             "contact_details": [],
             "dates": [],
             "comments": [
@@ -299,7 +704,7 @@
             "amount": null,
             "time_period": "32",
             "time_period_label": "lifetime",
-            "level": "Employee and Spouse",
+            "level": "FAMILY",
             "network": "IN",
             "insurance_type": null,
             "insurance_type_label": null,
@@ -307,6 +712,9 @@
             "pos_label": null,
             "authorization_required": null,
             "description": null,
+            "quantity_code": null,
+            "quantity_label": null,
+            "quantity": null,
             "contact_details": [],
             "dates": [],
             "comments": [
@@ -334,13 +742,13 @@
               {
                 "entity_code": "PR",
                 "entity_code_label": "Payer",
-                "last_name": "Aetna",
+                "last_name": "FRANKLIN",
                 "first_name": null,
                 "identification_type": null,
                 "identification_code": null,
                 "contacts": [],
                 "address": {
-                  "street_line_1": "PO Box 14079",
+                  "street_line_1": "1842 Union Street",
                   "street_line_2": null,
                   "city": "Lexington",
                   "state": "KY",
@@ -458,6 +866,12 @@
             "out_network": []
           }
         },
+        "reserve": {
+          "remainings": {
+            "in_network": [],
+            "out_network": []
+          }
+        },
         "limitations": {
           "amounts": []
         },
@@ -480,17 +894,7 @@
           "out_network": []
         }
       },
-      "additional_insurance_policies": [
-        {
-          "insurance_type": null,
-          "insurance_type_label": null,
-          "coverage_description": null,
-          "reference": [],
-          "contact_details": [],
-          "dates": [],
-          "comments": []
-        }
-      ]
+      "additional_insurance_policies": []
     },
     {
       "type": "48",
@@ -549,22 +953,25 @@
                 "percent": "10",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
-                "authorization_required": null,
+                "authorization_required": true,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
                   "In-Network Providers",
                   "Medical Ancillary,COINS APPLIES TO OUT OF POCKET",
-                  "Inpatient Xray and Lab,COINS APPLIES TO OUT OF POCKET",
-                  "Room and Board,COINS APPLIES TO OUT OF POCKET",
+                  "Semi Private Room and Board,COINS APPLIES TO OUT OF POCKET",
                   "Intensive Care Room and Board,COINS APPLIES TO OUT OF POCKET"
-                ]
+                ],
+                "service_delivery": null
               }
             ],
             "out_network": [
@@ -572,21 +979,24 @@
                 "percent": "30",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
-                "authorization_required": null,
+                "authorization_required": true,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
                   "Medical Ancillary,COINS APPLIES TO OUT OF POCKET",
-                  "Inpatient Xray and Lab,COINS APPLIES TO OUT OF POCKET",
-                  "Room and Board,COINS APPLIES TO OUT OF POCKET",
+                  "Semi Private Room and Board,COINS APPLIES TO OUT OF POCKET",
                   "Intensive Care Room and Board,COINS APPLIES TO OUT OF POCKET"
-                ]
+                ],
+                "service_delivery": null
               }
             ]
           }
@@ -595,24 +1005,95 @@
           "amounts": {
             "in_network": [
               {
-                "amount": "0",
+                "amount": "200",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
-                "authorization_required": null,
+                "authorization_required": true,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
-                  "Room and Board"
-                ]
+                  "In-Network Providers",
+                  "Semi Private Room and Board,COPAY INCLUDED IN OOP,PER CONFINEMENT",
+                  "Intensive Care Room and Board,COPAY INCLUDED IN OOP,PER CONFINEMENT"
+                ],
+                "service_delivery": null
+              },
+              {
+                "amount": "0",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": true,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "Medical Ancillary"
+                ],
+                "service_delivery": null
               }
             ],
-            "out_network": []
+            "out_network": [
+              {
+                "amount": "0",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": true,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "Medical Ancillary"
+                ],
+                "service_delivery": null
+              },
+              {
+                "amount": "0",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": true,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "Semi Private Room and Board",
+                  "Intensive Care Room and Board"
+                ],
+                "service_delivery": null
+              }
+            ]
           }
         },
         "cost_containment": {
@@ -643,13 +1124,19 @@
             "out_network": []
           }
         },
+        "reserve": {
+          "remainings": {
+            "in_network": [],
+            "out_network": []
+          }
+        },
         "limitations": {
           "amounts": [
             {
               "amount": null,
               "time_period": null,
               "time_period_label": null,
-              "level": "Employee and Spouse",
+              "level": "FAMILY",
               "network": "IN",
               "insurance_type": null,
               "insurance_type_label": null,
@@ -657,6 +1144,9 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
               "dates": [],
               "comments": [
@@ -684,17 +1174,7 @@
           "out_network": []
         }
       },
-      "additional_insurance_policies": [
-        {
-          "insurance_type": null,
-          "insurance_type_label": null,
-          "coverage_description": null,
-          "reference": [],
-          "contact_details": [],
-          "dates": [],
-          "comments": []
-        }
-      ]
+      "additional_insurance_policies": []
     },
     {
       "type": "50",
@@ -753,19 +1233,23 @@
                 "percent": "10",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
                 "authorization_required": null,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
                   "In-Network Providers",
                   "COINS APPLIES TO OUT OF POCKET"
-                ]
+                ],
+                "service_delivery": null
               }
             ],
             "out_network": [
@@ -773,18 +1257,22 @@
                 "percent": "30",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
-                "authorization_required": null,
+                "authorization_required": true,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
                   "COINS APPLIES TO OUT OF POCKET"
-                ]
+                ],
+                "service_delivery": null
               }
             ]
           }
@@ -796,40 +1284,111 @@
                 "amount": "0",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
                 "authorization_required": null,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
                   "In-Network Providers",
                   "Outpatient Medical Ancillary"
-                ]
+                ],
+                "service_delivery": null
               },
               {
                 "amount": "0",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
                 "authorization_required": true,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
-                  "Outpatient Surgery Facility",
                   "Medical Ancillary"
-                ]
+                ],
+                "service_delivery": null
+              },
+              {
+                "amount": "0",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": true,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "Outpatient Surgery Facility"
+                ],
+                "service_delivery": null
               }
             ],
-            "out_network": []
+            "out_network": [
+              {
+                "amount": "0",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": true,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "Medical Ancillary"
+                ],
+                "service_delivery": null
+              },
+              {
+                "amount": "0",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": true,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "Outpatient Surgery Facility"
+                ],
+                "service_delivery": null
+              }
+            ]
           }
         },
         "cost_containment": {
@@ -860,13 +1419,19 @@
             "out_network": []
           }
         },
+        "reserve": {
+          "remainings": {
+            "in_network": [],
+            "out_network": []
+          }
+        },
         "limitations": {
           "amounts": [
             {
               "amount": null,
               "time_period": null,
               "time_period_label": null,
-              "level": "Employee and Spouse",
+              "level": "FAMILY",
               "network": "IN",
               "insurance_type": null,
               "insurance_type_label": null,
@@ -874,6 +1439,9 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
               "dates": [],
               "comments": [
@@ -901,41 +1469,31 @@
           "out_network": []
         }
       },
-      "additional_insurance_policies": [
-        {
-          "insurance_type": null,
-          "insurance_type_label": null,
-          "coverage_description": null,
-          "reference": [],
-          "contact_details": [],
-          "dates": [],
-          "comments": []
-        }
-      ]
+      "additional_insurance_policies": []
     },
     {
       "type": "51",
       "type_label": "Hospital - Emergency Accident",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=51 for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=51 for an explicit inquiry for this service type."
     },
     {
       "type": "52",
       "type_label": "Hospital - Emergency Medical",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=52 for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=52 for an explicit inquiry for this service type."
     },
     {
       "type": "53",
       "type_label": "Hospital - Ambulatory Surgical",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=53 for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=53 for an explicit inquiry for this service type."
     },
     {
       "type": "96",
       "type_label": "Professional (Physician)",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=96 for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=96 for an explicit inquiry for this service type."
     },
     {
       "type": "98",
@@ -991,16 +1549,43 @@
           "percents": {
             "in_network": [
               {
-                "percent": "10",
+                "percent": "0",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
                 "authorization_required": null,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "In-Network Providers",
+                  "GYN Visit when Performed in an Office",
+                  "Specialist Visit or Evaluation when Performed in an Office",
+                  "Primary Care Visit or Evaluation in Office"
+                ],
+                "service_delivery": null
+              },
+              {
+                "percent": "10",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": null,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
@@ -1008,7 +1593,8 @@
                   "GYN Visit,COINS APPLIES TO OUT OF POCKET",
                   "Specialist Visit or Evaluation,COINS APPLIES TO OUT OF POCKET",
                   "Primary Care Visit or Evaluation,COINS APPLIES TO OUT OF POCKET"
-                ]
+                ],
+                "service_delivery": null
               }
             ],
             "out_network": [
@@ -1016,20 +1602,24 @@
                 "percent": "30",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
-                "authorization_required": null,
+                "authorization_required": true,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
                   "GYN Visit,COINS APPLIES TO OUT OF POCKET",
                   "Specialist Visit or Evaluation,COINS APPLIES TO OUT OF POCKET",
                   "Primary Care Visit or Evaluation,COINS APPLIES TO OUT OF POCKET"
-                ]
+                ],
+                "service_delivery": null
               }
             ]
           }
@@ -1038,26 +1628,101 @@
           "amounts": {
             "in_network": [
               {
+                "amount": "30",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": null,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "In-Network Providers",
+                  "GYN Visit when Performed in an Office,COPAY INCLUDED IN OOP",
+                  "Specialist Visit or Evaluation when Performed in an Office,COPAY INCLUDED IN OOP"
+                ],
+                "service_delivery": null
+              },
+              {
+                "amount": "20",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": null,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "In-Network Providers",
+                  "Primary Care Visit or Evaluation in Office,COPAY INCLUDED IN OOP",
+                  "Patient's Primary Care Physician",
+                  "GYN Visit when Performed in an Office,COPAY INCLUDED IN OOP"
+                ],
+                "service_delivery": null
+              },
+              {
                 "amount": "0",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
                 "authorization_required": true,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
                   "GYN Visit",
                   "Specialist Visit or Evaluation",
                   "Primary Care Visit or Evaluation"
-                ]
+                ],
+                "service_delivery": null
               }
             ],
-            "out_network": []
+            "out_network": [
+              {
+                "amount": "0",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": true,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "GYN Visit",
+                  "Specialist Visit or Evaluation",
+                  "Primary Care Visit or Evaluation"
+                ],
+                "service_delivery": null
+              }
+            ]
           }
         },
         "cost_containment": {
@@ -1088,13 +1753,19 @@
             "out_network": []
           }
         },
+        "reserve": {
+          "remainings": {
+            "in_network": [],
+            "out_network": []
+          }
+        },
         "limitations": {
           "amounts": [
             {
               "amount": null,
               "time_period": null,
               "time_period_label": null,
-              "level": "Employee and Spouse",
+              "level": "FAMILY",
               "network": "IN",
               "insurance_type": null,
               "insurance_type_label": null,
@@ -1102,6 +1773,33 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "In-Network Providers",
+                "GYN Visit when Performed in an Office/Plan Ded Waived",
+                "Specialist Visit or Evaluation when Performed in an Office/Plan Ded Waived",
+                "Primary Care Visit or Evaluation in Office/Plan Ded Waived"
+              ]
+            },
+            {
+              "amount": null,
+              "time_period": null,
+              "time_period_label": null,
+              "level": "FAMILY",
+              "network": "IN",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
               "dates": [],
               "comments": [
@@ -1129,53 +1827,49 @@
           "out_network": []
         }
       },
-      "additional_insurance_policies": [
-        {
-          "insurance_type": null,
-          "insurance_type_label": null,
-          "coverage_description": null,
-          "reference": [],
-          "contact_details": [],
-          "dates": [],
-          "comments": []
-        }
-      ]
+      "additional_insurance_policies": []
     },
     {
       "type": "99",
       "type_label": "Professional (Physician) Visit - Inpatient",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=99 for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=99 for an explicit inquiry for this service type."
     },
     {
       "type": "A0",
       "type_label": "Professional (Physician) Visit - Outpatient",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=A0 for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=A0 for an explicit inquiry for this service type."
     },
     {
       "type": "A1",
       "type_label": "Professional (Physician) Visit - Nursing Home",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=A1 for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=A1 for an explicit inquiry for this service type."
     },
     {
       "type": "A3",
       "type_label": "Professional (Physician) Visit - Home",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=A3 for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=A3 for an explicit inquiry for this service type."
+    },
+    {
+      "type": "A7",
+      "type_label": "Psychiatric - Inpatient",
+      "coverage_status": "11",
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=A7 for an explicit inquiry for this service type."
     },
     {
       "type": "BZ",
       "type_label": "Physician Visit - Well",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=BZ for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=BZ for an explicit inquiry for this service type."
     },
     {
       "type": "BY",
       "type_label": "Physician Visit - Sick",
       "coverage_status": "11",
-      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type_code=BY for an explicit inquiry for this service type."
+      "coverage_status_label": "Generic inquiry provided no information for this service type. Retry by including service_type=BY for an explicit inquiry for this service type."
     },
     {
       "type": "UC",
@@ -1186,7 +1880,40 @@
       "facility": {
         "amounts": []
       },
-      "noncovered": [],
+      "noncovered": [
+        {
+          "type": "86",
+          "type_label": "Emergency Services",
+          "time_period": null,
+          "time_period_label": null,
+          "level": "FAMILY",
+          "network": "IN",
+          "pos": null,
+          "pos_label": null,
+          "authorization_required": null,
+          "contact_details": [],
+          "dates": [],
+          "comments": [
+            "Non Urgent Services at an Urgent Care Facility/EXCLUSION"
+          ]
+        },
+        {
+          "type": "UC",
+          "type_label": "Urgent Care",
+          "time_period": null,
+          "time_period_label": null,
+          "level": "FAMILY",
+          "network": "IN",
+          "pos": null,
+          "pos_label": null,
+          "authorization_required": null,
+          "contact_details": [],
+          "dates": [],
+          "comments": [
+            "Non Urgent Services at an Urgent Care Facility/EXCLUSION"
+          ]
+        }
+      ],
       "benefit_details": {
         "benefit_description": {
           "amounts": []
@@ -1231,22 +1958,25 @@
           "percents": {
             "in_network": [
               {
-                "percent": "10",
+                "percent": "0",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
                 "authorization_required": null,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
-                  "In-Network Providers",
-                  "COINS APPLIES TO OUT OF POCKET"
-                ]
+                  "In-Network Providers"
+                ],
+                "service_delivery": null
               }
             ],
             "out_network": [
@@ -1254,18 +1984,22 @@
                 "percent": "30",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
-                "authorization_required": null,
+                "authorization_required": true,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
                 "comments": [
                   "COINS APPLIES TO OUT OF POCKET"
-                ]
+                ],
+                "service_delivery": null
               }
             ]
           }
@@ -1274,22 +2008,49 @@
           "amounts": {
             "in_network": [
               {
+                "amount": "50",
+                "time_period": null,
+                "time_period_label": null,
+                "level": "FAMILY",
+                "insurance_type": null,
+                "insurance_type_label": null,
+                "pos": null,
+                "pos_label": null,
+                "authorization_required": null,
+                "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
+                "contact_details": [],
+                "dates": [],
+                "comments": [
+                  "In-Network Providers",
+                  "COPAY INCLUDED IN OOP"
+                ],
+                "service_delivery": null
+              }
+            ],
+            "out_network": [
+              {
                 "amount": "0",
                 "time_period": null,
                 "time_period_label": null,
-                "level": "Employee and Spouse",
+                "level": "FAMILY",
                 "insurance_type": null,
                 "insurance_type_label": null,
                 "pos": null,
                 "pos_label": null,
                 "authorization_required": true,
                 "description": null,
+                "quantity_code": null,
+                "quantity_label": null,
+                "quantity": null,
                 "contact_details": [],
                 "dates": [],
-                "comments": []
+                "comments": [],
+                "service_delivery": null
               }
-            ],
-            "out_network": []
+            ]
           }
         },
         "cost_containment": {
@@ -1320,13 +2081,19 @@
             "out_network": []
           }
         },
+        "reserve": {
+          "remainings": {
+            "in_network": [],
+            "out_network": []
+          }
+        },
         "limitations": {
           "amounts": [
             {
               "amount": null,
               "time_period": null,
               "time_period_label": null,
-              "level": "Employee and Spouse",
+              "level": "FAMILY",
               "network": "IN",
               "insurance_type": null,
               "insurance_type_label": null,
@@ -1334,6 +2101,31 @@
               "pos_label": null,
               "authorization_required": null,
               "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
+              "contact_details": [],
+              "dates": [],
+              "comments": [
+                "In-Network Providers",
+                "Urgent Care/Plan Ded Waived"
+              ]
+            },
+            {
+              "amount": null,
+              "time_period": null,
+              "time_period_label": null,
+              "level": "FAMILY",
+              "network": "IN",
+              "insurance_type": null,
+              "insurance_type_label": null,
+              "pos": null,
+              "pos_label": null,
+              "authorization_required": null,
+              "description": null,
+              "quantity_code": null,
+              "quantity_label": null,
+              "quantity": null,
               "contact_details": [],
               "dates": [],
               "comments": [
@@ -1361,17 +2153,7 @@
           "out_network": []
         }
       },
-      "additional_insurance_policies": [
-        {
-          "insurance_type": null,
-          "insurance_type_label": null,
-          "coverage_description": null,
-          "reference": [],
-          "contact_details": [],
-          "dates": [],
-          "comments": []
-        }
-      ]
+      "additional_insurance_policies": []
     }
   ]
 }

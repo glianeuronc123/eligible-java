@@ -16,5 +16,6 @@ public class EnrollmentNpiQueryResponse extends EligibleObject {
     Integer perPage;
     Integer numOfPages;
     Integer total;
+    String eligibleId;
 
 }

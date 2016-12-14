@@ -15,6 +15,7 @@ public class Financials extends EligibleObject {
     FinancialFlowsAmounts copayment;
     Financial costContainment;
     Financial spendDown;
+    Financial reserve;
     FinancialFlowsList limitations;
     List<String> disclaimer;
     FinancialFlowsList otherSources;
