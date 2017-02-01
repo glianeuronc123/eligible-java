@@ -299,7 +299,7 @@ public class EligibleTest {
         try {
             Coverage.all(emptyCoverageParams);
         } catch (InvalidRequestException e) {
-            assertEquals("NPI length should be 10 digits, please correct and resubmit.", e.getMessage());
+            assertEquals("NPI is required", e.getMessage());
             assertAPIErrorResponseException(e.getCause());
         }
     }
