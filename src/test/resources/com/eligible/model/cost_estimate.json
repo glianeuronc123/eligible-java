@@ -897,6 +897,7 @@
               "deductible": {
                 "amount": 1500.5,
                 "limited_by_stop_loss": true,
+                "waived": false,
                 "service_type": "98"
               },
               "coinsurance": {
@@ -916,6 +917,7 @@
           "deductible": {
             "amount": 1500.5,
             "limited_by_stop_loss": true,
+            "waived": false,
             "service_type": "98"
           },
           "coinsurance": {

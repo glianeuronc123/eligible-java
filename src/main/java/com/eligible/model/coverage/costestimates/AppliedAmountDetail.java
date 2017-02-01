@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 public class AppliedAmountDetail extends EligibleObject {
-    AppliedAmount deductible;
+    DeductibleAppliedAmount deductible;
     CoinsuranceAppliedAmount coinsurance;
-    AppliedAmount copayment;
+    CopaymentAppliedAmount copayment;
 }
