@@ -58,6 +58,7 @@ public class EligibleTest {
     static Map<String, Object> defaultPaymentReportsParams = new HashMap<String, Object>();
     static Map<String, Object> defaultPaymentStatusParams = new HashMap<>();
     static Map<String, Object> enrollmentNpisQueryParams = new HashMap<>();
+    static Map<String, Object> sessionTokenGetParams = new HashMap<>();
 
     @Before
     public void before() {
@@ -133,6 +134,9 @@ public class EligibleTest {
         enrollmentNpisQueryParams.put("status", "accepted");
         enrollmentNpisQueryParams.put("created_before", "2016-04-01");
 
+        sessionTokenGetParams.put("endpoints", "coverage,cost_estimates,payer_list");
+        sessionTokenGetParams.put("ttl_seconds", "60");
+        sessionTokenGetParams.put("max_calls", "5");
     }
 
     @Test
@@ -815,12 +819,7 @@ public class EligibleTest {
 
     @Test
     public void testSessionTokenCreateValid() throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException {
-        Map<String, Object> params = new HashMap<>();
-        params.put("endpoints", "coverage,cost_estimates,payer_list");
-        params.put("ttl_seconds", "60");
-        params.put("max_calls", "5");
-
-        SessionToken sessionToken = SessionToken.get(params, null);
+        SessionToken sessionToken = SessionToken.get(sessionTokenGetParams, null);
 
         assertNotNull(sessionToken.getEligibleId());
         assertNotNull(sessionToken.getCreatedAt());
@@ -831,17 +830,18 @@ public class EligibleTest {
 
     @Test
     public void testSessionTokenCreateValidWithNoRequestOptions() throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException {
-        Map<String, Object> params = new HashMap<>();
-        params.put("endpoints", "coverage,cost_estimates,payer_list");
-        params.put("ttl_seconds", "60");
-        params.put("max_calls", "5");
-
-        SessionToken sessionToken = SessionToken.get(params);
+        SessionToken sessionToken = SessionToken.get(sessionTokenGetParams);
 
         assertNotNull(sessionToken.getEligibleId());
         assertNotNull(sessionToken.getCreatedAt());
         assertNotNull(sessionToken.getExpiresAt());
         assertNotNull(sessionToken.getSessionToken());
         assertEquals(Long.valueOf(5), java.util.Optional.of(sessionToken.getMaxCalls()).get());
+    }
+
+    @Test
+    public void testSessionTokenGetDeserialize() throws EligibleException {
+        SessionToken sessionToken = SessionToken.get(sessionTokenGetParams);
+        assertStructure(sessionToken);
     }
 }
