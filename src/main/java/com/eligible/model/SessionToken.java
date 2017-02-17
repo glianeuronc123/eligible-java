@@ -23,6 +23,7 @@ public class SessionToken extends APIResource {
     String createdAt;
     String expiresAt;
     String sessionToken;
+    Boolean success;
 
     public static SessionToken get(Map<String, Object> params)
             throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException {
