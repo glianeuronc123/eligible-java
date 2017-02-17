@@ -1,7 +1,17 @@
 package com.eligible;
 
-import com.eligible.exception.*;
-import com.eligible.model.*;
+import com.eligible.exception.APIErrorResponseException;
+import com.eligible.exception.AuthenticationException;
+import com.eligible.exception.EligibleException;
+import com.eligible.exception.InvalidRequestException;
+import com.eligible.exception.APIException;
+import com.eligible.exception.APIConnectionException;
+import com.eligible.model.Claim;
+import com.eligible.model.Coverage;
+import com.eligible.model.Payer;
+import com.eligible.model.EnrollmentNpi;
+import com.eligible.model.PaymentStatus;
+import com.eligible.model.SessionToken;
 import com.eligible.model.enrollmentnpi.AuthorizedSigner;
 import com.eligible.model.enrollmentnpi.EnrollmentNpiQueryResponse;
 import com.eligible.model.enrollmentnpi.EnrollmentNpiResponse;
@@ -819,4 +829,19 @@ public class EligibleTest {
         assertEquals(Long.valueOf(5), java.util.Optional.of(sessionToken.getMaxCalls()).get());
     }
 
+    @Test
+    public void testSessionTokenCreateValidWithNoRequestOptions() throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("endpoints", "coverage,cost_estimates,payer_list");
+        params.put("ttl_seconds", "60");
+        params.put("max_calls", "5");
+
+        SessionToken sessionToken = SessionToken.get(params);
+
+        assertNotNull(sessionToken.getEligibleId());
+        assertNotNull(sessionToken.getCreatedAt());
+        assertNotNull(sessionToken.getExpiresAt());
+        assertNotNull(sessionToken.getSessionToken());
+        assertEquals(Long.valueOf(5), java.util.Optional.of(sessionToken.getMaxCalls()).get());
+    }
 }

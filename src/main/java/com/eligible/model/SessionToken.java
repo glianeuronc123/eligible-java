@@ -24,10 +24,15 @@ public class SessionToken extends APIResource {
     String expiresAt;
     String sessionToken;
 
+    public static SessionToken get(Map<String, Object> params)
+            throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException {
+        String url = String.format("%s/v1.5/session_tokens/create", Eligible.getApiBase());
+        return request(RequestMethod.POST, url, params, SessionToken.class, null);
+    }
+
     public static SessionToken get(Map<String, Object> params, RequestOptions options)
             throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException {
         String url = String.format("%s/v1.5/session_tokens/create", Eligible.getApiBase());
-        System.out.println(url);
         return request(RequestMethod.POST, url, params, SessionToken.class, options);
     }
 }
